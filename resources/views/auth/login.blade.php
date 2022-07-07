@@ -11,7 +11,7 @@
 			</h2>
 			<div class="d-sm-flex flex-column align-items-center justify-content-center d-md-block">
 				<div class="px-0 py-1 mt-5 text-white fs-nano opacity-50">
-					Application Seeders
+					Application
 				</div>
 				<div class="d-flex flex-row opacity-100">
 					<a href="#" class="mr-2 fs-xxl text-white" title="OM-SPAN">
