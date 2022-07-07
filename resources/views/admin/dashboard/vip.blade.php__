@@ -1,0 +1,899 @@
+@extends('layouts.admin')
+@section('content')
+@can('dashboardvip_access')
+    
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.echarts {
+  position: relative;
+  height: 50vh;
+}
+
+</style>
+<div class="subheader">
+<h1 class="subheader-title">
+	<i class='subheader-icon fal fa-chart-area'></i> {{ $breadcrumb ?? '' }}</span>
+	<small>
+	</small>
+</h1>
+@for ($i=3;$i<count($prData);$i++)
+<div class="subheader-block d-lg-flex align-items-center">
+	<div class="d-inline-flex flex-column justify-content-center mr-3" data-toggle="tooltip" title data-original-title="Alokasi Pagu tahun {{ $prData[$i]->tahun }}">
+		<span class="fw-300 fs-xs d-block opacity-50">
+			<small>PAGU | {{ $prData[$i]->tahun }}</small>
+		</span>
+		<span class="fw-500 fs-xl d-block color-primary-500">
+			Rp {{ number_format($prData[$i]->pagu,0,",",".") }}
+	</div>
+	<span class="sparklines hidden-lg-down" sparkType="bar" sparkBarColor="#886ab5" sparkHeight="32px" sparkBarWidth="5px" values="3,4,3,6,7,3,3,6,2,6,4"></span>
+</div>
+<div class="subheader-block d-lg-flex align-items-center border-faded border-right-0 border-top-0 border-bottom-0 ml-3 pl-3">
+	<div class="d-inline-flex flex-column justify-content-center mr-3" data-toggle="tooltip" title data-original-title="Realisasi tahun {{ $prData[$i]->tahun }}">
+		<span class="fw-300 fs-xs d-block opacity-50">
+			<small>REALISASI | {{ $prData[$i]->tahun }}</small>
+		</span>
+		<span class="fw-500 fs-xl d-block color-danger-500">
+			Rp {{ number_format($prData[$i]->realisasi,0,",",".") }}
+		</span>
+	</div>
+	<span class="sparklines hidden-lg-down" sparkType="bar" sparkBarColor="#fe6bb0" sparkHeight="32px" sparkBarWidth="5px" values="1,4,3,6,5,3,9,6,5,9,7"></span>
+</div>
+@endfor
+</div>
+<div class="row">
+	<!-- widget rencana kerja -->
+	<div class="col-lg-8 col-md-12">
+		<div id="panel-1" class="panel">
+			<div class="panel-hdr">
+				<h2>
+					Rencana Kerja | <span class="fw-300"><i>Renja</i></span>
+				</h2>
+				<div class="panel-toolbar">
+					<a data-toggle="tooltip" title data-original-title="Detail" class="btn btn-panel btn-info hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.detailrenja') }}">
+					</a>
+				</div>
+			</div>
+			<div class="panel-container show">
+				<div class="panel-content">
+					<div class="row">
+						<div class="col-md-6 col-sm-12 align-items-center d-none d-sm-block">
+							<div class="c-chart-wrapper">
+								<div class="echarts" id="chart-container"></div>
+							</div>
+						</div>
+						<div class="col-md-6 col-lg-5">
+							<div class="d-flex mt-2 mb-1 fs-xs text-primary">
+								Sayuran dan Tanaman Obat
+								<span class="d-inline-block ml-auto">842.529.631</span>
+							</div>
+							<div class="progress progress-xs mb-3">
+								<div class="progress-bar bg-primary" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							<div class="d-flex mt-2 mb-1 fs-xs text-info">
+								Perlindungan Hortikultura
+								<span class="d-inline-block ml-auto">699.461.144</span>
+							</div>
+							<div class="progress progress-xs mb-3">
+								<div class="progress-bar bg-info" role="progressbar" style="width: 30%;" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							<div class="d-flex mt-2 mb-1 fs-xs text-warning">
+								Sekretariat Direktorat Jenderal Hortikultura
+								<span class="d-inline-block ml-auto">699.461.144</span>
+							</div>
+							<div class="progress progress-xs mb-3">
+								<div class="progress-bar bg-warning" role="progressbar" style="width: 40%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							<div class="d-flex mt-2 mb-1 fs-xs text-danger">
+								Perbenihan Hortikultura
+								<span class="d-inline-block ml-auto">699.461.144</span>
+							</div>
+							<div class="progress progress-xs mb-3">
+								<div class="progress-bar bg-danger" role="progressbar" style="width: 15%;" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							<div class="d-flex mt-2 mb-1 fs-xs text-success">
+								Tanaman Buah dan Florikultura
+								<span class="d-inline-block ml-auto">699.461.144</span>
+							</div>
+							<div class="progress progress-xs mb-3">
+								<div class="progress-bar bg-success" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							<div class="d-flex mt-2 mb-1 fs-xs text-dark">
+								Pengolahan dan Pemasaran Hortikultura
+								<span class="d-inline-block ml-auto">699.461.144</span>
+							</div>
+							<div class="progress progress-xs mb-3">
+								<div class="progress-bar bg-dark" role="progressbar" style="width: 10%;" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+						</div>
+						<hr>
+					</div>
+				</div>
+				<div class="card-footer">
+					<div class="text-medium-emphasis small d-flex justify-content-between">
+						<div class="d-none d-md-block" >
+							<span class="text-secondary">last update: </span>
+							<span class="text-muted">dd/mm/yyyy - Hh.mm.ss</span>
+						</div>
+						<div class="text-muted">
+							<a href="https://app2.pertanian.go.id/renjahorti/">Sumber Data: App Renja Horti</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end widget rencana kerja -->
+	
+	<!-- widget new kinerja anggaran/omspan -->
+	<div class="col-lg-4 col-md-12 h-100">
+		<div id="panel-1" class="panel">
+			<div class="panel-hdr">
+				<h2>
+					Kinerja Anggran | <span class="fw-300"><i>OM-SPAN</i></span>
+				</h2>
+				<div class="panel-toolbar">
+					<a data-toggle="tooltip" title data-original-title="Detail" class="btn btn-panel btn-info hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.pagu') }}">
+					</a>
+				</div>
+			</div>
+			<div class="panel-container show">
+				<div class="panel-content">
+					<div id="carouselPagu" class="carousel slide carousel-multi-item v-2" data-interval="false">
+						<div class="carousel-inner v-2" role="listbox">
+								@for ($i=0;$i<count($prData);$i++)
+								<div class="hidden-sm-up carousel-item @if ($i==0)  active @endif">
+									<div class="col-12 d-flex align-items-center justify-content-between text-right">
+										<span class="icon-stack fa-4x">
+											<i class="base-18 icon-stack-3x color-info-700"></i>
+											<span class="position-absolute pos-top pos-left pos-right color-white fs-md mt-2 fw-400">{{ $prData[$i]->tahun }}</span>
+										</span>
+										<div class="">
+											<label class="fs-sm mb-0"></label>
+											<h6 class="font-weight-bold mb-0 text-info">{{ number_format($prData[$i]->realisasi,0,",",".") }}</h6>
+											<h6 class="font-weight-bold mb-0 text-warning">{{ number_format($prData[$i]->pagu,0,",",".") }}</h6>
+											<div class="progress progress-xs mt-2">
+												<div class="progress-bar bg-danger" role="progressbar" style="width: 94%" aria-valuenow="94" aria-valuemin="0" aria-valuemax="100"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+								@endfor
+								@for ($i=count($prData)-1;$i>=0;$i--)
+								<div class="d-flex align-items-center justify-content-between mb-2 hidden-sm-down">
+									<div class="col-2 float-left">
+										<span class="icon-stack fa-3x">
+											<i class="base-18 icon-stack-3x color-info-700"></i>
+											<span class="position-absolute pos-top pos-left pos-right color-white fs-md mt-2 fw-400">{{ $prData[$i]->tahun }}</span>
+										</span>
+									</div>
+									<div class="col-10">
+										<div class="col-12">
+											<div class="d-flex justify-content-between mt-2 mb-1 fw-500 fs-xs text-warning">
+												...%
+												<span class="d-inline-block ml-auto">{{ number_format($prData[$i]->realisasi,0,",",".") }}</span>
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="progress progress-xs">
+												<div class="progress-bar bg-primary" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+											</div>
+										</div>
+										<div class="col-12">
+											<div class="d-flex justify-content-between mt-2 mb-1 fs-xs fw-500 text-success">
+												<span></span>
+												<span class="d-inline-block ml-auto">{{ number_format($prData[$i]->pagu,0,",",".") }}</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								@endfor
+						</div>
+						<div class="col-12 text-center controls-top align-items-center hidden-sm-up">
+							<a class="btn btn-icon btn-sm btn-light btn-floating mr-2" href="#carouselPagu" data-slide="prev"><i class="fal fa-arrow-left"></i></a>
+							<a class="btn btn-floating ml-2" href="#carouselPagu" data-slide="next"><i class="fal fa-arrow-right"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="card-footer">
+					<div class="text-medium-emphasis small d-flex justify-content-between">
+						<div class="d-none d-md-block" >
+							<span class="text-secondary">last update: </span>
+							<span class="text-muted">dd/mm/yyyy - Hh.mm.ss</span>
+						</div>
+						<div class="text-muted">
+							<a href="https://spanint.kemenkeu.go.id/">Sumber Data: OM-SPAN</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-12">
+		<div class="card mb-4 shadow">
+			<div class="card-header d-flex justify-content-between">
+				<span class="font-weight-bolder text-muted">KINERJA ANGGARAN</span>
+				<a class="btn btn-sm btn-info" type="button" href="{{ route('admin.pagu') }}">Detail</a>
+			</div>
+			<div class="card-body ">
+				<div id="carouselPagu" class="carousel slide carousel-multi-item v-2" data-interval="false">
+					<div class="carousel-inner v-2" role="listbox">
+						<div class="row">
+							@if ($agent->isMobile())
+								@for ($i=0;$i<count($prData);$i++)
+								<div class="carousel-item @if ($i==0)  active @endif">
+									<div class="col-12 d-flex align-items-center justify-content-between text-right">
+										<div class="p-3 mr-3 bg-primary rounded">
+											<span class="fs-sm fw-semibold text-white">{{ $prData[$i]->tahun }}</span>
+										</div>
+										<div class="p-2 mb-3">
+											<label class="fs-sm mb-0"></label>
+											<h6 class="font-weight-bold mb-0 text-info">{{ number_format($prData[$i]->realisasi,0,",",".") }}</h6>
+											<h6 class="font-weight-bold mb-0 text-warning">{{ number_format($prData[$i]->pagu,0,",",".") }}</h6>
+											<div class="progress progress-xs mt-2">
+												<div class="progress-bar bg-danger" role="progressbar" style="width: 94%" aria-valuenow="94" aria-valuemin="0" aria-valuemax="100"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+								@endfor    
+							@elseif ($agent->isDesktop())
+								@for ($i=count($prData)-1;$i>=0;$i--)
+								<div class="col-lg-3 d-flex align-items-center justify-content-between text-right mb-0">
+									<div class="p-3 mr-3 bg-primary rounded">
+										<span class="fs-sm fw-semibold text-white">{{ $prData[$i]->tahun }}</span>
+									</div>
+									<div class="p-2 mb-3">
+										<label class="fs-sm mb-0"></label>
+										<h6 class="font-weight-bold mb-0 text-info">{{ number_format($prData[$i]->realisasi,0,",",".") }}</h6>
+										<h6 class="font-weight-bold mb-0 text-warning">{{ number_format($prData[$i]->pagu,0,",",".") }}</h6>
+										<div class="progress progress-xs mt-2">
+											<div class="progress-bar bg-danger" role="progressbar" style="width: 94%" aria-valuenow="94" aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+									</div>
+								</div>
+								@endfor
+							@endif
+						</div>
+					</div>
+					@if ($agent->isMobile())
+					<div class="controls-top">
+						<a class="btn btn-floating mr-2" href="#carouselPagu" data-slide="prev"><i class="fa fa-arrow-left"></i></a>
+						<a class="btn btn-floating ml-2" href="#carouselPagu" data-slide="next"><i class="fa fa-arrow-right"></i></a>
+					</div>
+					@endif
+				</div>
+			</div>
+			<div class="card-footer">
+				<div class="text-medium-emphasis small d-flex justify-content-between">
+					<div class="d-none d-md-block" >
+						<span class="text-secondary">last update: </span>
+						<span class="text-muted">dd/mm/yyyy - Hh.mm.ss</span>
+					</div>
+					<div class="text-muted">
+						<a href="https://spanint.kemenkeu.go.id/">Sumber Data: OM-SPAN</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- widget banpem -->
+	<div class="col-12">
+		<div class="card mb-4 shadow">
+			<div class="card-header d-flex justify-content-between">
+				<span class="font-weight-bolder">KINERJA BANTUAN</span>
+				<a class="btn btn-sm btn-info" type="button" href="{{ route('admin.detailbanpem') }}">Detail</a>
+			</div>
+			<div class="card-body">
+				<div class="row">
+					<div class="col-md-6 col-sm-12">
+						<div class="c-chart-wrapper">
+							<div class="echarts" id="banpemkwn"></div>
+						</div>
+					</div> <hr class="d-block d-md-none mb-3">
+					<div class="col-md-6 col-sm-12">
+						<h5 class="mb-5 font-weight-bolder">Realisasi Belanja 526</h5>
+						<div class="c-chart-wrapper">
+							<table class="table table-hover table-responsive" >
+								<thead>
+									<tr>
+										<th>
+											Tahun
+										</th>
+										<th>
+											Pagu
+										</th>
+										<th>
+											Realisasi
+										</th>
+										<th>
+											%
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach ($pbData as $d )
+									<tr>
+										<td>{{ $d->tahun }}</td>  
+										<td>{{ $d->pagu }}</td>  
+										<td>{{ $d->realisasi }}</td>  
+										<td>{{ $d->nilai }}</td>  
+									</tr>
+									@endforeach
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-footer">
+				<div class="text-medium-emphasis small d-flex justify-content-between">
+					<div class="d-none d-md-block" >
+						<span class="text-secondary">last update: </span>
+						<span class="text-muted">dd/mm/yyyy - Hh.mm.ss</span>
+					</div>
+					<div class="text-muted">
+						<a href="http://bastbanpem.pertanian.go.id/">Sumber Data: BASTBANPEM</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- widget banpem old-->
+	<div class="col-12" hidden>
+		<div class="card mb-4 shadow">
+			<div class="card-body d-flex justify-content-between font-weight-bolder align-items-center" style="margin-bottom: -10px; background-color: #9915eb;border-top-right-radius: 12px; border-top-left-radius: 12px">
+				<h6 class="card-title text-white" style="margin-top: -8px; margin-bottom: -8px" >MONITORING KINERJA BANTUAN </h6>
+				<a class="btn btn-outline-primary text-white" href="{{ route('admin.detailbanpem') }}">Detail</a>
+			</div>
+			<div class="card-body " style="margin-bottom: -80px;" >
+				<div id="carouselBanpem" class="carousel slide carousel-multi-item v-2" data-interval="false">
+					<div class="carousel-inner v-2" role="listbox">
+						@if ($agent->isMobile())
+							@for ($i=0;$i<count($banpemyear);$i++)
+							<div class="carousel-item  @if ($i==0) active @endif">
+								<div class="col-12">
+									<div class="card mb-2">
+										<div class="card-body" style="height: 250px">
+											<div><span  class="font-weight-bolder"><h3>{{ $banpemyear[$i]->year }}</h3></span></div>
+											<div class="row">
+												<div class="col-12" id="banpem{{ $i }}" style="height: 210px; width: 200px"></div>    
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							@endfor
+						@elseif ($agent->isDesktop())
+							@for ($i=count($banpemyear)-1;$i>=0;$i--)
+							<div class="carousel-item @if ($i==count($banpemyear)-1) active @endif">
+								<div class="col-12 @if (count($banpemyear)<=2) col-md-6 @elseif(count($banpemyear)<=3)   col-md-4  @else  col-md-3  @endif">
+									<div class="card mb-2">
+										<div class="card-body" style="height: 250px">
+											<div><span  class="font-weight-bolder"><h3>{{ $banpemyear[$i]->year }}</h3></span></div>
+											<div class="row">
+												<div class="col-12" id="banpem{{ $i }}" style="height: 210px; width: 200px"></div>    
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>        
+							@endfor
+						@endif
+					</div>
+					@if ($agent->isMobile())
+					<div class="controls-top">
+						<a class="btn btn-floating mr-2" href="#carouselBanpem" data-slide="prev"><i class="fa fa-arrow-left"></i></a>
+						<a class="btn btn-floating ml-2" href="#carouselBanpem" data-slide="next"><i class="fa fa-arrow-right"></i></a>
+					</div>
+					@endif
+				</div>
+			</div>
+			<div class="row justify-content-md-center">
+				<div class="card-body col-md-auto">
+					<table class="col-md-auto table table-bordered table-striped table-hover " style="width: 100%; @if ($agent->isMobile()) font-size: 2.5vw; @else  font-size: 0.9vw; @endif">
+						<thead>
+							<tr>
+								<th>
+									Tahun
+								</th>
+								<th>
+									Pagu
+								</th>
+								<th>
+									Realisasi
+								</th>
+								<th>
+									%
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach ($pbData as $d )
+							<tr>
+								<td>{{ $d->tahun }}</td>  
+								<td>{{ $d->pagu }}</td>  
+								<td>{{ $d->realisasi }}</td>  
+								<td>{{ $d->nilai }}</td>  
+							</tr>
+							@endforeach
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end widget banpem old-->
+	<!-- widget gerdal opt-->
+	<div class="col-12">
+		<div class="card mb-4 shadow">
+			<div class="card-header d-flex justify-content-between">
+				<span class="font-weight-bolder">KINERJA PENGENDALIAN</span>
+				<a class="btn btn-sm btn-info" type="button" href="/">Detail</a>
+			</div>
+			<div class="card-body">
+				<div class="row">
+					<div class="col-md-6 col-sm-12 align-items-center">
+						<div class="c-chart-wrapper">
+							<h4>Produksi APH Nasional</h4>
+							<div class="echarts" id="chartAPH"></div>
+						</div>
+					</div>
+
+					<div class="col-md-6 col-sm-12 align-items-center">
+						<div class="c-chart-wrapper">
+							<div class="echarts" id="chartAPH" hidden></div>
+							<h4 class="mb-5">Rerata Kinerja</h4>
+							<div class="text-center">
+								<img src="../img/circle_progress_0.svg" height="200" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<hr>
+				<div class="row">
+					<div class="col-sm-6 col-lg-3 d-flex align-items-center">
+						<div class="p-2 mr-3 bg-success rounded">
+							<span><i class="fal fa-draw-polygon fa-2x text-white"></i></span>
+						</div>
+						<div class="border-bottom p-2">
+							<label class="fs-sm mb-0">Luas Lahan (ha)</label>
+							<h4 class="font-weight-bold mb-0">0.00</h4>
+						</div>
+					</div>
+					<div class="col-sm-6 col-lg-3 d-flex align-items-center">
+						<div class="p-2 mr-3 bg-success rounded">
+							<span><i class="fal fa-university fa-2x text-white"></i></span>
+						</div>
+						<div class="border-bottom p-2">
+							<label class="fs-sm mb-0">Lembaga</label>
+							<h4 class="font-weight-bold mb-0">0</h4>
+						</div>
+					</div>
+					<div class="col-sm-6 col-lg-3 d-flex align-items-center">
+						<div class="p-2 mr-3 bg-success rounded">
+							<span><i class="fal fa-campground fa-2x text-white"></i></span>
+						</div>
+						<div class="border-bottom p-2">
+							<label class="fs-sm mb-0">Kampung Horti</label>
+							<h4 class="font-weight-bold mb-0">0</h4>
+						</div>
+					</div>
+					<div class="col-sm-6 col-lg-3 d-flex align-items-center">
+						<div class="p-2 mr-3 bg-success rounded">
+							<span><i class="fal fa-users fa-2x text-white"></i></span>
+						</div>
+						<div class="border-bottom p-2">
+							<label class="fs-sm mb-0">Kelompok</label>
+							<h4 class="font-weight-bold mb-0">0</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-footer">
+				<div class="text-medium-emphasis small d-flex justify-content-between">
+					<div class="d-none d-md-block" >
+						<span class="text-secondary">last update: </span>
+						<span class="text-muted">dd/mm/yyyy - Hh.mm.ss</span>
+					</div>
+					<div class="text-muted">
+						<a href="#">Sumber Data: simpel duti</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end widget gerdal opt-->
+	
+	<!-- widget srikandi/kampunghorti-->
+	<div class="col-12">
+		<div class="card mb-4 shadow">
+			<div class="card-header d-flex justify-content-between">
+				<span class="font-weight-bolder">KAMPUNG HORTIKULTURA</span>
+				<a class="btn btn-sm btn-info" type="button" href="/">Detail</a>
+			</div>
+			<div class="card-body">
+				<div class="row mb-5">
+					<div class="col-sm-6 col-lg-4" title="jumlah kampung hortikultura yang telah diregistrasi">
+						<h6>Kampung Horti</h6>
+						<div class="d-flex align-items-center">
+							<div class="col-4 align-self-center text-right  p-l-0">
+								<img class="img" id="" src="../img/garden.png" style="width:60px;" alt="">
+							</div>
+							<div class="col-8" id="Widget2Total">
+								<h1 class="text-info font-bold">0 <sup><small>kmp</small></sup></h1>
+								<h6 id="Widget2Text">telah diregistrasi</h6>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-lg-4">
+						<h6>Luas Lahan</h6>
+						<div class="d-flex align-items-center">
+							<div class="col-4 align-self-center text-right  p-l-0">
+								<img class="img" id="" src="../img/garden_area.png" style="width:60px;" alt="">
+							</div>
+							<div class="col-8" id="Widget2Total">
+								<h1 class="text-info font-bold">0 <sup><small>poktan</small></sup></h1>
+								<h6 id="Widget2Text">telah diregistrasi</h6>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-6 col-lg-4">
+						<h6>Poktan Peserta</h6>
+						<div class="d-flex align-items-center">
+							<div class="col-4 align-self-center text-right  p-l-0">
+								<img class="img" id="" src="../img/farmer.png" style="width:60px;" alt="">
+							</div>
+							<div class="col-8" id="Widget2Total">
+								<h1 class="text-info font-bold">0 <sup><small>poktan</small></sup></h1>
+								<h6 id="Widget2Text">telah diregistrasi</h6>
+							</div>
+						</div>
+					</div>
+				</div><hr>
+				<p class="text-medium-emphasis small">helper text</p>
+			</div>
+			<div class="card-footer">
+				<div class="text-medium-emphasis small d-flex justify-content-between">
+					<div class="d-none d-md-block" >
+						<span class="text-secondary">last update: </span>
+						<span class="text-muted">dd/mm/yyyy - Hh.mm.ss</span>
+					</div>
+					<div class="text-muted">
+						<a href="#">Sumber Data: App Srikandi</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end widget srikandi/kampunghorti-->
+	
+	
+</div>
+
+
+
+@endcan
+
+@endsection
+@section('scripts')
+@parent
+@if ($agent->isDesktop())
+
+<!-- donut renja -->
+<script type="text/javascript">
+   var dom = document.getElementById('chart-container');
+var myChart = echarts.init(dom, null, {
+  renderer: 'svg',
+  useDirtyRect: false
+});
+var app = {};
+
+var option;
+
+option = {
+  title: {
+    text: 'Tahun 2022',
+	subtext:'(nilai hanya contoh)',
+    left: 'center'
+  },
+  tooltip: {
+    trigger: 'item'
+  },
+  series: [
+    {
+      name: 'Alokasi untuk:',
+      type: 'pie',
+      radius: ['40%', '70%'],
+      avoidLabelOverlap: true,
+      itemStyle: {
+        borderRadius: 0,
+        borderColor: '#fff',
+        borderWidth: 0
+      },
+      label: {
+        show: false,
+        position: 'center'
+      },
+      emphasis: {
+        label: {
+          show: false,
+          fontSize: '40',
+          fontWeight: 'bold'
+        }
+      },
+      labelLine: {
+        show: false
+      },
+      data: [
+        { value: 842529631, name: 'Sayuran dan Tanaman Obat' },
+        { value: 699461144, name: 'Perlindungan Hortikultura' },
+        { value: 465788458, name: 'Sekretariat Direktorat Jenderal Hortikultura' },
+        { value: 1219432171, name: 'Perbenihan Hortikultura' },
+        { value: 465788458, name: 'Tanaman Buah dan Florikultura' }
+      ]
+    }
+  ]
+};
+
+
+if (option && typeof option === 'object') {
+  myChart.setOption(option);
+}
+
+window.addEventListener('resize', myChart.resize);
+  </script>
+<!-- end donut renja -->
+<!-- matrix banpem kewenangan -->
+<script>
+var dom = document.getElementById('banpemkwn');
+var myChart = echarts.init(dom, null, {
+  renderer: 'canvas',
+  useDirtyRect: false
+});
+var app = {};
+
+var option;
+
+option = {
+  title:{
+    text: 'per Kewenangan'
+  },
+  legend: {
+    bottom: 'center',
+    top:'bottom'
+  },
+  tooltip: {},
+  dataset: {
+    source: [
+      ['product', 'KP', 'DK', 'TP Prov', 'TP Kab'],
+      ['2019', 43.3, 85.8, 93.7, 10],
+      ['2020', 83.1, 73.4, 55.1, 10],
+      ['2021', 86.4, 65.2, 82.5, 10],
+      ['2022', 72.4, 53.9, 39.1, 10]
+    ]
+  },
+  xAxis: { type: 'category' },
+  yAxis: {},
+  // Declare several bar series, each will be mapped
+  // to a column of dataset.source by default.
+  series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }, { type: 'bar' }]
+};
+
+if (option && typeof option === 'object') {
+  myChart.setOption(option);
+}
+
+window.addEventListener('resize', myChart.resize);
+</script>
+<!-- end matrix banpem kewenangan -->
+
+<!-- matrix banpem -->
+<script type="text/javascript">
+var dom = document.getElementById('matrix-banpem');
+var myChart = echarts.init(dom, null, {
+  renderer: 'canvas',
+  useDirtyRect: false
+});
+var app = {};
+var option;
+
+option = {
+  title: {
+    text: 'Realisasi Belanja 526'
+  },
+  legend: {
+    bottom: 'center',
+    top:'bottom'
+  },
+  tooltip: {},
+  dataset: {
+    source: [
+      ['product', 'Pagu', 'Realisasi'],
+	  @foreach ($pbData as $d )
+      [{{ $d->tahun }}, {{ $d->pagu }}, {{ $d->realisasi }}],
+	  @endforeach
+    ]
+  },
+  xAxis: { type: 'category' },
+  yAxis: {},
+  // Declare several bar series, each will be mapped
+  // to a column of dataset.source by default.
+  series: [{ type: 'bar' }, { type: 'bar' }]
+};
+
+if (option && typeof option === 'object') {
+  myChart.setOption(option);
+}
+
+window.addEventListener('resize', myChart.resize);
+</script>
+<!-- end matrix banpem -->
+
+<!-- line chart Gerdal APH/simpel duti -->
+<script>
+var dom = document.getElementById('chartAPH');
+var myChart = echarts.init(dom, null, {
+  renderer: 'svg',
+  useDirtyRect: false
+});
+var app = {};
+
+var option;
+
+option = {
+  xAxis: {
+    type: 'category',
+    data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']
+  },
+  yAxis: {
+    type: 'value'
+  },
+  series: [
+    {
+      data: [0, 5.5, 5, 7, 10, 9.5, 11],
+      type: 'line',
+      smooth: true
+    }
+  ]
+};
+
+if (option && typeof option === 'object') {
+  myChart.setOption(option);
+}
+
+window.addEventListener('resize', myChart.resize);
+</script>
+<!-- end line chart Gerdal APH/simpel duti -->
+
+<!-- donut Gerdal APH/simpel duti -->
+<script>
+   var dom = document.getElementById('donuttAPH');
+var myChart = echarts.init(dom, null, {
+  renderer: 'svg',
+  useDirtyRect: false
+});
+var app = {};
+
+var option;
+
+option = {
+  title: {
+    text: 'Rerata Kinerja',
+	subtext:'(nilai hanya contoh)',
+    left: 'left'
+  },
+  tooltip: {
+    trigger: 'item'
+  },
+  series: [
+    {
+      name: 'Alokasi untuk:',
+      type: 'pie',
+      radius: ['40%', '70%'],
+      avoidLabelOverlap: true,
+      itemStyle: {
+        borderRadius: 0,
+        borderColor: '#fff',
+        borderWidth: 0
+      },
+      label: {
+        show: false,
+        position: 'center'
+      },
+      emphasis: {
+        label: {
+          show: false,
+          fontSize: '40',
+          fontWeight: 'bold'
+        }
+      },
+      labelLine: {
+        show: false
+      },
+      data: [
+        { value: 0, name: 'Kinerja' },
+		{ value: 1, name: 'target' }
+      ]
+    }
+  ]
+};
+
+
+if (option && typeof option === 'object') {
+  myChart.setOption(option);
+}
+
+window.addEventListener('resize', myChart.resize);
+  </script>
+<!-- end donut Gerdal APH/simpel duti -->
+
+<script>
+$('.carousel.carousel-multi-item.v-2 .carousel-item.active').each(function(){
+  var next = $(this).next();
+  if (!next.length) {
+    next = $(this).siblings(':first');
+  }
+  next.children(':first-child').clone().appendTo($(this));
+    
+  for (var i=0;i<4;i++) {
+    next=next.next();
+    if (!next.length) {
+      next = $(this).siblings(':first');
+    }
+    next.children(':first-child').clone().appendTo($(this));
+  }
+});
+</script>
+
+<script>
+  var banpem1;
+  var option;
+  @for ($i=0;$i<count($banpemyear);$i++)
+      
+  banpem1 = echarts.init(document.getElementById('banpem{{ $i }}'))
+  option = {
+    tooltip: {},
+    legend: {},
+    xAxis: {
+        axisLabel: {
+              rotate: 45,
+        },
+        data: [
+            @foreach ($databanpem as $k) 
+            @if ($k->year == $banpemyear[$i]->year )
+                "{{ $k->kwn }}",    
+            @endif
+            @endforeach
+        ],
+        
+    },
+    yAxis: {type: 'value'},
+    series: [
+        {
+        type: 'bar',
+        barWidth: '40%',
+        label: {},
+        data: [
+            @foreach ($databanpem as $k) 
+            @if ($k->year == $banpemyear[$i]->year )
+                "{{ $k->total }}",    
+            @endif
+            @endforeach
+        ]
+        }
+    ]
+  };
+  option && banpem1.setOption(option);
+
+  @endfor
+
+  
+</script>
+@endif
+@endsection

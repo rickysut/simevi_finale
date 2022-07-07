@@ -1,0 +1,77 @@
+<!--
+	THIS EXAMPLE WAS DOWNLOADED FROM https://echarts.apache.org/examples/en/editor.html?c=pie-doughnut&code=PYBwLglsB2AEC8sDeAoWtJgDYFMBcya6GOAHmAQOQBKOAZjgE5OzB2wCGsA6jgEYBnCGByUANEXQCArnxHkqAMQ4BrHLAAiHMB3GTYuOhViUAxjmgjGlIgF8J6MMGBZIIAqmIZGEAOa-mKmEcAFsbdHsiXADoABMPfQEAC2AAdwI6DiwBHAdiJ3cTAFYAUj0vQ2MzCytw2EipJggcAQIAbX1PL1hoDhD8EwBBU3MBAVhFRmAwvK8wAE8QAcoQZvLuxg5YiGlW2DbKABYABjKxEwB2U8oAXVniDgA3YAhYgBkOPhwsAHlHpiwHEKmWyuX06EBXywCW6xGSaQyWRy9y8IGAQkgMCo5ksTDqXga3VCICSHCEey6sMh3xhsLhKXSsBByPB3ToMDAAGUIAAvZYARgATOs6UyObw_EkqnwXLF8d1bKzCRVPt83hBoANKd14YzmTglSjYLFtBx2qz0EhYI8stIBvzjocABznXr9KicnAcRimJKwACi0F8GtE9SNluttoGFwAzEVXX1lpyOPNpJs4Ca4AAVDhu3OwH58bSUMMW5CRrB2ghFJ3HBPukwABQBGti0iD-YAEsBGJAVNJXGndKXRVabZWBs7DvWkzgVMwdD5tJoIMwVE5NmBYAApCyxJhZWDd3sQfuDzYl5XdMdRghTmdUZuML7QCCkuDHvsDsBDy_h8vjlWsD3j0iZUDmeZwAAQtIHB-pmExYD2p7fr-I50jeE4EDGxx1qBDaUM2QYuHB-YIc2IRkt6XY9l-57DoqsI3PojGwMxtgANxAA
+	Please be aware that this chart is not an official demo of Apache ECharts but is made by user-generated code.
+-->
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+<head>
+  <meta charset="utf-8">
+</head>
+<body style="height: 100%; margin: 0">
+  <div id="container" style="height: 100%"></div>
+  <script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.3.3/dist/echarts.min.js"></script>
+  <script type="text/javascript">
+    var dom = document.getElementById('container');
+    var myChart = echarts.init(dom, null, {
+      renderer: 'svg',
+      useDirtyRect: false
+    });
+    var app = {};
+    
+    var option;
+
+    option = {
+  title: {
+    text: 'Referer of a Website',
+    subtext: 'Fake Data',
+    left: 'center'
+  },
+  tooltip: {
+    trigger: 'item'
+  },
+  legend: {
+    show: false,
+    top: '5%',
+    left: 'center'
+  },
+  series: [
+    {
+      name: 'Access From',
+      type: 'pie',
+      radius: ['40%', '70%'],
+      avoidLabelOverlap: false,
+      label: {
+        show: false,
+        position: 'center'
+      },
+      emphasis: {
+        label: {
+          show: false,
+          fontSize: '12',
+          fontWeight: 'bold'
+        }
+      },
+      labelLine: {
+        show: false
+      },
+      data: [
+        { value: 735, name: 'Sayuran dan Tanaman Obat' },
+        { value: 580, name: 'Perlindungan Hortikultura' },
+        { value: 484, name: 'Sekretariat Direktorat Jenderal Hortikultura' },
+        { value: 484, name: 'Perbenihan Hortikultura' },
+        { value: 484, name: 'Tanaman Buah dan Florikultura' },
+        { value: 300, name: 'Pengolahan dan Pemasaran Hortikultura' }
+      ]
+    }
+  ]
+};
+
+
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
+
+    window.addEventListener('resize', myChart.resize);
+  </script>
+</body>
+</html>

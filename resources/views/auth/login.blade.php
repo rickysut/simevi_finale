@@ -1,0 +1,108 @@
+@extends('layouts.app')
+@section('content')
+<div class="container py-4 py-lg-5 my-lg-5 px-4 px-sm-0">
+	<div class="row">
+		<div class="col col-md-6 col-lg-7 hidden-sm-down">
+			<h2 class="fs-xxl fw-500 mt-4 text-white">
+				Selamat Datang!
+				<small class="h3 fw-300 mt-3 mb-5 text-white opacity-60">
+					SiMEvI hadir untuk untuk membantu Anda mengidentifikasi keberhasilan, dampak manfaat serta kendala pelaksanaan setiap kegiatan melalui Dashboard Pusat Pemantauan dan Analisa!
+				</small>
+			</h2>
+			<div class="d-sm-flex flex-column align-items-center justify-content-center d-md-block">
+				<div class="px-0 py-1 mt-5 text-white fs-nano opacity-50">
+					Application Seeders
+				</div>
+				<div class="d-flex flex-row opacity-100">
+					<a href="#" class="mr-2 fs-xxl text-white" title="OM-SPAN">
+						<img height="32" src="img/omspan-logo.png" />
+					</a>
+					<a href="#" class="mr-2 fs-xxl text-white" title="RENJA">
+						<img height="32" src="../img/favicon.png" />
+					</a>
+					<a href="#" class="mr-2 fs-xxl text-white" title="BASTBANPEM">
+						<img height="32" src="../img/favicon.png" />
+					</a>
+					<a href="#" class="mr-2 fs-xxl text-white" title="SIMETHRIS">
+						<img height="32" src="../img/favicon.png" />
+					</a>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-6 col-lg-5 col-xl-4 ml-auto">
+			<h1 class="text-white fw-300 mb-3 d-sm-block d-md-none">
+				Selamat Datang!
+			</h1>
+			<div class="card p-4 rounded-plus bg-faded shadow">
+				@if(session('message'))
+				<div class="alert alert-info" role="alert">
+					{{ session('message') }}
+				</div>
+				@endif
+				<div class="h6 text-center text-muted mb-4">Masuk untuk memulai sessi Anda</div>
+				<form id="js-login" novalidate="" method="POST" action="{{ route('login') }}">
+					@csrf
+					<div class="form-group">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<div class="input-group-text">
+									<span class="fal fa-user"></span>
+								</div>
+							</div>
+							<input id="username" name="username" type="text" class="form-control {{ $errors->has('username') ? ' is-invalid' : '' }}" required autocomplete="username" autofocus placeholder="{{ trans('global.login_username') }}" value="{{ old('username', null) }}" />
+							@if($errors->has('username'))
+							<div class="invalid-feedback">
+								{{ $errors->first('username') }}
+							</div>
+							@endif
+						</div>
+						<div class="help-block text-muted">Username Anda</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<div class="input-group-text">
+									<span class="fal fa-lock"></span>
+								</div>
+							</div>
+							<input id="password" name="password" type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" required placeholder="{{ trans('global.login_password') }}" />
+							@if($errors->has('password'))
+							<div class="invalid-feedback">
+								{{ $errors->first('password') }}
+							</div>
+							@endif
+						</div>
+						<div class="help-block">Password Anda</div>
+					</div>
+					<div class="form-group text-left">
+						<div class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" id="remember" name="remember">
+							<label class="custom-control-label" for="remember">
+								{{ trans('global.remember_me') }}
+							</label>
+						</div>
+					</div>
+					<div class="row no-gutters">
+						<div class="col-lg-6 pr-lg-1 my-2">
+							<button type="submit" class="btn btn-danger btn-block btn-lg">
+								{{ trans('global.login') }}
+							</button>
+						</div>
+						<div class="col-lg-6 pl-lg-1 my-2">
+							@if(Route::has('password.request'))
+							<a class="btn btn-block btn-link px-0" href="{{ route('password.request') }}">
+								{{ trans('global.forgot_password') }}
+							</a><br>
+							@endif
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="position-absolute pos-bottom pos-left pos-right p-3 text-center text-white">
+		2022 © SIMEVI by&nbsp;<a href='http://simevi.hortikultura.pertanian.go.id' class='text-white opacity-60 fw-500' title='SIMEVI' target='_blank'>TIM Developer Ditjen Hortikultura</a>
+	</div>
+</div>
+
+@endsection
