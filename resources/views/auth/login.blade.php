@@ -15,16 +15,16 @@
 				</div>
 				<div class="d-flex flex-row opacity-100">
 					<a href="#" class="mr-2 fs-xxl text-white" title="OM-SPAN">
-						<img height="32" src="img/omspan-logo.png" />
+						<img height="32" src="{{ asset('img/omspan-logo.png') }}" />
 					</a>
 					<a href="#" class="mr-2 fs-xxl text-white" title="RENJA">
-						<img height="32" src="../img/favicon.png" />
+						<img height="32" src="{{ asset('img/favicon.png') }}"  />
 					</a>
 					<a href="#" class="mr-2 fs-xxl text-white" title="BASTBANPEM">
-						<img height="32" src="../img/favicon.png" />
+						<img height="32" src="{{ asset('img/favicon.png') }}" />
 					</a>
 					<a href="#" class="mr-2 fs-xxl text-white" title="SIMETHRIS">
-						<img height="32" src="../img/favicon.png" />
+						<img height="32" src="{{ asset('img/favicon.png') }}"  />
 					</a>
 				</div>
 			</div>
