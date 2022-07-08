@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
+
+
 class LoginController extends Controller
 {
     /*
@@ -34,7 +36,16 @@ class LoginController extends Controller
      * @return void
      */
     public function __construct()
-    {
+    {   
+        
+        if (config('panel.primary_language')) {
+            $language = config('panel.primary_language');
+        }
+
+        if (isset($language)) {
+            app()->setLocale($language);
+        }
+
         $this->middleware('guest')->except('logout');
     }
 }

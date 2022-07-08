@@ -4,9 +4,9 @@
 	<div class="row">
 		<div class="col col-md-6 col-lg-7 hidden-sm-down">
 			<h2 class="fs-xxl fw-500 mt-4 text-white">
-				Selamat Datang!
+				{{ trans('simevi.welcome') }}
 				<small class="h3 fw-300 mt-3 mb-5 text-white opacity-60">
-					SiMEvI hadir untuk untuk membantu Anda mengidentifikasi keberhasilan, dampak manfaat serta kendala pelaksanaan setiap kegiatan melalui Dashboard Pusat Pemantauan dan Analisa!
+					{{ trans('simevi.home_subtitle') }}
 				</small>
 			</h2>
 			<div class="d-sm-flex flex-column align-items-center justify-content-center d-md-block">
@@ -31,7 +31,7 @@
 		</div>
 		<div class="col-sm-12 col-md-6 col-lg-5 col-xl-4 ml-auto">
 			<h1 class="text-white fw-300 mb-3 d-sm-block d-md-none">
-				Selamat Datang!
+				{{ trans('simevi.welcome') }}
 			</h1>
 			<div class="card p-4 rounded-plus bg-faded shadow">
 				@if(session('message'))
@@ -39,7 +39,7 @@
 					{{ session('message') }}
 				</div>
 				@endif
-				<div class="h6 text-center text-muted mb-4">Masuk untuk memulai sessi Anda</div>
+				<div class="h6 text-center text-muted mb-4">{{ trans('simevi.login_title') }}</div>
 				<form id="js-login" novalidate="" method="POST" action="{{ route('login') }}">
 					@csrf
 					<div class="form-group">
@@ -56,7 +56,7 @@
 							</div>
 							@endif
 						</div>
-						<div class="help-block text-muted">Username Anda</div>
+						<div class="help-block text-muted">{{ trans('simevi.help_username') }}</div>
 					</div>
 					<div class="form-group">
 						<div class="input-group">
@@ -72,7 +72,7 @@
 							</div>
 							@endif
 						</div>
-						<div class="help-block">Password Anda</div>
+						<div class="help-block">{{ trans('simevi.help_password') }}</div>
 					</div>
 					<div class="form-group text-left">
 						<div class="custom-control custom-checkbox">
@@ -96,13 +96,12 @@
 							@endif
 						</div>
 					</div>
+					
 				</form>
 			</div>
 		</div>
 	</div>
-	<div class="position-absolute pos-bottom pos-left pos-right p-3 text-center text-white">
-		2022 © SIMEVI by&nbsp;<a href='http://simevi.hortikultura.pertanian.go.id' class='text-white opacity-60 fw-500' title='SIMEVI' target='_blank'>TIM Developer Ditjen Hortikultura</a>
-	</div>
+	
 </div>
 
 @endsection
