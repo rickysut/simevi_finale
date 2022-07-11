@@ -100,3 +100,5 @@
     </div>
     <br>
 @endsection
+
+@yield('scripts')

@@ -1655,6 +1655,7 @@ var initApp = (function(app) {
 								$('[data-i18n]').i18n();
 								$('[data-lang]').removeClass('active');
 								$(this).addClass('active');
+								
 							});
 
 						}
@@ -1750,10 +1751,11 @@ var initApp = (function(app) {
 		 * Display APP version
 		 * DOC: only show this if debug state tree
 		 **/
-		 if (myapp_config.debugState)
-			console.log("%c✔ Finished app.init() v" + myapp_config.VERSION + '\n' + "---------------------------", "color: #148f32");	
+		 if (myapp_config.debugState){
+			
+			console.log("%c✔ Finished app.init() version " + myapp_config.VERSION + '\n' + "---------------------------", "color: #148f32");
+		 }
 	};
-
 	return app;
 	
 })({});

@@ -178,7 +178,32 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
         </script>
 		<!-- search bar -->
 		<script>
-
+			if (!$.i18n) {
+				initApp.loadScript("/js/i18n/i18n.js", 
+					function activateLang () {
+						$.i18n.init({
+							resGetPath: '/media/data/__lng__.json',
+							load: 'unspecific',
+							fallbackLng: false,
+							lng: '{{ app()->getLocale() }}'
+						}, function (t){
+							$('[data-i18n]').i18n();
+							$('[data-lang]').removeClass('active');
+							$('[data-lang="{{ app()->getLocale() }}"]').addClass('active');
+						});								
+						
+					}
+				);
+				
+			} else {
+				i18n.setLng('{{ app()->getLocale() }}', function(){
+					$('[data-i18n]').i18n();
+					$('[data-lang]').removeClass('active');
+					$('[data-lang="{{ app()->getLocale() }}"]').addClass('active');	
+				});
+				console.log("setting language to: " + "{{ app()->getLocale() }}");
+			}
+			
 			$(function() {
 				let copyButtonTrans = '{{ trans('global.datatables.copy') }}'
 				let csvButtonTrans = '{{ trans('global.datatables.csv') }}'

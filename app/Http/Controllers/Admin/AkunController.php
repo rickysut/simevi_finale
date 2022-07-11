@@ -19,6 +19,7 @@ class AkunController extends Controller
 
     public function index(Request $request)
     {
+        
         abort_if(Gate::denies('akun_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {

@@ -262,8 +262,8 @@
 						Bahasa
 					</div>
 					<div class="dropdown-menu">
-						<a href="#?lang=id" class="dropdown-item active" data-action="lang" data-lang="id">Bahasa</a>
-						<a href="#?lang=en" class="dropdown-item " data-action="lang" data-lang="en">English (US)</a>
+						<a href="#?lang=id" class="dropdown-item {{ app()->getLocale() == 'id' ? "active" : "" }}" data-action="lang" data-lang="id">Bahasa (ID)</a>
+						<a href="#?lang=en" class="dropdown-item {{ app()->getLocale() == 'en' ? "active" : "" }}" data-action="lang" data-lang="en">English (US)</a>
 					</div>
 				</div>
 				<div class="dropdown-divider m-0"></div>
