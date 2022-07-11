@@ -38,39 +38,39 @@
 		</div>
 		<ul id="js-nav-menu" class="nav-menu">
 			<!-- menu dashboard -->
-			<li class="nav-title">{{ trans('simevi.sidemenu_parent1') }}</li>
-			<li class="{{ request()->is("admin") ? "active open" : "" }} {{ request()->is("admin/vip*") ? "active open" : "" }} ">
+			<li class="nav-title" data-i18n="nav.monitoring_analysis">{{ trans('simevi.sidemenu_parent1') }}</li>
+			<li class="{{ request()->is("admin") || request()->is("admin/vip*") ? "active open" : "" }} ">
 				<a href="#" data-filter-tags="{{ trans('global.dashboard') }}">
 					<i class="fal fa-chart-bar"></i>
-					<span class="nav-link-text" data-i18n="nav.dashboard">{{ trans('simevi.sidemenu_parent11') }}</span>
+					<span class="nav-link-text" data-i18n="nav.monitoring_analysis_sub1">{{ trans('simevi.sidemenu_parent11') }}</span>
 				</a>
 				<ul>
 					@can('dashboard_access')
 					<li class="{{ request()->is("admin") ? "active" : "" }}">
 						<a href="{{ route("admin.home") }}" title="Dashboard" data-filter-tags="main dashboard" class="waves-effect waves-themed">
-							<span class="nav-link-text" data-i18n="nav.main_dashboard">{{ trans('global.dashboard') }}</span>
+							<span class="nav-link-text" data-i18n="nav.monitoring_analysis_sub1_menu1">{{ trans('global.dashboard') }}</span>
 						</a>
 					</li>
 					@endcan
 					@can('dashboardvip_access')
 					<li class="{{ request()->is("admin/vip*") ? "active" : "" }} ">
 						<a href="{{ route("admin.dashboardvip") }}" title="Ringkasan Eksekutif" data-filter-tags="dashhboard_vip" class="waves-effect waves-themed">
-							<span class="nav-link-text" data-i18n="nav.dashboaard_vip">{{ trans('cruds.dashboardvip.title') }}</span>
+							<span class="nav-link-text" data-i18n="nav.monitoring_analysis_sub1_menu2">{{ trans('cruds.dashboardvip.title') }}</span>
 						</a>
 					</li>
 					@endcan
 				</ul>
 			</li>
-			<li>
+			<li class=" {{ request()->is("admin/detailserapan") || request()->is("admin/detailserapan/*") ? "active open" : "" }}">
 				<a href="#" title="Dashboard Analisa" data-filter-tags="dashboard analisa">
 					<i class="fal fa-chart-line"></i>
-					<span class="nav-link-text" data-i18n="nav.dashboard_analisa">Dashboard Analisa</span>
+					<span class="nav-link-text" data-i18n="nav.monitoring_analysis_sub2">{{ trans('simevi.sidemenu_parent12') }}</span>
 				</a>
 				<ul>
 					@can('kinerja_serapan_access')
-					<li class="c-sidebar-nav-link {{ request()->is("admin/detailserapan") || request()->is("admin/detailserapan/*") ? "c-active" : "" }}">
-						<a href="{{ route("admin.detailserapan") }}" title="kinerja serapan" data-filter-tags="kinerja serapan" >
-							<span class="nav-link-text" data-i18n="nav.kinerja_serapan">
+					<li class=" {{ request()->is("admin/detailserapan") || request()->is("admin/detailserapan/*") ? "active" : "" }}">
+						<a href="{{ route("admin.detailserapan") }}" title="kinerja serapan" data-filter-tags="kinerja serapan" class="waves-effect waves-themed" >
+							<span class="nav-link-text" data-i18n="nav.monitoring_analysis_sub2_menu1">
 								{{ trans('cruds.kinerjaSerapan.title') }}
 							</span>
 						</a>
@@ -82,34 +82,34 @@
 			
 			<!-- menu sub aplikasi -->
 			@can('app_connection_access')
-			<li class="nav-title">Sub-{{ trans('cruds.appConnection.title') }}</li>
+			<li class="nav-title" data-i18n="nav.sub_application">{{ trans('cruds.appConnection.title') }}</li>
 			
 			<!-- sub menu app anggaran -->
-				<li class="{{ request()->is("admin/data-pagus*") ? "c-show" : "" }} {{ request()->is("admin/detail-pagus*") ? "c-show" : "" }} {{ request()->is("admin/data-realisasis*") ? "c-show" : "" }} {{ request()->is("admin/detail-realisasis*") ? "c-show" : "" }} {{ request()->is("admin/outstandings*") ? "c-show" : "" }} {{ request()->is("admin/detail-outstandings*") ? "c-show" : "" }} {{ request()->is("admin/kinerja-serapans*") ? "c-show" : "" }}"">
+				<li class="{{ request()->is("admin/data-renjas*") || request()->is("admin/data-pagus*") || request()->is("admin/data-realisasis**")? "active open" : "" }} ">
 					@can('app_anggaran_access')
 					<a href="#" title="Sub-App Anggaran" data-filter-tags="sub-app anggaran">
 						<i class="fal fa-window"></i>
-						<span class="nav-link-text" data-i18n="nav.sub_app_anggaran">{{ trans('cruds.appAnggaran.title') }}</span>
+						<span class="nav-link-text" data-i18n="nav.sub_application_sub1">{{ trans('cruds.appAnggaran.title') }}</span>
 					</a>
 					<ul>
-						<li class="{{ request()->is("admin/data-renjas") || request()->is("admin/data-renjas/*") ? "c-active" : "" }}">
-							@can('data_renja_access')
+						@can('data_renja_access')
+						<li class="{{ request()->is("admin/data-renjas") || request()->is("admin/data-renjas/*") ? "active" : "" }}">
 							<a href="{{ route("admin.data-renjas.index") }}" data-filter-tags="rencana_kerja" >
-								<span class="nav-link-text " data-i18n="nav.sub_app_renja">{{ trans('cruds.dataRenja.title') }}</span>
+								<span class="nav-link-text " data-i18n="nav.sub_application_sub1_menu1">{{ trans('cruds.dataRenja.title') }}</span>
 							</a>
-							@endcan
 						</li>
-						<li class="c-sidebar-nav-link {{ request()->is("admin/data-pagus") || request()->is("admin/data-pagus/*") ? "c-active" : "" }}">
-							@can('data_pagu_access')
+						@endcan
+						@can('data_pagu_access')
+						<li class="c-sidebar-nav-link {{ request()->is("admin/data-pagus") || request()->is("admin/data-pagus/*") ? "active" : "" }}">
 							<a href="{{ route("admin.data-pagus.index") }}">
-								<span class="nav-link-text " data-i18n="nav.sub_app_pagu">{{ trans('cruds.dataPagu.title') }}</span>
+								<span class="nav-link-text " data-i18n="nav.sub_application_sub1_menu2">{{ trans('cruds.dataPagu.title') }}</span>
 							</a>
-							@endcan
 						</li>
+						@endcan
 						@can('data_realisasi_access')
-						<li class="{{ request()->is("admin/data-realisasis") || request()->is("admin/data-realisasis/*") ? "c-active" : "" }}">
+						<li class="{{ request()->is("admin/data-realisasis") || request()->is("admin/data-realisasis/*") ? "active" : "" }}">
 							<a href="{{ route("admin.data-realisasis.index") }}">
-								<span class="nav-link-text " data-i18n="nav.sub_app_realisasi">
+								<span class="nav-link-text " data-i18n="nav.sub_application_sub1_menu3">
 									{{ trans('cruds.dataRealisasi.title') }}
 								</span>
 							</a>
@@ -121,21 +121,32 @@
 			<!-- end sub menu app anggaran -->
 			
 			<!-- menu banpem -->
-				<li class="{{ request()->is("admin/data-banpem*") ? "c-show" : "" }} "">
+				<li class="{{ request()->is("admin/backdate-banpems*") ? "active open" : "" }} "">
 					 @can('app_banpem_access')
 					<a href="#" title="Sub-App Banpem" data-filter-tags="sub-app banpem">
 						<i class="fal fa-window"></i>
-						<span class="nav-link-text" data-i18n="nav.sub_app_banpem">{{ trans('cruds.appBanpem.title') }}</span>
+						<span class="nav-link-text" data-i18n="nav.sub_application_sub2">{{ trans('cruds.appBanpem.title') }}</span>
 					</a>
 					<ul>
 						@can('data_banpem_access')
-						<li class="c-sidebar-nav-link {{ request()->is("admin/data-banpem") || request()->is("admin/data-banpem/*") ? "c-active" : "" }}">
+						<li class="c-sidebar-nav-link {{ request()->is("admin/backdate-banpems") || request()->is("admin/backdate-banpems/*") ? "active" : "" }}">
 							<a href="{{ route("admin.backdate-banpems.index") }}">
-								{{ trans('cruds.dataBanpem.title') }}
+								<span class="nav-link-text " data-i18n="nav.sub_application_sub2_menu1">
+									{{ trans('cruds.dataBanpem.title') }}
+								</span>
+								
 							</a>
 						</li>
-						<li></li>
 						@endcan
+						<li class="c-sidebar-nav-link {{ request()->is("admin/new-banpems") || request()->is("admin/new-banpems/*") ? "active" : "" }}">
+							<a href="{{ route("admin.backdate-banpems.index") }}">
+								<span class="nav-link-text " data-i18n="nav.sub_application_sub2_menu2">
+									Data Banpem 2022+
+								</span>
+								
+							</a>
+						</li>
+						
 					</ul>
 					@endcan
 				</li>
@@ -144,7 +155,7 @@
 			
 			<!-- menu DATA MASTER -->
 			@can('master_data_access')
-			<li class="nav-title">DATA INDUK (master)</li>
+			<li class="nav-title" data-i18n="nav.master_data">DATA INDUK (master)</li>
 			<li>
 				@can('backdate_banpem_access')
 				<li>

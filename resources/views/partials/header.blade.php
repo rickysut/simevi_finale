@@ -258,7 +258,7 @@
 					<i class="float-right text-muted fw-n">Ctrl + P</i>
 				</a>
 				<div class="dropdown-multilevel dropdown-multilevel-left">
-					<div class="dropdown-item">
+					<div class="dropdown-item" data-i18n="drpdwn.lang">
 						Bahasa
 					</div>
 					<div class="dropdown-menu">

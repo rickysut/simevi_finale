@@ -7,5 +7,7 @@ return [
     'help_username'         => 'Your Username',
     'help_password'         => 'Your Password',
     'sidemenu_parent1'      => 'PEMANTAUAN & ANALISA',
-    'sidemenu_parent11'     => 'Dashboard Pemantauan'
+    'sidemenu_parent11'     => 'Dashboard Pemantauan',
+    'sidemenu_parent12'     => 'Dashboard Analisa'
+    
 ];

@@ -1631,7 +1631,7 @@ var initApp = (function(app) {
 						if (!$.i18n) {
 						//jQuery.getScript('http://url/to/the/script');
 
-							initApp.loadScript("js/i18n/i18n.js", 
+							initApp.loadScript("{{ asset('js/i18n/i18n.js')) }}", 
 
 								function activateLang () {
 									
