@@ -135,9 +135,9 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
 				+ waves.js (extension)
 				+ smartpanels.js (extension)
 				+ src/../jquery-snippets.js (core)
-				{{ asset('js/vendors.bundle.js') }}
-				{{ asset('js/app.bundle.js') }}
-				{{ asset('js/smartadmin/datagrid/datatables/datatables.bundle.js') }}
+				{ { asset('js/vendors.bundle.js') }}
+				{ { asset('js/app.bundle.js') }}
+				{ { asset('js/smartadmin/datagrid/datatables/datatables.bundle.js') }}
 		-->
 		<!-- Smartadmin core -->
 		<script src="{{ asset('js/vendors.bundle.js') }}"></script>
@@ -178,6 +178,127 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
         </script>
 		<!-- search bar -->
 		<script>
+
+			$(function() {
+				let copyButtonTrans = '{{ trans('global.datatables.copy') }}'
+				let csvButtonTrans = '{{ trans('global.datatables.csv') }}'
+				let excelButtonTrans = '{{ trans('global.datatables.excel') }}'
+				let pdfButtonTrans = '{{ trans('global.datatables.pdf') }}'
+				let printButtonTrans = '{{ trans('global.datatables.print') }}'
+				let colvisButtonTrans = '{{ trans('global.datatables.colvis') }}'
+				let selectAllButtonTrans = '{{ trans('global.select_all') }}'
+				let selectNoneButtonTrans = '{{ trans('global.deselect_all') }}'
+
+				let languages = {
+					'en': '{{ url("lang/English.json")  }}',
+					'id': '{{ url("lang/Indonesian.json") }}'
+				};
+
+  				$.extend(true, $.fn.dataTable.Buttons.defaults.dom.button, { className: 'btn' })
+  				$.extend(true, $.fn.dataTable.defaults, {
+					language: {
+					url: languages['{{ app()->getLocale() }}']
+					},
+					columnDefs: [{
+						orderable: false,
+						className: 'select-checkbox',
+						targets: 0
+					}, {
+						orderable: false,
+						searchable: false,
+						targets: -1
+					}],
+					select: {
+					style:    'multi+shift',
+					selector: 'td:first-child'
+					},
+					order: [],
+					scrollX: true,
+					pageLength: 100,
+					dom: "<'row align-items-center mb-3 justify-content-end'<'col-sm-12 col-md-3 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-2 d-flex align-items-center justify-content-start'l><'col-sm-12 col-md-7 d-flex align-items-center justify-content-end'B>>" +
+		"<'row'<'col-sm-12'tr>>" +
+		"<'row align-items-center'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+					buttons: [
+					{
+						extend: 'selectAll',
+						className: 'btn-primary btn-sm mr-1',
+						text: selectAllButtonTrans,
+						exportOptions: {
+						columns: ':visible'
+						},
+						action: function(e, dt) {
+						e.preventDefault()
+						dt.rows().deselect();
+						dt.rows({ search: 'applied' }).select();
+						}
+					},
+					{
+						extend: 'selectNone',
+						className: 'btn-outline-danger btn-sm mr-1',
+						text: selectNoneButtonTrans,
+						exportOptions: {
+						columns: ':visible'
+						}
+					},
+					{
+						extend: 'copyHtml5',
+						text: copyButtonTrans,
+						titleAttr: 'Copy to clipboard',
+						className: 'btn-outline-primary btn-sm mr-1',
+						exportOptions: {
+						columns: ':visible'
+						}
+					},
+					{
+						extend: 'csvHtml5',
+						text: csvButtonTrans,
+						titleAttr: 'Generate CSV',
+						className: 'btn-outline-primary btn-sm mr-1',
+						exportOptions: {
+						columns: ':visible'
+						}
+					},
+					{
+						extend: 'excelHtml5',
+						className: 'btn-outline-success btn-sm mr-1',
+						text: excelButtonTrans,
+						titleAttr: 'Generate Excel',
+						exportOptions: {
+						columns: ':visible'
+						}
+					},
+					{
+						extend: 'pdfHtml5',
+						className: 'btn-outline-danger btn-sm mr-1',
+						text: pdfButtonTrans,
+						titleAttr: 'Generate PDF',
+						exportOptions: {
+						columns: ':visible'
+						}
+					},
+					{
+						extend: 'print',
+						className: 'btn-outline-primary btn-sm',
+						text: printButtonTrans,
+						titleAttr: 'Print Table',
+						exportOptions: {
+						columns: ':visible'
+						}
+					},
+					/*{
+						extend: 'colvis',
+						className: 'mr-sm-3',
+						text: colvisButtonTrans,
+						titleAttr: 'Col visibility',
+						exportOptions: {
+						columns: ':visible'
+						}
+					}*/
+					]
+				});
+
+  				$.fn.dataTable.ext.classes.sPageButton = '';
+			});
 		$(document).ready(function() {
 		  $('.searchable-field').select2({
 			minimumInputLength: 3,

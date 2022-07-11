@@ -1,11 +1,11 @@
 <!-- BEGIN Left Aside -->
 <aside class="page-sidebar">
 	<div class="page-logo">
-		<a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative" data-toggle="modal" data-target="#modal-shortcut">
+		<a href="/" class="page-logo-link press-scale-down d-flex align-items-center position-relative">
 			<img src="{{ asset('img/logo-icon.png') }}" alt="SiMEvI WebApp" aria-roledescription="logo">
 			<span class="page-logo-text mr-1">SiMEvI WebApp</span>
-			<span class="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
-			<i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>
+			<!--span class="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
+			<i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i--->
 		</a>
 	</div>
 	<!-- BEGIN PRIMARY NAVIGATION -->
@@ -23,13 +23,13 @@
 		</div>
 		<div class="info-card">
 			<img src="{{ asset('img/favicon.png') }}" class="profile-image rounded-circle" alt="{{ Auth::user()->name }}">
-			<div class="info-card-text">
+			<div class="info-card-text">	
 				<a href="#" class="d-flex align-items-center text-white">
 					<span class="text-truncate text-truncate-sm d-inline-block">
-						{{ Auth::user()->name }}
+						{{ Auth::user()->username }}
 					</span>
 				</a>
-				<span class="d-inline-block text-truncate text-truncate-sm">Simevi Administrator</span>
+				<span class="d-inline-block text-truncate text-truncate-sm">{{ Auth::user()->name }}</span>
 			</div>
 			<img src="{{ asset('img/cover-7-lg.png') }}" class="cover" alt="cover">
 			<a href="#" onclick="return false;" class="pull-trigger-btn" data-action="toggle" data-class="list-filter-active" data-target=".page-sidebar" data-focus="nav_filter_input" >
@@ -38,23 +38,23 @@
 		</div>
 		<ul id="js-nav-menu" class="nav-menu">
 			<!-- menu dashboard -->
-			<li class="nav-title">PEMANTAUAN & ANALISA</li>
-			<li class="">
+			<li class="nav-title">{{ trans('simevi.sidemenu_parent1') }}</li>
+			<li class="{{ request()->is("admin") ? "active open" : "" }} {{ request()->is("admin/vip*") ? "active open" : "" }} ">
 				<a href="#" data-filter-tags="{{ trans('global.dashboard') }}">
 					<i class="fal fa-chart-bar"></i>
-					<span class="nav-link-text" data-i18n="nav.dashboard">{{ trans('global.dashboard') }} Pemantauan</span>
+					<span class="nav-link-text" data-i18n="nav.dashboard">{{ trans('simevi.sidemenu_parent11') }}</span>
 				</a>
 				<ul>
 					@can('dashboard_access')
-					<li class="">
-						<a href="{{ route("admin.home") }}" title="Dashboard" data-filter-tags="main dashboard">
+					<li class="{{ request()->is("admin") ? "active" : "" }}">
+						<a href="{{ route("admin.home") }}" title="Dashboard" data-filter-tags="main dashboard" class="waves-effect waves-themed">
 							<span class="nav-link-text" data-i18n="nav.main_dashboard">{{ trans('global.dashboard') }}</span>
 						</a>
 					</li>
 					@endcan
 					@can('dashboardvip_access')
-					<li class="c-sidebar-nav-item {{ request()->is("admin/vip*") ? "c-show" : "" }} {{ request()->is("admin/vip*") ? "c-show" : "" }}">
-						<a href="{{ route("admin.dashboardvip") }}" title="Ringkasan Eksekutif" data-filter-tags="dashhboard_vip" >
+					<li class="{{ request()->is("admin/vip*") ? "active" : "" }} ">
+						<a href="{{ route("admin.dashboardvip") }}" title="Ringkasan Eksekutif" data-filter-tags="dashhboard_vip" class="waves-effect waves-themed">
 							<span class="nav-link-text" data-i18n="nav.dashboaard_vip">{{ trans('cruds.dashboardvip.title') }}</span>
 						</a>
 					</li>

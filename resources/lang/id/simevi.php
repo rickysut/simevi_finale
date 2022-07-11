@@ -6,4 +6,6 @@ return [
     'login_title'           => 'Masuk untuk memulai sessi Anda',
     'help_username'         => 'Username Anda',
     'help_password'         => 'Password Anda',
+    'sidemenu_parent1'      => 'PEMANTAUAN & ANALISA',
+    'sidemenu_parent11'     => 'Dashboard Pemantauan'
 ];
