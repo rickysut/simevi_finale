@@ -54,7 +54,7 @@ class GlobalSearchController extends Controller
                 }
                 $parsedData['fields_formated'] = $formattedFields;
 
-                $parsedData['url'] = url('/admin/' . Str::plural(Str::snake($model, '-')) . '/' . $result->id . '/edit');
+                $parsedData['url'] = url('/admin/' . Str::plural(Str::snake($model, '-')) . '/' . $result->id );
 
                 $searchableData[] = $parsedData;
             }
