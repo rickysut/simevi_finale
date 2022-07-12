@@ -51,8 +51,6 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
 		
 		<!-- coreui -->
 		<link href="{{ asset('css/ajax/all.css') }}" rel="stylesheet" />
-		<!--link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" /-->
-		<!--link href="{{ asset('css/bootstrap/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" />
 		<link href="{{ asset('css/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" />
 		<link href="{{ asset('css/datatables/buttons.dataTables.min.css') }}" rel="stylesheet" />
 		<link href="{{ asset('css/datatables/select.dataTables.min.css') }}" rel="stylesheet" /-->
@@ -162,7 +160,6 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
 		
 		<!-- coreui -->
 		
-		<!--script src="{{ asset('js/select/select2.full.min.js') }}"></script-->
 		<script src="{{ asset('js/pdfmake/pdfmake.min.js') }}"></script>
 		<script src="{{ asset('js/pdfmake/vfs_fonts.js') }}"></script>
 		<script src="{{ asset('js/jszip/jszip.min.js') }}"></script> 
