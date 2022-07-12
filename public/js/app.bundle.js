@@ -533,10 +533,10 @@ var initApp = (function(app) {
 
 		/* on change keyboard */
 		$(input).change( function () {
-
+			
 			var filter = $(this).val().toLowerCase(),
 				listPrev = $(list).next().filter('.js-filter-message');
-	
+	        
 			/* when user types more than 1 letter start search filter */
 			if(filter.length > 1) {
 

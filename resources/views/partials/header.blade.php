@@ -34,12 +34,7 @@
 		</a>
 	</div>
 	<div class="search">
-		<form class="app-forms hidden-xs-down" role="search" action="page_search.html" autocomplete="off">
-			<input type="text" id="search-field" placeholder="Cari data" class="searchable-field form-control" tabindex="1">
-			<a href="#" onclick="return false;" class="btn-danger btn-search-close js-waves-off d-none" data-action="toggle" data-class="mobile-search-on">
-				<i class="fal fa-times"></i>
-			</a>
-		</form>
+		<select class="searchable-field form-control"></select>
 	</div>
 	<div class="ml-auto d-flex">
 		<!-- activate app search icon (mobile) -->

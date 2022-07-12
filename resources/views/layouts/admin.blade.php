@@ -51,6 +51,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
 		
 		<!-- coreui -->
 		<link href="{{ asset('css/ajax/all.css') }}" rel="stylesheet" />
+		<!--link href="{{ asset('css/select2.min.css') }}" rel="stylesheet" /-->
 		<!--link href="{{ asset('css/bootstrap/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" />
 		<link href="{{ asset('css/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" />
 		<link href="{{ asset('css/datatables/buttons.dataTables.min.css') }}" rel="stylesheet" />
@@ -161,7 +162,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
 		
 		<!-- coreui -->
 		
-		
+		<!--script src="{{ asset('js/select/select2.full.min.js') }}"></script-->
 		<script src="{{ asset('js/pdfmake/pdfmake.min.js') }}"></script>
 		<script src="{{ asset('js/pdfmake/vfs_fonts.js') }}"></script>
 		<script src="{{ asset('js/jszip/jszip.min.js') }}"></script> 
@@ -351,22 +352,22 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
 			},
 			templateResult: formatItem,
 			templateSelection: formatItemSelection,
-			placeholder: '{{ trans(' global.search ') }}...',
+			placeholder: "{{ trans('global.search') }} ...",
 			language: {
 			  inputTooShort: function(args) {
 				var remainingChars = args.minimum - args.input.length;
-				var translation = '{{ trans(' global.search_input_too_short ') }}';
+				var translation = "{{ trans('global.search_input_too_short') }}";
 
 				return translation.replace(':count', remainingChars);
 			  },
 			  errorLoading: function() {
-				return '{{ trans(' global.results_could_not_be_loaded ') }}';
+				return "{{ trans('global.results_could_not_be_loaded') }}";
 			  },
 			  searching: function() {
-				return '{{ trans(' global.searching ') }}';
+				return "{{ trans('global.searching') }}";
 			  },
 			  noResults: function() {
-				return '{{ trans(' global.no_results ') }}';
+				return "{{ trans('global.no_results') }}";
 			  },
 			}
 
@@ -374,7 +375,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
 
 		  function formatItem(item) {
 			if (item.loading) {
-			  return '{{ trans(' global.searching ') }}...';
+			  return "{{ trans('global.searching') }}...";
 			}
 			var markup = "<div class='searchable-link' href='" + item.url + "'>";
 			markup += "<div class='searchable-title'>" + item.model + "</div>";
@@ -388,7 +389,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
 
 		  function formatItemSelection(item) {
 			if (!item.model) {
-			  return '{{ trans(' global.search ') }}...';
+			  return "{{ trans('global.search') }}...";
 			}
 			return item.model;
 		  }
