@@ -1625,6 +1625,7 @@ var initApp = (function(app) {
 					 * lazyloads i18n plugin and activates selected language
 					 **/
 					case ( actiontype === 'lang' ):
+						console.log("set language");
 
 						var applang = $(this).attr('data-lang').toString();
 
@@ -1644,6 +1645,9 @@ var initApp = (function(app) {
 										$('[data-i18n]').i18n();
 										$('[data-lang]').removeClass('active');
 										$('[data-lang="' + applang + '"]').addClass('active');
+										$.post( "/admin/adminSetlocale?lang="+applang);
+										console.log("init i18n");
+										
 									});								
 									
 								}
@@ -1654,7 +1658,10 @@ var initApp = (function(app) {
 							i18n.setLng(applang, function(){
 								$('[data-i18n]').i18n();
 								$('[data-lang]').removeClass('active');
-								$(this).addClass('active');
+								$('[data-lang="' + applang + '"]').addClass('active');
+								//$(this).addClass('active');
+								$.post( "/admin/adminSetLocale?lang="+applang);
+								console.log("i18n setLng");
 								
 							});
 

@@ -4432,7 +4432,7 @@ th {
   min-width: 10rem; }
 
 .width-lg {
-  min-width: 15rem; }
+  min-width: 10rem !important; }
 
 .width-xl {
   min-width: 20rem; }

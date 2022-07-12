@@ -34,13 +34,13 @@
                         <form action="{{ route('admin.messenger.destroyTopic', [$topic->id]) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');">
                             <input type="hidden" name="_method" value="DELETE">
                             @csrf
-                            <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                            <input type="submit" class="btn-danger btn-xm mr-2" value="{{ trans('global.delete') }}">
                         </form>
                     </div>
                 </div>
                 @empty
                 <div class="row list-group-item">
-					Tidak ada pesan untuk Anda <!--{{ trans('global.you_have_no_messages') }}-->
+					{{ trans('global.you_have_no_messages') }}
                 </div>
             @endforelse
         </div>

@@ -157,21 +157,17 @@
 			@can('master_data_access')
 			<li class="nav-title" data-i18n="nav.master_data">DATA INDUK (master)</li>
 			<li>
-				@can('backdate_banpem_access')
-				<li>
-					<a href="javascript:void(0);" title="Data 526xxx" data-filter-tags="data 526 xxx">
+				@can('belanja_access')
+				<li class="{{ request()->is("admin/belanjas") || request()->is("admin/belanjas/*") ? "active open" : "" }}">
+					<a href="#" title="Data 526xxx" data-filter-tags="data 526 xxx">
 						 <i class="fal fa-handshake"></i>
-						<span class="nav-link-text" data-i18n="nav.data_526">Data 526</span>
+						<span class="nav-link-text" data-i18n="nav.master_data_sub1">Data 526</span>
 					</a>
 					<ul>
-						<li class="c-sidebar-nav-link {{ request()->is("admin/backdate-banpems") || request()->is("admin/backdate-banpems/*") ? "c-active" : "" }}">
-							<a href="{{ route("admin.backdate-banpems.index") }}">
-								{{ trans('cruds.backdateBanpem.title') }}
-							</a>
-						</li>
-						<li class="c-sidebar-nav-link {{ request()->is("admin/belanjas") || request()->is("admin/belanjas/*") ? "c-active" : "" }}">
+						
+						<li class="{{ request()->is("admin/belanjas") || request()->is("admin/belanjas/*") ? "active" : "" }}">
 							<a href="{{ route("admin.belanjas.index") }}">
-								{{ trans('cruds.belanja.title') }}
+								<span class="nav-link-text" data-i18n="nav.master_data_sub1_menu1">{{ trans('cruds.belanja.title') }}</span>
 							</a>
 						</li>
 						<!-- next li -->
@@ -179,44 +175,45 @@
 				</li>
 				@endcan
 				@can('akun_access')
-				<li class="{{ request()->is("admin/akuns") || request()->is("admin/akuns/*") ? "c-active" : "" }}" title="{{ trans('cruds.akun.title') }}" data-filter-tags="{{ trans('cruds.akun.title') }}">
+				<li class="{{ request()->is("admin/akuns") || request()->is("admin/akuns/*") ? "active" : "" }}" title="{{ trans('cruds.akun.title') }}" data-filter-tags="{{ trans('cruds.akun.title') }}">
 					<a href="{{ route("admin.akuns.index") }}">
 						 <i class="fal fa-cart-arrow-down"></i>
-						<span class="nav-link-text" data-i18n="daftar_akun_belanja">{{ trans('cruds.akun.title') }} Belanja</span>
+						<span class="nav-link-text" data-i18n="nav.master_data_sub2">{{ trans('cruds.akun.title') }}</span>
 					</a>
 				</li>
 				@endcan
-				<li>
-					<a href="javascript:void(0);" title="Data Wilayah" data-filter-tags="data wilayah">
+				<li class="{{ request()->is("admin/provinsis*") || request()->is("admin/kabupatens*") || request()->is("admin/kecamatans*")||request()->is("admin/desas*") ? "active open" : "" }}">
+					<a href="#" title="Data Wilayah" data-filter-tags="data wilayah">
 						 <i class="fal fa-map c-sidebar-nav-icon"></i>
-						<span class="nav-link-text" data-i18n="nav.data_wilayah">Data Wilayah</span>
+						<span class="nav-link-text" data-i18n="nav.master_data_sub3">Data Wilayah</span>
 					</a>
 					<ul>
 						@can('provinsi_access')
-						<li class="c-sidebar-nav-link {{ request()->is("admin/provinsis") || request()->is("admin/provinsis/*") ? "c-active" : "" }}">
+						<li class="c-sidebar-nav-link {{ request()->is("admin/provinsis") || request()->is("admin/provinsis/*") ? "active" : "" }}">
 							<a href="{{ route("admin.provinsis.index") }}">
-							{{ trans('cruds.provinsi.title') }}
+								<span class="nav-link-text" data-i18n="nav.master_data_sub3_menu1">{{ trans('cruds.provinsi.title') }}</span>
+							
 							</a>
 						</li>
 						@endcan
 						@can('kabupaten_access')
-						<li class="c-sidebar-nav-link {{ request()->is("admin/kabupatens") || request()->is("admin/kabupatens/*") ? "c-active" : "" }}">
+						<li class="c-sidebar-nav-link {{ request()->is("admin/kabupatens") || request()->is("admin/kabupatens/*") ? "active" : "" }}">
 							<a href="{{ route("admin.kabupatens.index") }}">
-							{{ trans('cruds.kabupaten.title') }}
+								<span class="nav-link-text" data-i18n="nav.master_data_sub3_menu2">{{ trans('cruds.kabupaten.title') }}</span>
 							</a>
 						</li>
 						@endcan
 						@can('kecamatan_access')
-						<li class="c-sidebar-nav-link {{ request()->is("admin/kecamatans") || request()->is("admin/kecamatans/*") ? "c-active" : "" }}">
+						<li class="c-sidebar-nav-link {{ request()->is("admin/kecamatans") || request()->is("admin/kecamatans/*") ? "active" : "" }}">
 							<a href="{{ route("admin.kecamatans.index") }}">
-								{{ trans('cruds.kecamatan.title') }}
+								<span class="nav-link-text" data-i18n="nav.master_data_sub3_menu3">{{ trans('cruds.kecamatan.title') }}</span>
 							</a>
 						</li>
 						@endcan
 						@can('desa_access')
-						<li class="c-sidebar-nav-link {{ request()->is("admin/desas") || request()->is("admin/desas/*") ? "c-active" : "" }}">
+						<li class="c-sidebar-nav-link {{ request()->is("admin/desas") || request()->is("admin/desas/*") ? "active" : "" }}">
 							<a href="{{ route("admin.desas.index") }}">
-							{{ trans('cruds.desa.title') }}
+								<span class="nav-link-text" data-i18n="nav.master_data_sub3_menu4">{{ trans('cruds.desa.title') }}</span>
 							</a>
 						</li>
 						@endcan
@@ -224,26 +221,26 @@
 					</ul>
 				</li>
 				@can('satker_access')
-				<li class="c-sidebar-nav-link {{ request()->is("admin/satkers") || request()->is("admin/satkers/*") ? "c-active" : "" }}">
+				<li class="{{ request()->is("admin/satkers") || request()->is("admin/satkers/*") ? "active" : "" }}">
 					<a href="{{ route("admin.satkers.index") }}" title="Daftar Satuan Kerja" data-filter-tags="data satker">
 						 <i class="fal fa-university c-sidebar-nav-icon"></i>
-						<span class="nav-link-text" data-i18n="nav.data_satker">{{ trans('cruds.satker.title') }}</span>
+						<span class="nav-link-text" data-i18n="nav.master_data_sub4">{{ trans('cruds.satker.title') }}</span>
 					</a>
 				</li>
 				@endcan
 				@can('rincian_output_access')
-				<li class="{{ request()->is("admin/rincian-outputs") || request()->is("admin/rincian-outputs/*") ? "c-active" : "" }}">
+				<li class="{{ request()->is("admin/rincian-outputs") || request()->is("admin/rincian-outputs/*") ? "active" : "" }}">
 					<a href="{{ route("admin.rincian-outputs.index") }}" title="Daftar Rincian Output" data-filter-tags="daftar rincian output">
 						 <i class="fal fa-window-restore c-sidebar-nav-icon"></i>
-						<span class="nav-link-text" data-i18n="nav.daftar_rincian_output">{{ trans('cruds.rincianOutput.title') }}</span>
+						<span class="nav-link-text" data-i18n="nav.master_data_sub5">{{ trans('cruds.rincianOutput.title') }}</span>
 					</a>
 				</li>
 				@endcan
 				@can('master_kegiatan_access')
-				<li class="c-sidebar-nav-link {{ request()->is("admin/master-kegiatans") || request()->is("admin/master-kegiatans/*") ? "c-active" : "" }}">
+				<li class="c-sidebar-nav-link {{ request()->is("admin/master-kegiatans") || request()->is("admin/master-kegiatans/*") ? "active" : "" }}">
 					<a href="{{ route("admin.master-kegiatans.index") }}" title="Daftar Kegiatan" data-filter-tags="daftar kegiatan">
 						 <i class="fal fa-clipboard-list c-sidebar-nav-icon"></i>
-						<span class="nav-link-text" data-i18n="nav.daftar_kegiatan">{{ trans('cruds.masterKegiatan.title') }}</span>
+						<span class="nav-link-text" data-i18n="nav.master_data_sub6">{{ trans('cruds.masterKegiatan.title') }}</span>
 					</a>
 				</li>
 				@endcan
@@ -253,42 +250,42 @@
 			
 			<!-- menu settings -->
 			@can('user_management_access')
-			<li class="nav-title">Settings</li>
-			<li class="{{ request()->is("admin/permissions*") ? "c-show" : "" }} {{ request()->is("admin/roles*") ? "c-show" : "" }} {{ request()->is("admin/users*") ? "c-show" : "" }} {{ request()->is("admin/audit-logs*") ? "c-show" : "" }}">
+			<li class="nav-title" data-i18n="nav.administation">ADMINISTRATOR</li>
+			<li class="{{ request()->is("admin/permissions*")  || request()->is("admin/roles*") || request()->is("admin/users*") || request()->is("admin/audit-logs*")  ? "active open" : "" }}">
 				<a href="#" title="User Management" data-filter-tags="user management">
 					<i class="fal fal fa-users"></i>
-					<span class="nav-link-text" data-i18n="nav.user_management">{{ trans('cruds.userManagement.title') }}</span>
+					<span class="nav-link-text" data-i18n="nav.administation_sub1">{{ trans('cruds.userManagement.title') }}</span>
 				</a>
 				<ul>
                     @can('permission_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.permissions.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/permissions") || request()->is("admin/permissions/*") ? "c-active" : "" }}">
+                        <li class="c-sidebar-nav-item {{ request()->is("admin/permissions") || request()->is("admin/permissions/*") ? "active" : "" }}">
+                            <a href="{{ route("admin.permissions.index") }}" title="Permission" data-filter-tags="Permission">
                                 <i class="fa-fw fal fa-unlock-alt c-sidebar-nav-icon"></i>
-                                {{ trans('cruds.permission.title') }}
+                                <span class="nav-link-text" data-i18n="nav.administation_sub1_menu1">{{ trans('cruds.permission.title') }}</span>
                             </a>
                         </li>
                     @endcan
                     @can('role_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.roles.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/roles") || request()->is("admin/roles/*") ? "c-active" : "" }}">
+                        <li class="c-sidebar-nav-item {{ request()->is("admin/roles") || request()->is("admin/roles/*") ? "active" : "" }}">
+                            <a href="{{ route("admin.roles.index") }}" title="Roles" data-filter-tags="Roles">
                                 <i class="fa-fw fal fa-briefcase c-sidebar-nav-icon"></i>
-                                {{ trans('cruds.role.title') }}
+                                <span class="nav-link-text" data-i18n="nav.administation_sub1_menu2">{{ trans('cruds.role.title') }}</span>
                             </a>
                         </li>
                     @endcan
                     @can('user_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.users.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/users") || request()->is("admin/users/*") ? "c-active" : "" }}">
+                        <li class="c-sidebar-nav-item {{ request()->is("admin/users") || request()->is("admin/users/*") ? "active" : "" }}">
+                            <a href="{{ route("admin.users.index") }}" title="User" data-filter-tags="User">
                                 <i class="fa-fw fal fa-user c-sidebar-nav-icon"></i>
-                                {{ trans('cruds.user.title') }}
+								<span class="nav-link-text" data-i18n="nav.administation_sub1_menu3">{{ trans('cruds.user.title') }}</span>
                             </a>
                         </li>
                     @endcan
                     @can('audit_log_access')
-                        <li class="c-sidebar-nav-item">
-                            <a href="{{ route("admin.audit-logs.index") }}" class="c-sidebar-nav-link {{ request()->is("admin/audit-logs") || request()->is("admin/audit-logs/*") ? "c-active" : "" }}">
+                        <li class="c-sidebar-nav-item {{ request()->is("admin/audit-logs") || request()->is("admin/audit-logs/*") ? "active" : "" }}">
+                            <a href="{{ route("admin.audit-logs.index") }}" title="Audit Log" data-filter-tags="Audit Log">
                                 <i class="fa-fw fal fa-file-alt c-sidebar-nav-icon"></i>
-                                {{ trans('cruds.auditLog.title') }}
+								<span class="nav-link-text" data-i18n="nav.administation_sub1_menu4">{{ trans('cruds.auditLog.title') }}</span>
                             </a>
                         </li>
                     @endcan
@@ -298,10 +295,10 @@
 			<!-- end menu settings -->
 			
 			@php($unread = \App\Models\QaTopic::unreadCount())
-            <li class="c-sidebar-nav-item">
-				<a href="{{ route("admin.messenger.index") }}" title="Pesan" data-filter-tags="pesan" class="{{ request()->is("admin/messenger") || request()->is("admin/messenger/*") ? "c-active" : "" }}">
+            <li class="c-sidebar-nav-item {{ request()->is("admin/messenger*") ? "active" : "" }}">
+				<a href="{{ route("admin.messenger.index") }}" title="Pesan" data-filter-tags="pesan" class="{{ request()->is("admin/messenger") || request()->is("admin/messenger/*") ? "active" : "" }}">
 					<i class="fal fal fa-envelope"></i>
-					<span class="nav-link-text" data-i18n="nav.pesan">{{ trans('global.messages') }}</span>
+					<span class="nav-link-text" data-i18n="nav.administation_sub2">{{ trans('global.messages') }}</span>
 					@if($unread > 0)
                         <strong>( {{ $unread }} )</strong>
                     @endif
@@ -309,46 +306,40 @@
             </li>
             @if(file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))
 			@can('profile_password_edit')
-			<li class="c-sidebar-nav-item">
-				<a href="{{ route('profile.password.edit') }}" title="Ganti Password" data-filter-tags="change password" class="c-sidebar-nav-link {{ request()->is('profile/password') || request()->is('profile/password/*') ? 'c-active' : '' }}">
+			<li class="c-sidebar-nav-item {{ request()->is("profile/password*") ? "active" : "" }}">
+				<a href="{{ route('profile.password.edit') }}" title="Ganti Password" data-filter-tags="change password" class="c-sidebar-nav-link {{ request()->is('profile/password') || request()->is('profile/password/*') ? 'active' : '' }}">
 					<i class="fal fal fa-key"></i>
-					<span class="nav-link-text" data-i18n="nav.change_password">{{ trans('global.change_password') }}</span>
+					<span class="nav-link-text" data-i18n="nav.administation_sub3">{{ trans('global.change_password') }}</span>
 				</a>
 			</li>
 			@endcan
             @endif
 			
 			<!-- menu dashboard -->
-			<li class="nav-title">Documentations</li>
+			<li class="nav-title"  data-i18n="nav.documentation">Documentations</li>
 			<li class="c-sidebar-nav-item">
 				<a href="/#" title="Build Control" data-filter-tags="documentation build notes" class="waves-effect waves-themed">
 					<i class="fal fa-code"></i>
-					<span class="nav-link-text" data-i18n="nav.documentation_build_control">Build Control</span>
+					<span class="nav-link-text" data-i18n="nav.documentation_sub1">Build Control</span>
 				</a>
 			</li>
 			<li class="c-sidebar-nav-item">
 				<a href="/#" title="General Documentation" data-filter-tags="general documentation" class="waves-effect waves-themed">
 					<i class="fal fa-code"></i>
-					<span class="nav-link-text" data-i18n="nav.documentation_general_docs">General Docs</span>
+					<span class="nav-link-text" data-i18n="nav.documentation_sub2">General Docs</span>
 				</a>
 			</li>
-			<li class="c-sidebar-nav-item">
-				<a href="/#" title="General Documentation" data-filter-tags="general documentation" class="waves-effect waves-themed">
-					<i class="fal fa-book"></i>
-					<span class="nav-link-text" data-i18n="nav.documentation_general_docs">General Docs</span>
-				</a>
-			</li>
-			<li class="c-sidebar-nav-item">
-				<a href="/#" title="Rest API Documentation" data-filter-tags="rest api documentation" class="waves-effect waves-themed">
+			<li class="c-sidebar-nav-item {{ request()->is("api/documentation*") ? "active" : "" }}">
+				<a href="/api/documentation" title="Rest API Documentation" data-filter-tags="rest api documentation" class="waves-effect waves-themed">
 					<i class="fal fa-cloud-download"></i>
-					<span class="nav-link-text" data-i18n="nav.documentation_rest_api">REST-API Docs</span>
+					<span class="nav-link-text" data-i18n="nav.documentation_sub3">REST-API Docs</span>
 				</a>
 			</li>
 			<!-- end menu documentation -->
             <li class="c-sidebar-nav-item">
 				<a href="{{ route('logout')}}" title="Logout" data-filter-tags="logout" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
 					<i class="fal fal fa-sign-out-alt"></i>
-					<span class="nav-link-text" data-i18n="nav.logout">{{ trans('global.logout') }}</span>
+					<span class="nav-link-text" data-i18n="drpdwn.page-logout">{{ trans('global.logout') }}</span>
 				</a>
             </li>
 		</ul>

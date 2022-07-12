@@ -1,87 +1,99 @@
 @extends('layouts.admin')
 @section('content')
 @include('partials.subheader')
-@can('rincian_output_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.rincian-outputs.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.rincianOutput.title_singular') }}
-            </a>
-            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
-                {{ trans('global.app_csvImport') }}
-            </button>
-            @include('csvImport.modal', ['model' => 'RincianOutput', 'route' => 'admin.rincian-outputs.parseCsvImport'])
+<div class="row">
+	<div class="col-12">
+		<div id="panel-1" class="panel show" data-panel-sortable data-panel-close data-panel-collapsed>
+			<div class="panel-hdr">
+				<h2>
+					Data | <span class="fw-300"><i>{{ trans('cruds.rincianOutput.title') }}</i></span>
+				</h2>
+				@can('rincian_output_create')
+				<div class="panel-toolbar">
+					<a class="btn btn-success btn-xs mr-2" href="{{ route('admin.rincian-outputs.create') }}" data-toggle="tooltip" title="tambah data" data-original-title="tambah data">
+						{{ trans('global.add') }} {{ trans('cruds.rincianOutput.title_singular') }}
+					</a>
+				</div>
+                <button class="btn btn-warning btn-xs mr-2" data-toggle="modal" data-target="#csvImportModal" title="unggah data" data-original-title="unggah data">
+                    {{ trans('global.app_csvImport') }}
+                </button>
+                @include('csvImport.modal', ['model' => 'RincianOutput', 'route' => 'admin.rincian-outputs.parseCsvImport'])
+				@endcan
+			</div>
+			<div class="panel-container show">
+				<div class="panel-content">
+					<div class="row">
+						<div class="col-12">
+							<div class="table dataTables_wrapper dt-bootstrap4">
+								<table class="dtr-inline table table-bordered table-striped table-hover ajaxTable datatable datatable-RincianOutput w-100">
+									<thead  class="bg-primary-50">
+
+                                        <tr>
+                                            <th width="10">
+
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.rincianOutput.fields.idoutp') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.rincianOutput.fields.idoutp_1') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.rincianOutput.fields.kdgiat') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.rincianOutput.fields.kdoutput') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.rincianOutput.fields.nmoutput') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.rincianOutput.fields.sat') }}
+                                            </th>
+                                            <!--th>
+                                                {{ trans('cruds.rincianOutput.fields.kdsum') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.rincianOutput.fields.thnawal') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.rincianOutput.fields.thnakhir') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.rincianOutput.fields.kdmulti') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.rincianOutput.fields.kdjnsout') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.rincianOutput.fields.kdikk') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.rincianOutput.fields.kdtema') }}
+                                            </th>
+                                            
+                                            <th>
+                                                {{ trans('cruds.rincianOutput.fields.kdcttout') }}
+                                            </th-->
+                                            <th>
+                                                {{ trans('cruds.rincianOutput.fields.thang') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.rincianOutput.fields.kdpn') }}
+                                            </th>
+                                        
+                                            <th style="width:15%">
+                                                {{ trans('global.actions') }}
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-@endcan
-<div class="card">
-    <!--div class="card-header">
-        {{ trans('cruds.rincianOutput.title_singular') }} {{ trans('global.list') }}
-    </div-->
-
-    <div class="card-body">
-        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-RincianOutput">
-            <thead>
-                <tr>
-                    <th width="10">
-
-                    </th>
-                    <th>
-                        {{ trans('cruds.rincianOutput.fields.idoutp') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.rincianOutput.fields.idoutp_1') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.rincianOutput.fields.kdgiat') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.rincianOutput.fields.kdoutput') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.rincianOutput.fields.nmoutput') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.rincianOutput.fields.sat') }}
-                    </th>
-                    <!--th>
-                        {{ trans('cruds.rincianOutput.fields.kdsum') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.rincianOutput.fields.thnawal') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.rincianOutput.fields.thnakhir') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.rincianOutput.fields.kdmulti') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.rincianOutput.fields.kdjnsout') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.rincianOutput.fields.kdikk') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.rincianOutput.fields.kdtema') }}
-                    </th>
-                    
-                    <th>
-                        {{ trans('cruds.rincianOutput.fields.kdcttout') }}
-                    </th-->
-                    <th>
-                        {{ trans('cruds.rincianOutput.fields.thang') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.rincianOutput.fields.kdpn') }}
-                    </th>
-                
-                    <th width="120px">
-                        &nbsp;
-                    </th>
-                </tr>
-            </thead>
-        </table>
     </div>
 </div>
 

@@ -1,5 +1,12 @@
 <?php
-Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', 'middleware' => ['auth:sanctum']], function () {
+
+//getToken
+Route::post('getToken', 'Api\\AuthController@getToken');
+
+Route::group(['as' => 'api.', 'namespace' => 'Api\V1\Admin', 'middleware' => ['auth:sanctum']], function () {
+    
+   
+    
     // Provinsi
     Route::apiResource('provinsis', 'ProvinsiApiController');
 

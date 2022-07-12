@@ -1,55 +1,67 @@
 @extends('layouts.admin')
 @section('content')
 @include('partials.subheader')
-@can('master_kegiatan_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.master-kegiatans.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.masterKegiatan.title_singular') }}
-            </a>
-            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
-                {{ trans('global.app_csvImport') }}
-            </button>
-            @include('csvImport.modal', ['model' => 'MasterKegiatan', 'route' => 'admin.master-kegiatans.parseCsvImport'])
+<div class="row">
+	<div class="col-12">
+		<div id="panel-1" class="panel show" data-panel-sortable data-panel-close data-panel-collapsed>
+			<div class="panel-hdr">
+				<h2>
+					Data | <span class="fw-300"><i>{{ trans('cruds.masterKegiatan.title') }}</i></span>
+				</h2>
+				@can('master_kegiatan_create')
+				<div class="panel-toolbar">
+					<a class="btn btn-success btn-xs mr-2" href="{{ route('admin.master-kegiatans.create') }}" data-toggle="tooltip" title="tambah data" data-original-title="tambah data">
+						{{ trans('global.add') }} {{ trans('cruds.masterKegiatan.title_singular') }}
+					</a>
+				</div>
+                <button class="btn btn-warning btn-xs mr-2" data-toggle="modal" data-target="#csvImportModal" title="unggah data" data-original-title="unggah data">
+                    {{ trans('global.app_csvImport') }}
+                </button>
+                @include('csvImport.modal', ['model' => 'MasterKegiatan', 'route' => 'admin.master-kegiatans.parseCsvImport'])
+				@endcan
+			</div>
+			<div class="panel-container show">
+				<div class="panel-content">
+					<div class="row">
+						<div class="col-12">
+							<div class="table dataTables_wrapper dt-bootstrap4">
+								<table class="dtr-inline table table-bordered table-striped table-hover ajaxTable datatable datatable-MasterKegiatan w-100">
+									<thead  class="bg-primary-50">
+
+                                        <tr>
+                                            <th width="10">
+
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.masterKegiatan.fields.kddept') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.masterKegiatan.fields.kdunit') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.masterKegiatan.fields.kd_kegiatan') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.masterKegiatan.fields.direktorat') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.masterKegiatan.fields.nomenklatur_giat') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.masterKegiatan.fields.status') }}
+                                            </th>
+                                            <th style="width:15%">
+                                                {{ trans('global.actions') }}
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-@endcan
-<div class="card">
-    <!--div class="card-header">
-        {{ trans('cruds.masterKegiatan.title_singular') }} {{ trans('global.list') }}
-    </div-->
-
-    <div class="card-body">
-        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-MasterKegiatan">
-            <thead>
-                <tr>
-                    <th width="10">
-
-                    </th>
-                    <th>
-                        {{ trans('cruds.masterKegiatan.fields.kddept') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.masterKegiatan.fields.kdunit') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.masterKegiatan.fields.kd_kegiatan') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.masterKegiatan.fields.direktorat') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.masterKegiatan.fields.nomenklatur_giat') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.masterKegiatan.fields.status') }}
-                    </th>
-                    <th width="120px">
-                        &nbsp;
-                    </th>
-                </tr>
-            </thead>
-        </table>
     </div>
 </div>
 
@@ -66,7 +78,7 @@
   let deleteButton = {
     text: deleteButtonTrans,
     url: "{{ route('admin.master-kegiatans.massDestroy') }}",
-    className: 'btn-danger',
+    className: 'btn-danger btn-sm mr-1',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
           return entry.id

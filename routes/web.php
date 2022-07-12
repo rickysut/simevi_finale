@@ -12,8 +12,9 @@ Route::get('/home', function () {
 Auth::routes(['register' => false]);
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
-    Route::post('/vip', 'HomeController@vip')->name('dashboardvip');
     Route::get('/', 'HomeController@index')->name('home');
+    Route::post('/vip', 'HomeController@vip')->name('dashboardvip');
+    Route::post('/adminSetLocale', 'HomeController@adminSetLocale')->name('setlocale');
     Route::get('/vip', 'HomeController@vip')->name('dashboardvip');
     Route::get('/summary', 'HomeController@executive')->name('executive');
     Route::get('/pagu', 'HomeController@pagu')->name('pagu');

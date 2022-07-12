@@ -7,7 +7,7 @@
 		<div id="panel-1" class="panel panel-lock show" data-panel-sortable data-panel-close data-panel-collapsed>
 			<div class="panel-hdr">
 				<h2>
-					Data | <span class="fw-300"><i>Detail</i></span>
+					{{ trans('cruds.dataPagu.title') }}  | <span class="fw-300"><i>Detail</i></span>
 				</h2>
 				<div class="panel-toolbar">
 					<a class="btn btn-xs btn-primary mr-2" href="{{ route('admin.data-pagus.index') }}">

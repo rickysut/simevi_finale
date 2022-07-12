@@ -51,11 +51,10 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
 		
 		<!-- coreui -->
 		<link href="{{ asset('css/ajax/all.css') }}" rel="stylesheet" />
-		<link href="{{ asset('css/bootstrap/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" />
-		<link href="{{ asset('css/datatables/jquery.dataTables.min.css') }}" rel="stylesheet" />
+		<!--link href="{{ asset('css/bootstrap/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" />
 		<link href="{{ asset('css/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" />
 		<link href="{{ asset('css/datatables/buttons.dataTables.min.css') }}" rel="stylesheet" />
-		<link href="{{ asset('css/datatables/select.dataTables.min.css') }}" rel="stylesheet" />
+		<link href="{{ asset('css/datatables/select.dataTables.min.css') }}" rel="stylesheet" /-->
 		
 		
 		<meta name="csrf-token" content="{{ csrf_token() }}">
@@ -161,15 +160,11 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
 		<script src="{{ asset('js/smartadmin/statistics/sparkline/sparkline.bundle.js') }}"></script>
 		
 		<!-- coreui -->
-		<script src="{{ asset('js/jszip/jszip.min.js') }}"></script>
-		<script src="{{ asset('js/datatables/buttons.flash.min.js') }}"></script>
-		<script src="{{ asset('js/datatables/dataTables.bootstrap4.min.js') }}"></script>
-		<script src="{{ asset('js/datatables/dataTables.buttons.min.js') }}"></script>
-		<script src="{{ asset('js/datatables/buttons.html5.min.js') }}"></script>
-		<script src="{{ asset('js/datatables/buttons.print.min.js') }}"></script>
-		<script src="{{ asset('js/datatables/buttons.colVis.min.js') }}"></script>
+		
+		
 		<script src="{{ asset('js/pdfmake/pdfmake.min.js') }}"></script>
 		<script src="{{ asset('js/pdfmake/vfs_fonts.js') }}"></script>
+		<script src="{{ asset('js/jszip/jszip.min.js') }}"></script> 
 		
 		<script type="text/javascript">
             /* Activate smart panels */
@@ -178,6 +173,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
         </script>
 		<!-- search bar -->
 		<script>
+			console.log("Init Language");
 			if (!$.i18n) {
 				initApp.loadScript("/js/i18n/i18n.js", 
 					function activateLang () {
@@ -190,9 +186,11 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
 							$('[data-i18n]').i18n();
 							$('[data-lang]').removeClass('active');
 							$('[data-lang="{{ app()->getLocale() }}"]').addClass('active');
+							console.log("Init language to: " + "{{ app()->getLocale() }}");
 						});								
 						
 					}
+
 				);
 				
 			} else {
@@ -200,8 +198,9 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
 					$('[data-i18n]').i18n();
 					$('[data-lang]').removeClass('active');
 					$('[data-lang="{{ app()->getLocale() }}"]').addClass('active');	
+					console.log("setting language to: " + "{{ app()->getLocale() }}");
 				});
-				console.log("setting language to: " + "{{ app()->getLocale() }}");
+				
 			}
 			
 			$(function() {
@@ -240,9 +239,13 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
 					order: [],
 					scrollX: true,
 					pageLength: 100,
-					dom: "<'row align-items-center mb-3 justify-content-end'<'col-sm-12 col-md-3 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-2 d-flex align-items-center justify-content-start'l><'col-sm-12 col-md-7 d-flex align-items-center justify-content-end'B>>" +
-		"<'row'<'col-sm-12'tr>>" +
-		"<'row align-items-center'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+					dom: 
+					"<'row'<'col-sm-12 col-md-2'l><'col-sm-12 col-md-8 d-flex'B><'col-sm-12 col-md-2 d-flex justify-content-end'f>>" +
+					"<'row'<'col-sm-12 col-md-12'tr>>" +
+					"<'row'<'col-sm-12 col-md-6'i><'col-sm-12 col-md-6'p>>",
+					/*dom: "<'row align-items-center mb-3 justify-content-start'<'col-sm-12 col-md-2  align-items-center justify-content-start'f><'col-sm-12 col-md-3 d-flex align-items-center justify-content-end 'l><'col-sm-12 col-md-7 d-flex align-items-center justify-content-end'B>>" +
+		"<'row style="width:100%"'<'col-sm-12 col-md-12't>>" +
+		"<'row align-items-center'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",*/
 					buttons: [
 					{
 						extend: 'selectAll',
@@ -265,7 +268,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
 						columns: ':visible'
 						}
 					},
-					{
+					/*{
 						extend: 'copyHtml5',
 						text: copyButtonTrans,
 						titleAttr: 'Copy to clipboard',
@@ -273,7 +276,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
 						exportOptions: {
 						columns: ':visible'
 						}
-					},
+					},*/
 					{
 						extend: 'csvHtml5',
 						text: csvButtonTrans,

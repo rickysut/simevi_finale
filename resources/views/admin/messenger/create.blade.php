@@ -34,7 +34,7 @@
                             <textarea name="content" class="form-control"></textarea>
                         </div>
                     </div>
-                    <input type="submit" value="{{ trans('global.submit') }}" class="btn btn-success" />
+                    <input type="submit" value="{{ trans('global.submit') }}" class="btn-success btn-sm mr-1 mt-4" />
                 </div>
             </div>
         </form>

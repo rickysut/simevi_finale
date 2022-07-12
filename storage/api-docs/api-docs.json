@@ -1,0 +1,1793 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Simevi OpenApi Documentation",
+        "description": "Simevi OpenApi API",
+        "contact": {
+            "email": "admin@admin.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://simevi.test/api",
+            "description": "Simevi API Server"
+        }
+    ],
+    "paths": {
+        "/getToken": {
+            "post": {
+                "tags": [
+                    "Get Access Token"
+                ],
+                "summary": "Post your email and password and we will return a token. Use the token in the 'Authorization' header like so 'Bearer YOUR_TOKEN'",
+                "description": "get token for Access API",
+                "operationId": "getToken",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "example": "user"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "mypass"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "The provided credentials are incorrect."
+                    }
+                }
+            }
+        },
+        "/desas": {
+            "get": {
+                "tags": [
+                    "Desa"
+                ],
+                "summary": "Get list of Desa",
+                "description": "Returns list of Desa",
+                "operationId": "getDesaList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DesaResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "simeviToken": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Desa"
+                ],
+                "summary": "Create New Desa",
+                "description": "Return Desa data",
+                "operationId": "storeDesa",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreDesaRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Desa"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "simeviToken": []
+                    }
+                ]
+            }
+        },
+        "/desas/{id}": {
+            "get": {
+                "tags": [
+                    "Desa"
+                ],
+                "summary": "Get Desa information",
+                "description": "Returns Desa data",
+                "operationId": "getDesaById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Desa id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Desa"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "simeviToken": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Desa"
+                ],
+                "summary": "Update existing Desa",
+                "description": "Returns updated Desa data",
+                "operationId": "updateDesa",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Desa id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateDesaRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Desa"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "simeviToken": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Desa"
+                ],
+                "summary": "Delete existing Desa",
+                "description": "Deletes a record and returns no content",
+                "operationId": "deleteDesa",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Desa id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "simeviToken": []
+                    }
+                ]
+            }
+        },
+        "/kabupatens": {
+            "get": {
+                "tags": [
+                    "Kabupaten"
+                ],
+                "summary": "Get list of Kabupaten",
+                "description": "Returns list of Kabupaten",
+                "operationId": "getKabupatenList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/KabupatenResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "simeviToken": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Kabupaten"
+                ],
+                "summary": "Create New Kabupaten",
+                "description": "Return Kabupaten data",
+                "operationId": "storeKabupaten",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreKabupatenRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Kabupaten"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "simeviToken": []
+                    }
+                ]
+            }
+        },
+        "/kabupatens/{id}": {
+            "get": {
+                "tags": [
+                    "Kabupaten"
+                ],
+                "summary": "Get Kabupaten information",
+                "description": "Returns Kabupaten data",
+                "operationId": "getKabupatenById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Kabupaten id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Kabupaten"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "simeviToken": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Kabupaten"
+                ],
+                "summary": "Update existing Kabupaten",
+                "description": "Returns updated Kabupaten data",
+                "operationId": "updateKabupaten",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Kabupaten id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateKabupatenRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Kabupaten"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "simeviToken": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Kabupaten"
+                ],
+                "summary": "Delete existing Kabupaten",
+                "description": "Deletes a record and returns no content",
+                "operationId": "deleteKabupaten",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Kabupaten id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "simeviToken": []
+                    }
+                ]
+            }
+        },
+        "/kecamatans": {
+            "get": {
+                "tags": [
+                    "Kecamatan"
+                ],
+                "summary": "Get list of Kecamatan",
+                "description": "Returns list of Kecamatan",
+                "operationId": "getKecamatanList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/KecamatanResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "simeviToken": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Kecamatan"
+                ],
+                "summary": "Create New Kecamatan",
+                "description": "Return Kecamatan data",
+                "operationId": "storeKecamatan",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreKecamatanRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Kecamatan"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "simeviToken": []
+                    }
+                ]
+            }
+        },
+        "/kecamatans/{id}": {
+            "get": {
+                "tags": [
+                    "Kecamatan"
+                ],
+                "summary": "Get Kecamatan information",
+                "description": "Returns Kecamatan data",
+                "operationId": "getKecamatanById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Kecamatan id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Kecamatan"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "simeviToken": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Kecamatan"
+                ],
+                "summary": "Update existing Kecamatan",
+                "description": "Returns updated Kecamatan data",
+                "operationId": "updateKecamatan",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Kecamatan id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateKecamatanRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Kecamatan"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "simeviToken": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Kecamatan"
+                ],
+                "summary": "Delete existing Kecamatan",
+                "description": "Deletes a record and returns no content",
+                "operationId": "deleteKecamatan",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Kecamatan id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "simeviToken": []
+                    }
+                ]
+            }
+        },
+        "/provinsis": {
+            "get": {
+                "tags": [
+                    "Provinsi"
+                ],
+                "summary": "Get list of provinsi",
+                "description": "Returns list of provinsi",
+                "operationId": "getProvinsiList",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ProvinsiResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "simeviToken": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Provinsi"
+                ],
+                "summary": "Create New provinsi",
+                "description": "Return provinsi data",
+                "operationId": "storeProvinsi",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreProvinsiRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Provinsi"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "simeviToken": []
+                    }
+                ]
+            }
+        },
+        "/provinsis/{id}": {
+            "get": {
+                "tags": [
+                    "Provinsi"
+                ],
+                "summary": "Get provinsi information",
+                "description": "Returns provinsi data",
+                "operationId": "getProvinsiById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Provinsi id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Provinsi"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "simeviToken": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Provinsi"
+                ],
+                "summary": "Update existing Provinsi",
+                "description": "Returns updated Provinsi data",
+                "operationId": "updateProvinsi",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Provinsi id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateProvinsiRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "202": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Provinsi"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "simeviToken": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Provinsi"
+                ],
+                "summary": "Delete existing Provinsi",
+                "description": "Deletes a record and returns no content",
+                "operationId": "deleteProvinsi",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Provinsi id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Successful operation",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Resource Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "simeviToken": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Desa": {
+                "title": "Desa",
+                "description": "Desa model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "kd_kec_id": {
+                        "title": "kd_kec_id",
+                        "description": "Kode Kecamatan (see: kecamatans)",
+                        "type": "integer",
+                        "example": 1101010
+                    },
+                    "kd_desa": {
+                        "title": "kd_desa",
+                        "description": "Kode Desa",
+                        "type": "integer",
+                        "example": 1101010001
+                    },
+                    "nm_desa": {
+                        "title": "nm_desa",
+                        "description": "Nama Desa",
+                        "type": "string",
+                        "example": "LATIUNG"
+                    },
+                    "lat": {
+                        "title": "lat",
+                        "description": "latitude",
+                        "type": "number",
+                        "format": "double",
+                        "example": 4.6899999999999995
+                    },
+                    "lng": {
+                        "title": "lng",
+                        "description": "longitude",
+                        "type": "number",
+                        "format": "double",
+                        "example": 96.74
+                    },
+                    "kd_bast": {
+                        "title": "kd_bast",
+                        "description": "Kode BAST",
+                        "type": "string",
+                        "example": "061101AA"
+                    },
+                    "kd_kemenkeu": {
+                        "title": "kd_kemenkeu",
+                        "description": "Kode Kemenkeu",
+                        "type": "string",
+                        "example": "0609"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Desa"
+                }
+            },
+            "GetToken": {
+                "title": "GetToken",
+                "description": "GetToken model",
+                "properties": {
+                    "username": {
+                        "title": "username",
+                        "description": "username",
+                        "type": "string",
+                        "example": "user"
+                    },
+                    "password": {
+                        "title": "password",
+                        "description": "password",
+                        "type": "string",
+                        "example": "secret"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "GetToken"
+                }
+            },
+            "Kabupaten": {
+                "title": "Kabupaten",
+                "description": "Kabupaten model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "kd_prop_id": {
+                        "title": "kd_prop_id",
+                        "description": "Kode Provinsi (see: provinsis)",
+                        "type": "integer",
+                        "example": 11
+                    },
+                    "kd_kab": {
+                        "title": "kd_kab",
+                        "description": "Kode Kabupaten",
+                        "type": "integer",
+                        "example": 1101
+                    },
+                    "kd_dt1": {
+                        "title": "kd_dt1",
+                        "description": "Kode Tingkat 1",
+                        "type": "string",
+                        "example": "06"
+                    },
+                    "kd_dt2": {
+                        "title": "kd_dt2",
+                        "description": "Kode Tingkat 2",
+                        "type": "string",
+                        "example": "09"
+                    },
+                    "nama_kab": {
+                        "title": "nama_kab",
+                        "description": "Nama Kabupaten",
+                        "type": "string",
+                        "example": "KAB. SIMEULEU"
+                    },
+                    "lat": {
+                        "title": "lat",
+                        "description": "latitude",
+                        "type": "number",
+                        "format": "double",
+                        "example": 4.6899999999999995
+                    },
+                    "lng": {
+                        "title": "lng",
+                        "description": "longitude",
+                        "type": "number",
+                        "format": "double",
+                        "example": 96.74
+                    },
+                    "kd_bast": {
+                        "title": "kd_bast",
+                        "description": "Kode BAST",
+                        "type": "string",
+                        "example": "061100"
+                    },
+                    "kd_kemenkeu": {
+                        "title": "kd_kemenkeu",
+                        "description": "Kode Kemenkeu",
+                        "type": "string",
+                        "example": "0609"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Kabupaten"
+                }
+            },
+            "Kecamatan": {
+                "title": "Kecamatan",
+                "description": "Kecamatan model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "kd_kab_id": {
+                        "title": "kd_kab_id",
+                        "description": "Kode Kabupaten (see: kabupatens)",
+                        "type": "integer",
+                        "example": 1101
+                    },
+                    "kd_kec": {
+                        "title": "kd_kec",
+                        "description": "Kode Kecamatan",
+                        "type": "integer",
+                        "example": 1101010
+                    },
+                    "nama_kec": {
+                        "title": "nm_kec",
+                        "description": "Nama Kecamatan",
+                        "type": "string",
+                        "example": "TEUPAH SELATAN"
+                    },
+                    "lat": {
+                        "title": "lat",
+                        "description": "latitude",
+                        "type": "number",
+                        "format": "double",
+                        "example": 4.6899999999999995
+                    },
+                    "lng": {
+                        "title": "lng",
+                        "description": "longitude",
+                        "type": "number",
+                        "format": "double",
+                        "example": 96.74
+                    },
+                    "kd_bast": {
+                        "title": "kd_bast",
+                        "description": "Kode BAST",
+                        "type": "string",
+                        "example": "061100"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Kecamatan"
+                }
+            },
+            "Provinsi": {
+                "title": "Provinsi",
+                "description": "Provinsi model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "kd_prop": {
+                        "title": "kd_prop",
+                        "description": "Kode Provinsi",
+                        "type": "integer",
+                        "example": "11"
+                    },
+                    "kd_dt1": {
+                        "title": "kd_dt1",
+                        "description": "Kode Tingkat 1",
+                        "type": "string",
+                        "example": "06"
+                    },
+                    "nm_prop": {
+                        "title": "nm_prop",
+                        "description": "Nama provinsi",
+                        "type": "string",
+                        "example": "PROV. ACEH"
+                    },
+                    "kd_bast": {
+                        "title": "kd_bast",
+                        "description": "Kode BAST",
+                        "type": "string",
+                        "example": "060000"
+                    },
+                    "lat": {
+                        "title": "lat",
+                        "description": "latitude",
+                        "type": "number",
+                        "format": "double",
+                        "example": 4.6899999999999995
+                    },
+                    "lng": {
+                        "title": "lng",
+                        "description": "longitude",
+                        "type": "number",
+                        "format": "double",
+                        "example": 96.74
+                    },
+                    "kd_kemenkeu": {
+                        "title": "kd_kemenkeu",
+                        "description": "Kode Kemenkeu",
+                        "type": "string",
+                        "example": "0600"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Provinsi"
+                }
+            },
+            "DesaResource": {
+                "title": "DesaResource",
+                "description": "Desa resource",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Desa"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "DesaResource"
+                }
+            },
+            "KabupatenResource": {
+                "title": "KabupatenResource",
+                "description": "Kabupaten resource",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Kabupaten"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "KabupatenResource"
+                }
+            },
+            "KecamatanResource": {
+                "title": "KecamatanResource",
+                "description": "Kecamatan resource",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Kecamatan"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "KecamatanResource"
+                }
+            },
+            "ProvinsiResource": {
+                "title": "ProvinsiResource",
+                "description": "Provinsi resource",
+                "properties": {
+                    "data": {
+                        "title": "Data",
+                        "description": "Data wrapper",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Provinsi"
+                        }
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "ProvinsiResource"
+                }
+            },
+            "StoreDesaRequest": {
+                "title": "Store Desa request",
+                "description": "Store Desa request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "kd_kec_id": {
+                        "title": "kd_kec_id",
+                        "description": "Kode Kecamatan (see: kecamatans)",
+                        "type": "integer",
+                        "example": 1101010
+                    },
+                    "kd_desa": {
+                        "title": "kd_desa",
+                        "description": "Kode Desa",
+                        "type": "integer",
+                        "example": 1101010001
+                    },
+                    "nm_desa": {
+                        "title": "nm_desa",
+                        "description": "Nama Desa",
+                        "type": "string",
+                        "example": "LATIUNG"
+                    },
+                    "lat": {
+                        "title": "lat",
+                        "description": "latitude",
+                        "type": "number",
+                        "format": "double",
+                        "example": 4.6899999999999995
+                    },
+                    "lng": {
+                        "title": "lng",
+                        "description": "longitude",
+                        "type": "number",
+                        "format": "double",
+                        "example": 96.74
+                    },
+                    "kd_bast": {
+                        "title": "kd_bast",
+                        "description": "Kode BAST",
+                        "type": "string",
+                        "example": "061101AA"
+                    },
+                    "kd_kemenkeu": {
+                        "title": "kd_kemenkeu",
+                        "description": "Kode Kemenkeu",
+                        "type": "string",
+                        "example": "0609"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreKabupatenRequest": {
+                "title": "Store Kabupaten request",
+                "description": "Store Kabupaten request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "kd_prop_id": {
+                        "title": "kd_prop_id",
+                        "description": "Kode Provinsi (see: provinsis)",
+                        "type": "integer",
+                        "example": 11
+                    },
+                    "kd_kab": {
+                        "title": "kd_kab",
+                        "description": "Kode Kabupaten",
+                        "type": "integer",
+                        "example": 1101
+                    },
+                    "kd_dt1": {
+                        "title": "kd_dt1",
+                        "description": "Kode Tingkat 1",
+                        "type": "string",
+                        "example": "06"
+                    },
+                    "kd_dt2": {
+                        "title": "kd_dt2",
+                        "description": "Kode Tingkat 2",
+                        "type": "string",
+                        "example": "09"
+                    },
+                    "nama_kab": {
+                        "title": "nama_kab",
+                        "description": "Nama Kabupaten",
+                        "type": "string",
+                        "example": "KAB. SIMEULEU"
+                    },
+                    "lat": {
+                        "title": "lat",
+                        "description": "Latitude",
+                        "type": "number",
+                        "format": "double",
+                        "example": 4.6899999999999995
+                    },
+                    "lng": {
+                        "title": "lng",
+                        "description": "Longitude",
+                        "type": "number",
+                        "format": "double",
+                        "example": 96.74
+                    },
+                    "kd_bast": {
+                        "title": "kd_bast",
+                        "description": "Kode BAST",
+                        "type": "string",
+                        "example": "061100"
+                    },
+                    "kd_kemenkeu": {
+                        "title": "kd_kemenkeu",
+                        "description": "Kode Kemenkeu",
+                        "type": "string",
+                        "example": "0609"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreKecamatanRequest": {
+                "title": "Store Kecamatan request",
+                "description": "Store Kecamatan request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "kd_kab_id": {
+                        "title": "kd_kab_id",
+                        "description": "Kode Kabupaten (see: kabupatens)",
+                        "type": "integer",
+                        "example": 1101
+                    },
+                    "kd_kec": {
+                        "title": "kd_kec",
+                        "description": "Kode Kecamatan",
+                        "type": "integer",
+                        "example": 1101010
+                    },
+                    "nama_kec": {
+                        "title": "nm_kec",
+                        "description": "Nama Kecamatan",
+                        "type": "string",
+                        "example": "TEUPAH SELATAN"
+                    },
+                    "lat": {
+                        "title": "lat",
+                        "description": "latitude",
+                        "type": "number",
+                        "format": "double",
+                        "example": 4.6899999999999995
+                    },
+                    "lng": {
+                        "title": "lng",
+                        "description": "longitude",
+                        "type": "number",
+                        "format": "double",
+                        "example": 96.74
+                    },
+                    "kd_bast": {
+                        "title": "kd_bast",
+                        "description": "Kode BAST",
+                        "type": "string",
+                        "example": "061100"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreProvinsiRequest": {
+                "title": "Store Provinsi request",
+                "description": "Store Provinsi request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "kd_prop": {
+                        "title": "kd_prop",
+                        "description": "Kode Provinsi",
+                        "type": "integer",
+                        "example": "11"
+                    },
+                    "kd_dt1": {
+                        "title": "kd_dt1",
+                        "description": "Kode Tingkat 1",
+                        "type": "string",
+                        "example": "06"
+                    },
+                    "nm_prop": {
+                        "title": "nm_prop",
+                        "description": "Nama provinsi",
+                        "type": "string",
+                        "example": "PROV. ACEH"
+                    },
+                    "kd_bast": {
+                        "title": "kd_bast",
+                        "description": "Kode BAST",
+                        "type": "string",
+                        "example": "060000"
+                    },
+                    "lat": {
+                        "title": "lat",
+                        "description": "latitude",
+                        "type": "number",
+                        "format": "double",
+                        "example": 4.6899999999999995
+                    },
+                    "lng": {
+                        "title": "lng",
+                        "description": "longitude",
+                        "type": "number",
+                        "format": "double",
+                        "example": 96.74
+                    },
+                    "kd_kemenkeu": {
+                        "title": "kd_kemenkeu",
+                        "description": "Kode Kemenkeu",
+                        "type": "string",
+                        "example": "0600"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateDesaRequest": {
+                "title": "Update Desa request",
+                "description": "Update Desa request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "kd_kec_id": {
+                        "title": "kd_kec_id",
+                        "description": "Kode Desa (see: Desas)",
+                        "type": "integer",
+                        "example": 1101010
+                    },
+                    "kd_desa": {
+                        "title": "kd_desa",
+                        "description": "Kode Desa",
+                        "type": "integer",
+                        "example": 1101010001
+                    },
+                    "nm_desa": {
+                        "title": "nm_desa",
+                        "description": "Nama Desa",
+                        "type": "string",
+                        "example": "LATIUNG"
+                    },
+                    "lat": {
+                        "title": "lat",
+                        "description": "latitude",
+                        "type": "number",
+                        "format": "double",
+                        "example": 4.6899999999999995
+                    },
+                    "lng": {
+                        "title": "lng",
+                        "description": "longitude",
+                        "type": "number",
+                        "format": "double",
+                        "example": 96.74
+                    },
+                    "kd_bast": {
+                        "title": "kd_bast",
+                        "description": "Kode BAST",
+                        "type": "string",
+                        "example": "061101AA"
+                    },
+                    "kd_kemenkeu": {
+                        "title": "kd_kemenkeu",
+                        "description": "Kode Kemenkeu",
+                        "type": "string",
+                        "example": "0609"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateKabupatenRequest": {
+                "title": "Update Kabupaten request",
+                "description": "Update Kabupaten request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "kd_prop_id": {
+                        "title": "kd_prop_id",
+                        "description": "Kode Provinsi (see: provinsis)",
+                        "type": "integer",
+                        "example": 11
+                    },
+                    "kd_kab": {
+                        "title": "kd_kab",
+                        "description": "Kode Kabupaten",
+                        "type": "integer",
+                        "example": 1101
+                    },
+                    "kd_dt1": {
+                        "title": "kd_dt1",
+                        "description": "Kode Tingkat 1",
+                        "type": "string",
+                        "example": "06"
+                    },
+                    "kd_dt2": {
+                        "title": "kd_dt2",
+                        "description": "Kode Tingkat 2",
+                        "type": "string",
+                        "example": "09"
+                    },
+                    "nama_kab": {
+                        "title": "nama_kab",
+                        "description": "Nama Kabupaten",
+                        "type": "string",
+                        "example": "KAB. SIMEULEU"
+                    },
+                    "lat": {
+                        "title": "lat",
+                        "description": "Latitude",
+                        "type": "number",
+                        "format": "double",
+                        "example": 4.6899999999999995
+                    },
+                    "lng": {
+                        "title": "lng",
+                        "description": "Longitude",
+                        "type": "number",
+                        "format": "double",
+                        "example": 96.74
+                    },
+                    "kd_bast": {
+                        "title": "kd_bast",
+                        "description": "Kode BAST",
+                        "type": "string",
+                        "example": "061100"
+                    },
+                    "kd_kemenkeu": {
+                        "title": "kd_kemenkeu",
+                        "description": "Kode Kemenkeu",
+                        "type": "string",
+                        "example": "0609"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateKecamatanRequest": {
+                "title": "Update Kecamatan request",
+                "description": "Update Kecamatan request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "kd_kab_id": {
+                        "title": "kd_kab_id",
+                        "description": "Kode kabupaten (see: Kabupatens)",
+                        "type": "integer",
+                        "example": 1101
+                    },
+                    "kd_kec": {
+                        "title": "kd_kec",
+                        "description": "Kode Kecamatan",
+                        "type": "integer",
+                        "example": 1101010
+                    },
+                    "nama_kec": {
+                        "title": "nm_kec",
+                        "description": "Nama Kecamatan",
+                        "type": "string",
+                        "example": "TEUPAH SELATAN"
+                    },
+                    "lat": {
+                        "title": "lat",
+                        "description": "latitude",
+                        "type": "number",
+                        "format": "double",
+                        "example": 4.6899999999999995
+                    },
+                    "lng": {
+                        "title": "lng",
+                        "description": "longitude",
+                        "type": "number",
+                        "format": "double",
+                        "example": 96.74
+                    },
+                    "kd_bast": {
+                        "title": "kd_bast",
+                        "description": "Kode BAST",
+                        "type": "string",
+                        "example": "061100"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateProvinsiRequest": {
+                "title": "Update Provinsi request",
+                "description": "Update Provinsi request body data",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "kd_prop": {
+                        "title": "kd_prop",
+                        "description": "Kode Provinsi",
+                        "type": "integer",
+                        "example": "11"
+                    },
+                    "kd_dt1": {
+                        "title": "kd_dt1",
+                        "description": "Kode Tingkat 1",
+                        "type": "string",
+                        "example": "06"
+                    },
+                    "nm_prop": {
+                        "title": "nm_prop",
+                        "description": "Nama provinsi",
+                        "type": "string",
+                        "example": "PROV. ACEH"
+                    },
+                    "kd_bast": {
+                        "title": "kd_bast",
+                        "description": "Kode BAST",
+                        "type": "string",
+                        "example": "060000"
+                    },
+                    "lat": {
+                        "title": "lat",
+                        "description": "latitude",
+                        "type": "number",
+                        "format": "double",
+                        "example": 4.6899999999999995
+                    },
+                    "lng": {
+                        "title": "lng",
+                        "description": "longitude",
+                        "type": "number",
+                        "format": "double",
+                        "example": 96.74
+                    },
+                    "kd_kemenkeu": {
+                        "title": "kd_kemenkeu",
+                        "description": "Kode Kemenkeu",
+                        "type": "string",
+                        "example": "0600"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "simeviToken": {
+                "type": "http",
+                "scheme": "bearer",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    }
+}

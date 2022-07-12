@@ -31,6 +31,19 @@ class HomeController extends Controller
     }
 
     /**
+     * Set locale.
+     *
+     * void
+     */
+    public function adminSetLocale(Request $request)
+    {
+       
+        session()->put('language', request('lang'));
+        
+        //return redirect(url());
+        return response(app()->getLocale());
+    }
+    /**
      * Show vip summary.
      *
      * @return \Illuminate\Contracts\Support\Renderable
