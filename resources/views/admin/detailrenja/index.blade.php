@@ -1,38 +1,21 @@
 @extends('layouts.admin')
 @section('content')
 @include('partials.subheader')
-
-<div class="row" hidden>
+<div class="row">
 	<div class="col-12">
 		<div id="panel-1" class="panel show" data-panel-sortable data-panel-close data-panel-collapsed>
 			<div class="panel-hdr">
 				<h2>
 					Matrix | <span class="fw-300"><i>Renja</i></span>
 				</h2>
+                
 			</div>
 			<div class="panel-container show">
 				<div class="panel-content">
-					
-					
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="row d-flex">
-	<div class="col-12">
-		<div id="panel-1" class="panel panel-lock show" data-panel-sortable data-panel-close data-panel-collapsed data-panel-fullscreen>
-			<div class="panel-hdr">
-				<h2>
-					Matrix | <span class="fw-300"><i>Renja</i></span>
-				</h2>
-			</div>
-			<div class="panel-container show">
-				<div class="panel-content">
+					<div class="mb-2">
 					<form id="yf" action="{{ route('admin.detailrenja') }}" method="post">
 						{{ csrf_field() }}
-						<div class="card-body d-flex justify-content-between font-weight-bolder align-items-center">
+						<div class="d-flex justify-content-between font-weight-bolder align-items-center">
 							<div>
 								<label>Provinsi : </label>
 								<select class="custom-select" id="dtProp" name="dtProp" onchange="yf.submit()">
@@ -48,30 +31,30 @@
 							</div>
 						</div>
 					</form>
-				
-					<div class="table ">
-						<table class="dtr-inline table table-bordered table-striped table-hover table-responsive datatable datatable-DetailRenja">
+					</div>
+					<div class="table-responsive">
+						<table class="table table-bordered table-striped table-hover datatable datatable-DetailRenja w-100">
 							<thead>
 								<tr>
-									<th class="text-center" rowspan="2" style="vertical-align : middle; display:none;" >
+									<th class="text-center" rowspan="2" style="vertical-align : middle; display:none;" hidden >
 										id
 									</th>
-									<th class="text-center" rowspan="2" style="width: 30%;vertical-align : middle;">
+									<th class="text-center" rowspan="2" style="vertical-align : middle;">
 										{{ trans('cruds.detailrenja.fields.kabupaten') }}
 									</th>
-									<th class="text-center" style="width:15%;">
+									<th class="text-center" >
 										2019
 									</th>
-									<th class="text-center" style="width:15%;">
+									<th class="text-center" >
 										2020
 									</th>
-									<th class="text-center" style="width:15%;">
+									<th class="text-center" >
 										2021
 									</th>
-									<th class="text-center" style="width:10%;">
+									<th class="text-center" >
 										2022
 									</th>
-									<th class="text-center" rowspan="2" style="width: 10%;vertical-align : middle;">
+									<th class="text-center" rowspan="2" style="width: 15%;vertical-align : middle;">
 										Tindakan  
 									</th>
 									
@@ -102,7 +85,7 @@
 							<tbody>
 								@foreach($stable->getData()->data as $data) 
 									<tr>
-										<td style="display:none;">
+										<td style="display:none;" hidden>
 											{{ $data->idk }}
 										</td>
 										<td>
@@ -120,7 +103,7 @@
 										<td class="text-right">
 											{{ $data->tot4 }}
 										</td>
-										<td>
+										<td class="text-center">
 											@can('detail_renja_show')
 											<?php echo $data->actions ?>    
 											@endcan
@@ -130,6 +113,7 @@
 							</tbody>
 							<tfoot>
 								<tr>
+									<th hidden></th>
 									<th class="text-right">Total:</th>
 									<th class="text-right"></th>
 									<th class="text-right"></th>
@@ -161,11 +145,10 @@
 
     $.extend(true, $.fn.dataTable.defaults, {
 	buttons: dtButtons,
-	dom: 'lBf<t>ip',
 	responsive: true,
     orderCellsTop: true,
     order: [[ 1, 'asc' ]],
-    pageLength: 10,
+    pageLength: 50,
     footerCallback : function ( row, data, start, end, display ) {
         var api = this.api(), data;
  
@@ -191,7 +174,7 @@
             }, 0 );
 	
             // Update footer
-            $( api.column( 1 ).footer() ).html(
+            $( api.column( 2 ).footer() ).html(
                 numberWithCommas(pageTotal1)
             )
             pageTotal2 = api
@@ -202,7 +185,7 @@
             }, 0 );
 	
             // Update footer
-            $( api.column( 2 ).footer() ).html(
+            $( api.column( 3 ).footer() ).html(
                 numberWithCommas(pageTotal2)
             )
             pageTotal3 = api
@@ -213,7 +196,7 @@
             }, 0 );
 	
             // Update footer
-            $( api.column( 3 ).footer() ).html(
+            $( api.column( 4 ).footer() ).html(
                 numberWithCommas(pageTotal3)
             )
             pageTotal4 = api
@@ -224,7 +207,7 @@
             }, 0 );
 	
             // Update footer
-            $( api.column( 4 ).footer() ).html(
+            $( api.column( 5 ).footer() ).html(
                 numberWithCommas(pageTotal4)
             )
         },

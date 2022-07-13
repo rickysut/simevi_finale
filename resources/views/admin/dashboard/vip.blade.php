@@ -250,11 +250,11 @@
 								</div>
 							</div>
 							<div class="carousel-item">
-							<div class="table table-responsive">
+							<div class="table-responsive">
 								<table id="tableBanpem" class="table table-bordered table-hover table-striped w-100">
 									<thead class="bg-primary-600">
 										<tr>
-											<th></th>
+											<th hidden></th>
 											<th>
 												Tahun
 											</th>
@@ -272,7 +272,7 @@
 									<tbody>
 										@foreach ($pbData as $d )
 										<tr>
-											<td></td>
+											<td hidden></td>
 											<td>{{ $d->tahun }}</td>  
 											<td>{{ $d->pagu }}</td>  
 											<td>{{ $d->realisasi }}</td>  
@@ -698,8 +698,8 @@
 
 <!-- donut renja -->
 <script type="text/javascript">
-   var dom = document.getElementById('chart-container');
-var myChart = echarts.init(dom, null, {
+   var dom = document.getElementById('donutchart');
+var myChart = echarts.init(dom, {
   renderer: 'svg',
   useDirtyRect: false
 });
@@ -763,7 +763,7 @@ window.addEventListener('resize', myChart.resize);
 <!-- matrix banpem kewenangan -->
 <script>
 var dom = document.getElementById('banpemkwn');
-var myChart = echarts.init(dom, null, {
+var myChart = echarts.init(dom, {
   renderer: 'svg',
   useDirtyRect: false
 });
@@ -802,9 +802,9 @@ window.addEventListener('resize', myChart.resize);
 <!-- end matrix banpem kewenangan -->
 
 <!-- matrix banpem -->
-<script type="text/javascript">
+<!--script type="text/javascript">
 var dom = document.getElementById('matrix-banpem');
-var myChart = echarts.init(dom, null, {
+var myChart = echarts.init(dom,  {
   renderer: 'canvas',
   useDirtyRect: false
 });
@@ -823,9 +823,9 @@ option = {
   dataset: {
     source: [
       ['product', 'Pagu', 'Realisasi'],
-	  @foreach ($pbData as $d )
-      [{{ $d->tahun }}, {{ $d->pagu }}, {{ $d->realisasi }}],
-	  @endforeach
+	  @ foreach ($pbData as $d )
+      [{ { $d->tahun }}, { { $d->pagu }}, { { $d->realisasi }}],
+	  @ endforeach
     ]
   },
   xAxis: { type: 'category' },
@@ -840,12 +840,12 @@ if (option && typeof option === 'object') {
 }
 
 window.addEventListener('resize', myChart.resize);
-</script>
+</script -->
 <!-- end matrix banpem -->
 <!-- tanget banpem -->
 <script>
 var dom = document.getElementById('tangentBanpem');
-var myChart = echarts.init(dom, null, {
+var myChart = echarts.init(dom, {
   renderer: 'canvas',
   useDirtyRect: false
 });
@@ -907,7 +907,7 @@ window.addEventListener('resize', myChart.resize);
 <!-- line chart Gerdal APH/simpel duti -->
 <script>
 var dom = document.getElementById('chartAPH');
-var myChart = echarts.init(dom, null, {
+var myChart = echarts.init(dom, {
   renderer: 'svg',
   useDirtyRect: false
 });
@@ -943,7 +943,7 @@ window.addEventListener('resize', myChart.resize);
 <!-- donut Gerdal APH/simpel duti -->
 <script>
    var dom = document.getElementById('donutAPH');
-var myChart = echarts.init(dom, null, {
+var myChart = echarts.init(dom,  {
   renderer: 'svg',
   useDirtyRect: false
 });

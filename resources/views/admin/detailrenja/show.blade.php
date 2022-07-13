@@ -4,10 +4,10 @@
 <div class="card">
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered table-striped table-hover datatable datatable-Output">
+            <table class="table table-bordered table-striped table-hover datatable datatable-Output w-100">
                 <thead>
                 <tr>
-                    <th class="text-center" rowspan="2" style="vertical-align : middle; display:none;">
+                    <th class="text-center" rowspan="2" style="vertical-align : middle; display:none;" hidden>
                         id
                     </th>
                     <th class="text-center" rowspan="2" style="vertical-align : middle;">
@@ -69,7 +69,7 @@
                     
                     @foreach($stable->getData()->data as $data) 
                         <tr>
-                            <td class="text-wrap" width="0px" style="display:none;">
+                            <td class="text-wrap" width="0px" style="display:none;" hidden>
                                 {{ $data->id }}
                             </td>
                             <td class="text-wrap" width="200px">
@@ -151,8 +151,6 @@
     let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
 
     $.extend(true, $.fn.dataTable.defaults, {
-    
-    dom: 'lBf<t>p',
     orderCellsTop: true,
     order: [[1, 'asc' ]],
     pageLength: 25,
