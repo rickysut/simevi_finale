@@ -52,6 +52,7 @@
 }
 .table tbody tr td:nth-last-child(1) {
 	border-radius: 0 5px 5px 0;
+}
 </style>
 <div class="subheader">
 	<h1 class="subheader-title">

@@ -18,7 +18,7 @@
 <div class="row d-flex">
 	<!-- widget rencana kerja -->
 	<div class="col-lg-8">
-		<div id="panel-1" class="panel show">
+		<div id="panel-1" class="panel show" >
 			<div class="panel-hdr">
 				<h2>
 					Rencana Kerja | <span class="fw-300"><i>Renja</i></span>
@@ -29,7 +29,7 @@
 				</div>
 			</div>
 			<div class="panel-container show">
-				<div class="panel-content">
+				<div class="panel-content" style="height: 28em">
 					<div class="row">
 						<div class="col-lg-6 col-md-6 col-sm-12 align-items-center">
 							<div class="c-chart-wrapper">
@@ -102,7 +102,7 @@
 	
 	<!-- widget new kinerja anggaran/omspan -->
 	<div class="col-lg-4 col-md-12">
-		<div id="panel-2" class="panel show">
+		<div id="panel-2" class="panel show" >
 			<div class="panel-hdr">
 				<h2>
 					Kinerja <span class="fw-300"><i>Anggaran</i></span>
@@ -113,7 +113,7 @@
 				</div>
 			</div>
 			<div class="panel-container show">
-				<div class="panel-content">
+				<div class="panel-content" style="height: 28em">
 					<div id="carouselPagu" class="carousel slide carousel-multi-item v-2" data-interval="false">
 						<div class="carousel-inner v-2" role="listbox">
 								<!-- small screen -->
@@ -124,12 +124,13 @@
 											<i class="base-18 icon-stack-3x color-secondary-700"></i>
 											<span class="position-absolute pos-top pos-left pos-right color-white fs-md mt-2 fw-400">{{ $prData[$i]->tahun }}</span>
 										</span>
+										<h6 class="font-weight-bold mb-0 text-success">{{ number_format(($prData[$i]->realisasi/$prData[$i]->pagu)*100,0,",",".") }}%</h6>
 										<div class="">
 											<label class="fs-sm mb-0"></label>
 											<h6 class="font-weight-bold mb-0 text-info">{{ number_format($prData[$i]->realisasi,0,",",".") }}</h6>
 											<h6 class="font-weight-bold mb-0 text-warning">{{ number_format($prData[$i]->pagu,0,",",".") }}</h6>
 											<div class="progress progress-xs mt-2">
-												<div class="progress-bar bg-danger" role="progressbar" style="width: 94%" aria-valuenow="94" aria-valuemin="0" aria-valuemax="100"></div>
+												<div class="progress-bar bg-danger" role="progressbar" style="width: {{ number_format(($prData[$i]->realisasi/$prData[$i]->pagu)*100,0,",",".") }}%" aria-valuenow="{{ number_format(($prData[$i]->realisasi/$prData[$i]->pagu)*100,0,",",".") }}" aria-valuemin="0" aria-valuemax="100"></div>
 											</div>
 										</div>
 									</div>
@@ -148,13 +149,13 @@
 									<div class="col-10">
 										<div class="col-12">
 											<div class="d-flex justify-content-between mt-2 mb-1 fw-500 fs-xs text-warning">
-												...%
+												{{ number_format(($prData[$i]->realisasi/$prData[$i]->pagu)*100,0,",",".") }}%
 												<span class="d-inline-block ml-auto">{{ number_format($prData[$i]->realisasi,0,",",".") }}</span>
 											</div>
 										</div>
 										<div class="col-12">
 											<div class="progress progress-xs">
-												<div class="progress-bar bg-primary" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+												<div class="progress-bar bg-primary" role="progressbar" style="width: {{ number_format(($prData[$i]->realisasi/$prData[$i]->pagu)*100,0,",",".") }}%;" aria-valuenow="{{ number_format(($prData[$i]->realisasi/$prData[$i]->pagu)*100,0,",",".") }}" aria-valuemin="0" aria-valuemax="100"></div>
 											</div>
 										</div>
 										<div class="col-12">
@@ -168,9 +169,9 @@
 								@endfor
 								<!-- end edium up screen -->
 						</div>
-						<div class="col-12 text-center controls-top align-items-center hidden-sm-up">
+						<div class="col-12 text-center controls-top align-items-center hidden-sm-up mt-2">
 							<a class="btn btn-icon btn-sm btn-light btn-floating mr-2" href="#carouselPagu" data-slide="prev"><i class="fal fa-arrow-left"></i></a>
-							<a class="btn btn-floating ml-2" href="#carouselPagu" data-slide="next"><i class="fal fa-arrow-right"></i></a>
+							<a class="btn btn-icon btn-sm btn-light btn-floating ml-2" href="#carouselPagu" data-slide="next"><i class="fal fa-arrow-right"></i></a>
 						</div>
 					</div>
 				</div>
@@ -192,7 +193,7 @@
 	
 	<!-- widget banpem per kewenangan-->
 	<div class="col-lg-6 col-md-12">
-		<div id="panel-3" class="panel show">
+		<div id="panel-3" class="panel show" >
 			<div class="panel-hdr">
 				<h2 class="d-none d-sm-block">
 					Kinerja Bantuan <span class="fw-300"><i>per Kewenangan</i></span>
@@ -206,7 +207,7 @@
 				</div>
 			</div>
 			<div class="panel-container show">
-				<div class="panel-content">
+				<div class="panel-content" style="height: 35em">
 					<div class="c-chart-wrapper">
 						<div class="echarts" id="banpemkwn"></div>
 					</div>
@@ -229,7 +230,7 @@
 	
 	<!-- widget realisasi 526-->
 	<div class="col-lg-6 col-md-12">
-		<div id="panel-4" class="panel">
+		<div id="panel-4" class="panel" >
 			<div class="panel-hdr">
 				<h2>
 					Realisasi <span class="fw-300"><i>Belanja 526</i></span>
@@ -241,7 +242,7 @@
 				</div>
 			</div>
 			<div class="panel-container show">
-				<div class="panel-content">
+				<div class="panel-content" style="height: 35em">
 					<div id="multi-item-card" class="carousel slide carousel-multi-item" data-ride="carousel">
 						<div class="carousel-inner" role="listbox">
 							<div class="carousel-item active">
