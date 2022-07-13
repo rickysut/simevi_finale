@@ -11,7 +11,7 @@
 				</h2>
 				@can('belanja_create')
 				<div class="panel-toolbar">
-					<a class="btn btn-success btn-xs mr-2" href="{{ route('admin.belanjas.create') }}" data-toggle="tooltip" title="unggah data" data-original-title="unggah data">
+					<a class="btn btn-success btn-xs mr-2" href="{{ route('admin.belanjas.create') }}" data-toggle="tooltip" title="tambah data" data-original-title="tambah data">
 						{{ trans('global.add') }} {{ trans('cruds.belanja.title_singular') }}
 					</a>
 					<button class="btn btn-primary btn-xs mr-2" data-toggle="modal" data-target="#csvImportModal" title="unggah data">
@@ -26,7 +26,7 @@
 					<div class="row">
 						<div class="col-12">
 							<div class="table dataTables_wrapper dt-bootstrap4">
-								<table class="dtr-inline table table-bordered table-striped table-hover ajaxTable datatable datatable-Belanja">
+								<table class="dtr-inline table table-bordered table-striped table-hover ajaxTable datatable datatable-Belanja w-100">
 									<thead  class="bg-primary-50">
 										<tr>
 											<th width="10">
@@ -44,7 +44,7 @@
 											<th>
 												{{ trans('cruds.belanja.fields.realisasi') }}
 											</th>
-											<th>
+											<th style="width: 15%">
 												{{ trans('global.actions') }}
 											</th>
 										</tr>
@@ -119,7 +119,7 @@
     ],
     orderCellsTop: true,
     order: [[ 1, 'desc' ]],
-	responsive: false,
+	responsive: true,
     pageLength: 25,
   };
   let table = $('.datatable-Belanja').DataTable(dtOverrideGlobals);

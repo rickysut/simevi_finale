@@ -25,7 +25,7 @@
 					<div class="row">
 						<div class="col-12">
 							<div class="table dataTables_wrapper dt-bootstrap4">
-								<table class="dtr-inline table table-bordered table-striped table-hover ajaxTable datatable datatable-DataRealisasi">
+								<table class="dtr-inline table table-bordered table-striped table-hover ajaxTable datatable datatable-DataRealisasi w-100">
 									<thead class="bg-primary-50">
 										<tr>
 											<th width="10">

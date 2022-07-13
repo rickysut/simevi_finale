@@ -25,7 +25,7 @@
 					<div class="row">
 						<div class="col-12">
 							<div class="table dataTables_wrapper dt-bootstrap4">
-								<table class="dtr-inline table table-bordered table-striped table-hover ajaxTable datatable datatable-DataPagu">
+								<table class="dtr-inline table table-bordered table-striped table-hover ajaxTable datatable datatable-DataPagu w-100">
 								<thead  class="bg-primary-50">
 									<tr>
 										<th width="10">
@@ -76,7 +76,7 @@
 										<th>
 											{{ trans('cruds.dataPagu.fields.amount') }}
 										</th>
-										<th>
+										<th style="width: 15%">
 											{{ trans('global.actions') }}
 										</th>
 									</tr>

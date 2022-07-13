@@ -1,52 +1,64 @@
 @extends('layouts.admin')
 @section('content')
 @include('partials.subheader')
-@can('akun_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.akuns.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.akun.title_singular') }}
-            </a>
-            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
-                {{ trans('global.app_csvImport') }}
-            </button>
-            @include('csvImport.modal', ['model' => 'Akun', 'route' => 'admin.akuns.parseCsvImport'])
+<div class="row">
+	<div class="col-12">
+		<div id="panel-1" class="panel show" data-panel-sortable data-panel-close data-panel-collapsed>
+			<div class="panel-hdr">
+				<h2>
+					Data | <span class="fw-300"><i>{{ trans('cruds.akun.title') }}</i></span>
+				</h2>
+				@can('akun_create')
+				<div class="panel-toolbar">
+					<a class="btn btn-success btn-xs mr-2" href="{{ route('admin.akuns.create') }}" data-toggle="tooltip" title="tambah data" data-original-title="tambah data">
+						{{ trans('global.add') }} {{ trans('cruds.akun.title_singular') }}
+					</a>
+				</div>
+                <button class="btn btn-warning btn-xs mr-2" data-toggle="modal" data-target="#csvImportModal">
+                    {{ trans('global.app_csvImport') }}
+                </button>
+                @include('csvImport.modal', ['model' => 'Akun', 'route' => 'admin.akuns.parseCsvImport'])
+				@endcan
+			</div>
+			<div class="panel-container show">
+				<div class="panel-content">
+					<div class="row">
+						<div class="col-12">
+							<div class="table dataTables_wrapper dt-bootstrap4">
+								<table class="dtr-inline table table-bordered table-striped table-hover ajaxTable datatable datatable-Akun w-100">
+									<thead  class="bg-primary-50">
+
+                                        <tr>
+                                            <th width="10">
+
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.akun.fields.kd_akun') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.akun.fields.nama_akun') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.akun.fields.pendekatan') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.akun.fields.jenis') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.akun.fields.status') }}
+                                            </th>
+                                            <th style="width:15%">
+                                                {{ trans('global.actions') }}
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-@endcan
-<div class="card">
-    <!--div class="card-header">
-        {{ trans('cruds.akun.title_singular') }} {{ trans('global.list') }}
-    </div-->
-
-    <div class="card-body">
-        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Akun">
-            <thead>
-                <tr>
-                    <th width="10">
-
-                    </th>
-                    <th>
-                        {{ trans('cruds.akun.fields.kd_akun') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.akun.fields.nama_akun') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.akun.fields.pendekatan') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.akun.fields.jenis') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.akun.fields.status') }}
-                    </th>
-                    <th width="120">
-                        {{ trans('global.actions') }}
-                    </th>
-                </tr>
-            </thead>
-        </table>
     </div>
 </div>
 
@@ -63,7 +75,7 @@
   let deleteButton = {
     text: deleteButtonTrans,
     url: "{{ route('admin.akuns.massDestroy') }}",
-    className: 'btn-danger',
+    className: 'btn-danger btn-sm mr-1',
     action: function (e, dt, node, config) {
       var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
           return entry.id

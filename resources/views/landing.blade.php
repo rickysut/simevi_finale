@@ -1,104 +1,199 @@
 @extends('layouts.admin')
 @section('content')
-    <div id="carousel1" class="carousel" data-coreui-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="{{ asset('img/plants-2.jpeg') }}" class="d-block h-50 w-100" alt="simevi" height="50%">
-            <div class="carousel-caption d-none d-md-block">
-              <h2>Monitoring Dan Evaluasi Hortikultura Terintegerasi</h2>
-            </div>
-          </div>
-          
-        </div>
-        
-    </div>
-       
-    
-    <div class="container overflow-hidden px-4" style="border: solid; border-color: #bec4c4">
-    <br>
-      <div class="row gx-5">
-          <div class="col-sm-4">
-            @can('executive_access')
-            <a href ="{{ route("admin.dashboardvip") }}" >
-            @endcan
-                <img src="{{ asset('img/summary.jpg') }}" class="card-img-top" >
-                    <div class="card" style="background-color: #5c97ef96">
-                        <div class="card-body">
-                            <h4 class="card-title text-white">Executive Summary</h4>
-                            <p class="card-text text-white">Monitoring Evaluasi</p>
-                        </div>
-                    </div>
-            @can('executive_access')
-            </a>
-            @endcan
-          </div>
-          <div class="col-sm-4">
-              @can('pagu_access')
-              <a href ="{{ route("admin.pagu") }}">
-              @endcan
-                <img src="{{ asset('img/funding.jpg') }}" class="card-img-top" >
-                    <div class="card" style="background-color: #706b0b32">
-                        <div class="card-body">
-                            <h4 class="card-title text-white">Data Anggaran</h4>
-                            <p class="card-text text-white">Pagu</p>
-                            
-                        </div>
-                    </div>
-              @can('pagu_access')
-              </a>
-              @endcan
-          </div>
-          <div class="col-sm-4">
-            @can('banpem_access')
-            <a href ="{{ route("admin.banpem") }}">
-            @endcan
-                <img src="{{ asset('img/banpem.jpg') }}" class="card-img-top" >
-                    <div class="card" style="background-color: #d781c896">
-                        <div class="card-body" >
-                            <h4 class="card-title text-white">Banpem</h4>
-                            <p class="card-text text-white">Banpem.</p>
-                        </div>
-                   </div>
-            @can('banpem_access')
-            </a>
-            @endcan
-          </div>
-          <div class="col-sm-4">
-             <!--a href ="{{ route("admin.home") }}"-->
-                <img src="{{ asset('img/newicon.jpg') }}" class="card-img-top" >
-                    <div class="card" style="background-color: #a29ca2d3">
-                        <div class="card-body">
-                            <h4 class="card-title">Srikandi</h4>
-                            <p class="card-text">Srikandi</p>
-                        </div>
-                    </div>
-            <!--/a-->
-        </div>
-        <div class="col-sm-4">
-            <!--a href ="{{ route("admin.home") }}"-->
-                <img src="{{ asset('img/newicon.jpg') }}" class="card-img-top" >
-                    <div class="card" style="background-color: #a29ca2d3">
-                        <div class="card-body">
-                            <h4 class="card-title">Proseed</h4>
-                            <p class="card-text">Proseed</p>
-                        </div>
-                    </div>
-            <!--/a-->
-        </div>
-        <div class="col-sm-4">
-            <!--a href ="{{ route("admin.home") }}"-->
-                <img src="{{ asset('img/newicon.jpg') }}" class="card-img-top" >
-                    <div class="card" style="background-color: #a29ca2d3">
-                        <div class="card-body" >
-                            <h4 class="card-title">Simpel Duti</h4>
-                            <p class="card-text">Simpel Duti.</p>
-                        </div>
-                    </div>
-            <!--/a-->
-        </div>
-      </div>
-    </div>
-    <br>
-@endsection
+<div class="row">
+	<div class="col text-center">
+		<h1 class="display-4">{{ trans('simevi.welcome') }}, <span class="fw-700">{{ Auth::user()->name }}!<span></h1>
+		<h4 class="">{{ trans('simevi.landing_greet') }}</h4>
+	</div>
+</div>
+<div class="row justify-content-center mb-3">
+	<span class="text-muted js-get-date"></span>
+</div>
+<div id="multi-item-card" class="hidden-sm-down carousel slide carousel-multi-item" data-ride="carousel" data-interval="5000">
+	<div class="row justify-content-center">
+	<div class="controls-top">
+		<a class="btn-floating btn-sm btn-primary waves-effect waves-theme" href="#multi-item-card" data-slide="prev"><i class="fa fa-chevron-left"></i></a>
+		<a class="btn-floating btn-sm btn-primary waves-effect waves-theme" href="#multi-item-card" data-slide="next"><i class="fa fa-chevron-right"></i></a>
+	</div>
+	</div>
+	<div class="carousel-inner" role="listbox">
+		<div class="carousel-item active">
+			<div class="row justify-content-center">
+				<div class="card border m-2 shadow" style="max-width: 28rem;">
+					<img src="{{ asset('img/cover-8-lg.png') }}" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title fw-700">{{ trans('cruds.dashboardvip.title') }}</h5>
+						<p class="card-text">{{ trans('simevi.dashboardvip_desc') }}</p>
+						@can('executive_access')
+						<a href="{{ route("admin.dashboardvip") }}" class="btn btn-sm btn-primary">{{ trans('simevi.visitbut') }}</a>
+						@endcan
+					</div>
+				</div>
+				<div class="card border m-2 shadow" style="max-width: 28rem;">
+					<img src="{{ asset('img/cover-9-lg.png') }}" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title fw-700">{{ trans('cruds.detailrenja.title') }}</h5>
+						<p class="card-text">{{ trans('simevi.detail_renja') }}</p>
+						@can('pagu_access')
+						<a href="{{ route("admin.detailrenja") }}" class="btn btn-sm btn-primary">{{ trans('simevi.visitbut') }}</a>
+						@endcan
+					</div>
+				</div>
+				<div class="card border m-2 shadow" style="max-width: 28rem;">
+					<img src="{{ asset('img/cover-10-lg.png') }}" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title fw-700">{{ trans('cruds.pagu.title') }}</h5>
+						<p class="card-text">{{ trans('simevi.pagu_desc') }}</p>
+						@can('pagu_access')
+						<a href="{{ route("admin.pagu") }}" class="btn btn-sm btn-primary">{{ trans('simevi.visitbut') }}</a>
+						@endcan
+					</div>
+				</div>
+				<div class="card border m-2 shadow" style="max-width: 28rem;">
+					<img src="{{ asset('img/cover-7-lg.png') }}" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title fw-700">{{ trans('cruds.banpem.title') }}</h5>
+						<p class="card-text">{{ trans('simevi.banpem_desc') }}</p>
+						@can('banpem_access')
+						<a href="{{ route("admin.banpem") }}" class="btn btn-sm btn-primary">{{ trans('simevi.visitbut') }}</a>
+						@endcan
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="carousel-item">
+			<div class="row justify-content-center">
+				<div class="card border m-2 shadow" style="max-width: 28rem;">
+					<img src="{{ asset('img/cover-11-lg.png') }}" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title fw-300">{{ trans('simevi.underconstruction') }}</h5>
+						<p class="card-text"><i>{{ trans('simevi.uc_desc') }}</i></p>
+						<a href="#" class="btn btn-sm btn-default disabled">{{ trans('simevi.visitbut2') }}</a>
+					</div>
+				</div>
+				<div class="card border m-2 shadow" style="max-width: 28rem;">
+					<img src="{{ asset('img/cover-11-lg.png') }}" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title fw-300">{{ trans('simevi.underconstruction') }}</h5>
+						<p class="card-text"><i>{{ trans('simevi.uc_desc') }}</i></p>
+						<a href="#" class="btn btn-sm btn-default disabled">{{ trans('simevi.visitbut2') }}</a>
+					</div>
+				</div>
+				<div class="card border m-2 shadow" style="max-width: 28rem;">
+					<img src="{{ asset('img/cover-11-lg.png') }}" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title fw-300">{{ trans('simevi.underconstruction') }}</h5>
+						<p class="card-text"><i>{{ trans('simevi.uc_desc') }}</i></p>
+						<a href="#" class="btn btn-sm btn-default disabled">{{ trans('simevi.visitbut2') }}</a>
+					</div>
+				</div>
+				<div class="card border m-2 shadow" style="max-width: 28rem;">
+					<img src="{{ asset('img/cover-11-lg.png') }}" class="card-img-top" alt="...">
+					<div class="card-body">
+						<h5 class="card-title fw-300">{{ trans('simevi.underconstruction') }}</h5>
+						<p class="card-text"><i>{{ trans('simevi.uc_desc') }}</i></p>
+						<a href="#" class="btn btn-sm btn-default disabled">{{ trans('simevi.visitbut2') }}</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
-@yield('scripts')
+<div id="carousel-mobile" class="hidden-sm-up carousel slide carousel-multi-item" data-ride="carousel">
+	<div class="row justify-content-center">
+	<div class="controls-top">
+		<a class="btn-floating btn-sm btn-primary waves-effect waves-theme" href="#carousel-mobile" data-slide="prev"><i class="fa fa-chevron-left"></i></a>
+		<a class="btn-floating btn-sm btn-primary waves-effect waves-theme" href="#carousel-mobile" data-slide="next"><i class="fa fa-chevron-right"></i></a>
+	</div>
+	</div>
+	<ol class="carousel-indicators">
+		<li data-target="#carousel-mobile" data-slide-to="0" class="active"></li>
+		<li data-target="#carousel-mobile" data-slide-to="1"></li>
+		<li data-target="#carousel-mobile" data-slide-to="2"></li>
+	</ol>
+	<div class="carousel-inner" role="listbox">
+		<div class="carousel-item active">
+			<div class="card border m-2 shadow" style="max-width: 18rem;">
+				<img src="{{ asset('img/cover-8-lg.png') }}" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title fw-700">{{ trans('cruds.dashboardvip.title') }}</h5>
+					<p class="card-text">{{ trans('simevi.dashboardvip_desc') }}</p>
+					<a href="#" class="btn btn-sm btn-primary">{{ trans('simevi.visitbut') }}</a>
+				</div>
+			</div>
+		</div>
+		<div class="carousel-item">
+			<div class="card border m-2 shadow" style="max-width: 18rem;">
+				<img src="{{ asset('img/cover-9-lg.png') }}" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title fw-700">{{ trans('cruds.detailrenja.title') }}</h5>
+					<p class="card-text">{{ trans('simevi.detail_renja') }}</p>
+					<a href="#" class="btn btn-sm btn-primary">{{ trans('simevi.visitbut') }}</a>
+				</div>
+			</div>
+		</div>
+		<div class="carousel-item">
+			<div class="card border m-2 shadow" style="max-width: 18rem;">
+				<img src="{{ asset('img/cover-10-lg.png') }}" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title fw-700">{{ trans('cruds.pagu.title') }}</h5>
+					<p class="card-text">{{ trans('simevi.pagu_desc') }}</p>
+					<a href="#" class="btn btn-sm btn-primary">{{ trans('simevi.visitbut') }}</a>
+				</div>
+			</div>
+		</div>
+		<div class="carousel-item">
+			<div class="card border m-2 shadow" style="max-width: 18rem;">
+				<img src="{{ asset('img/cover-7-lg.png') }}" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title fw-700">{{ trans('cruds.banpem.title') }}</h5>
+					<p class="card-text">{{ trans('simevi.banpem_desc') }}</p>
+					<a href="#" class="btn btn-sm btn-primary">{{ trans('simevi.visitbut') }}</a>
+				</div>
+			</div>
+		</div>
+		<div class="carousel-item">
+			<div class="card border m-2 shadow" style="max-width: 18rem;">
+				<img src="{{ asset('img/cover-11-lg.png') }}" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title fw-300">{{ trans('simevi.underconstruction') }}</h5>
+					<p class="card-text"><i>{{ trans('simevi.uc_desc') }}</i></p>
+					<a href="#" class="btn btn-sm btn-default disabled">{{ trans('simevi.visitbut2') }}</a>
+				</div>
+			</div>
+		</div>
+		<div class="carousel-item">
+			<div class="card border m-2 shadow" style="max-width: 18rem;">
+				<img src="{{ asset('img/cover-11-lg.png') }}" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title fw-300">{{ trans('simevi.underconstruction') }}</h5>
+					<p class="card-text"><i>{{ trans('simevi.uc_desc') }}</i></p>
+					<a href="#" class="btn btn-sm btn-default disabled">{{ trans('simevi.visitbut2') }}</a>
+				</div>
+			</div>
+		</div>
+		<div class="carousel-item">
+			<div class="card border m-2 shadow" style="max-width: 18rem;">
+				<img src="{{ asset('img/cover-11-lg.png') }}" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title fw-300">{{ trans('simevi.underconstruction') }}</h5>
+					<p class="card-text"><i>{{ trans('simevi.uc_desc') }}</i></p>
+					<a href="#" class="btn btn-sm btn-default disabled">{{ trans('simevi.visitbut2') }}</a>
+				</div>
+			</div>
+		</div>
+		<div class="carousel-item">
+			<div class="card border m-2 shadow" style="max-width: 18rem;">
+				<img src="{{ asset('img/cover-11-lg.png') }}" class="card-img-top" alt="...">
+				<div class="card-body">
+					<h5 class="card-title fw-300">{{ trans('simevi.underconstruction') }}</h5>
+					<p class="card-text"><i>{{ trans('simevi.uc_desc') }}</i></p>
+					<a href="#" class="btn btn-sm btn-default disabled">{{ trans('simevi.visitbut2') }}</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@endsection

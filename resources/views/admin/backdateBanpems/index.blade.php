@@ -24,7 +24,7 @@
 					<div class="row">
 						<div class="col-12">
 							<div class="table dataTables_wrapper dt-bootstrap4 table-responsive">
-							<table class="dtr-inline table table-bordered table-striped table-hover ajaxTable datatable datatable-BackdateBanpem">
+							<table class="dtr-inline table table-bordered table-striped table-hover ajaxTable datatable datatable-BackdateBanpem w-100">
 								<thead>
 									<tr>
 										<th>
@@ -63,7 +63,7 @@
 										<th>
 											{{ trans('cruds.backdateBanpem.fields.kd_akun') }}
 										</th>
-										<th>
+										<th style="width: 15%">
 											{{ trans('global.actions') }}
 										</th>
 									</tr>

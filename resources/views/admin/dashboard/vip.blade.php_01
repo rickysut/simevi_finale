@@ -201,7 +201,7 @@
 					Kinerja <span class="fw-300"><i>Kewenangan</i></span>
 				</h2>
 				<div class="panel-toolbar">
-					<a data-toggle="tooltip" title data-original-title="Detail" class="btn btn-panel btn-info hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.banpem') }}">
+					<a data-toggle="tooltip" title data-original-title="Detail" class="btn btn-panel btn-info hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.detailbanpem') }}">
 					</a>
 				</div>
 			</div>
@@ -235,61 +235,15 @@
 					Realisasi <span class="fw-300"><i>Belanja 526</i></span>
 				</h2>
 				<div class="panel-toolbar">
-					<!--<a data-toggle="modal" title="lihat data tabular" class="btn btn-panel btn-primary btn-icon hover-effect-dot waves-effect waves-themed rounded-circle" type="button" data-target=".tablebanpem"></a>-->
-					<a data-toggle="tooltip" title data-original-title="Detail" class="btn btn-panel btn-info btn-icon hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.banpem') }}">
+					<a data-toggle="modal" title="lihat data tabular" class="btn btn-panel btn-primary btn-icon hover-effect-dot waves-effect waves-themed rounded-circle" type="button" data-target=".tablebanpem"></a>
+					<a data-toggle="tooltip" title data-original-title="Detail" class="btn btn-panel btn-info btn-icon hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.detailbanpem') }}">
 					</a>
 				</div>
 			</div>
 			<div class="panel-container show">
 				<div class="panel-content">
-					<div id="multi-item-card" class="carousel slide carousel-multi-item" data-ride="carousel">
-						<div class="carousel-inner" role="listbox">
-							<div class="carousel-item active">
-								<div class="c-chart-wrapper">
-									<div class="echarts" id="tangentBanpem"></div>
-								</div>
-							</div>
-							<div class="carousel-item">
-							<div class="table table-responsive">
-								<table id="tableBanpem" class="table table-bordered table-hover table-striped w-100">
-									<thead class="bg-primary-600">
-										<tr>
-											<th></th>
-											<th>
-												Tahun
-											</th>
-											<th>
-												Pagu
-											</th>
-											<th>
-												Realisasi
-											</th>
-											<th>
-												%
-											</th>
-										</tr>
-									</thead>
-									<tbody>
-										@foreach ($pbData as $d )
-										<tr>
-											<td></td>
-											<td>{{ $d->tahun }}</td>  
-											<td>{{ $d->pagu }}</td>  
-											<td>{{ $d->realisasi }}</td>  
-											<td>{{ $d->nilai }}</td>  
-										</tr>
-										@endforeach
-									</tbody>
-								</table>
-							</div>
-							</div>
-						</div>
-						<div class="row justify-content-center mt-2">
-							<div class="controls-top">
-								<a class="btn-floating btn-sm btn-primary waves-effect waves-theme" href="#multi-item-card" data-slide="prev"><i class="fa fa-chevron-left"></i></a>
-								<a class="btn-floating btn-sm btn-primary waves-effect waves-theme" href="#multi-item-card" data-slide="next"><i class="fa fa-chevron-right"></i></a>
-							</div>
-						</div>
+					<div class="c-chart-wrapper">
+						<div class="echarts" id="tangentBanpem"></div>
 					</div>
 				</div>
 				<div class="card-footer">
@@ -678,7 +632,34 @@
 									Data matrix realisasi belanja Akun 526xxx dalam kurun waktu 4 (empat) tahun
 								</small>
 							</h5>
-							
+							<table id="tableBanpem" class="table table-bordered table-hover table-striped table-responsive w-100">
+								<thead class="bg-primary-600">
+									<tr>
+										<th>
+											Tahun
+										</th>
+										<th>
+											Pagu
+										</th>
+										<th>
+											Realisasi
+										</th>
+										<th>
+											%
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									@foreach ($pbData as $d )
+									<tr>
+										<td>{{ $d->tahun }}</td>  
+										<td>{{ $d->pagu }}</td>  
+										<td>{{ $d->realisasi }}</td>  
+										<td>{{ $d->nilai }}</td>  
+									</tr>
+									@endforeach
+								</tbody>
+							</table>
 						</div>
 					</div>
 				</div>
@@ -854,9 +835,9 @@ var app = {};
 var option;
 
 option = {
-//   title: {
-//    subtext: '(dalam %)'
-//  },
+   title: {
+    subtext: '(dalam %)'
+  },
   angleAxis: {
     max: 100,
     startAngle: 90,
@@ -1116,16 +1097,24 @@ setTimeout(function () {
 
 
 <script>
+	/* demo scripts for change table color */
+	/* change background */
+
+
 	$(document).ready(function()
 	{
 		$('#tableBanpem').dataTable(
 		{
-			dom: '',
-			responsive: true
+			responsive: true,
+			blurable: false,
+			keys: true,
+			stateSave: true,
+			filter: false, //for demo purpose only
+			lengthChange: false //for demo purpose only
 		});
 	});
-	
 </script>
 
 @endif
 @endsection
+

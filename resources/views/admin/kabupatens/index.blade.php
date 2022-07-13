@@ -1,70 +1,82 @@
 @extends('layouts.admin')
 @section('content')
 @include('partials.subheader')
-@can('kabupaten_create')
-    <div style="margin-bottom: 10px;" class="row">
-        <div class="col-lg-12">
-            <a class="btn btn-success" href="{{ route('admin.kabupatens.create') }}">
-                {{ trans('global.add') }} {{ trans('cruds.kabupaten.title_singular') }}
-            </a>
-            <button class="btn btn-warning" data-toggle="modal" data-target="#csvImportModal">
-                {{ trans('global.app_csvImport') }}
-            </button>
-            @include('csvImport.modal', ['model' => 'Kabupaten', 'route' => 'admin.kabupatens.parseCsvImport'])
+<div class="row">
+	<div class="col-12">
+		<div id="panel-1" class="panel show" data-panel-sortable data-panel-close data-panel-collapsed>
+			<div class="panel-hdr">
+				<h2>
+					Data | <span class="fw-300"><i>{{ trans('cruds.kabupaten.title') }}</i></span>
+				</h2>
+				@can('kabupaten_create')
+				<div class="panel-toolbar">
+					<a class="btn btn-success btn-xs mr-2" href="{{ route('admin.kabupatens.create') }}" data-toggle="tooltip" title="tambah data" data-original-title="tambah data">
+						{{ trans('global.add') }} {{ trans('cruds.kabupaten.title_singular') }}
+					</a>
+				</div>
+                <button class="btn btn-warning btn-xs mr-2" data-toggle="modal" data-target="#csvImportModal">
+                    {{ trans('global.app_csvImport') }}
+                </button>
+                @include('csvImport.modal', ['model' => 'Kabupaten', 'route' => 'admin.kabupatens.parseCsvImport'])
+				@endcan
+			</div>
+			<div class="panel-container show">
+				<div class="panel-content">
+					<div class="row">
+						<div class="col-12">
+							<div class="table dataTables_wrapper dt-bootstrap4">
+								<table class="dtr-inline table table-bordered table-striped table-hover ajaxTable datatable datatable-Kabupaten w-100">
+									<thead  class="bg-primary-50">
+
+                                        <tr>
+                                            <th width="10">
+
+                                            </th>
+                                            <th >
+                                                {{ trans('cruds.provinsi.fields.id') }} 
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.kabupaten.fields.kd_prop') }}
+                                            </th>
+                                            <!--th>
+                                                {{ trans('cruds.provinsi.fields.nm_prop') }}
+                                            </th-->
+                                            <th width="10">
+                                                {{ trans('cruds.kabupaten.fields.kd_kab') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.kabupaten.fields.nama_kab') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.kabupaten.fields.kd_dt1') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.kabupaten.fields.kd_dt2') }}
+                                            </th>
+                                            <th width="10">
+                                                {{ trans('cruds.kabupaten.fields.kd_bast') }}
+                                            </th>
+                                            <th width="20">
+                                                {{ trans('cruds.kabupaten.fields.lat') }}
+                                            </th>
+                                            <th width="20">
+                                                {{ trans('cruds.kabupaten.fields.lng') }}
+                                            </th>
+                                            <th>
+                                                {{ trans('cruds.kabupaten.fields.kd_kemenkeu') }}
+                                            </th>
+                                            <th style="width:15%">
+                                                {{ trans('global.actions') }}
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-@endcan
-<div class="card">
-    <!--div class="card-header">
-        {{ trans('cruds.kabupaten.title_singular') }} {{ trans('global.list') }}
-    </div-->
-
-    <div class="card-body">
-        <table class=" table table-bordered table-striped table-hover ajaxTable datatable datatable-Kabupaten">
-            <thead>
-                <tr>
-                    <th width="10">
-
-                    </th>
-                    <th >
-                        {{ trans('cruds.provinsi.fields.id') }} 
-                    </th>
-                    <th>
-                        {{ trans('cruds.kabupaten.fields.kd_prop') }}
-                    </th>
-                    <!--th>
-                        {{ trans('cruds.provinsi.fields.nm_prop') }}
-                    </th-->
-                    <th width="10">
-                        {{ trans('cruds.kabupaten.fields.kd_kab') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.kabupaten.fields.nama_kab') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.kabupaten.fields.kd_dt1') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.kabupaten.fields.kd_dt2') }}
-                    </th>
-                    <th width="10">
-                        {{ trans('cruds.kabupaten.fields.kd_bast') }}
-                    </th>
-                    <th width="20">
-                        {{ trans('cruds.kabupaten.fields.lat') }}
-                    </th>
-                    <th width="20">
-                        {{ trans('cruds.kabupaten.fields.lng') }}
-                    </th>
-                    <th>
-                        {{ trans('cruds.kabupaten.fields.kd_kemenkeu') }}
-                    </th>
-                    <th width="120">
-                        {{ trans('global.actions') }}
-                    </th>
-                </tr>
-            </thead>
-        </table>
     </div>
 </div>
 
@@ -81,7 +93,7 @@
     let deleteButton = {
         text: deleteButtonTrans,
         url: "{{ route('admin.kabupatens.massDestroy') }}",
-        className: 'btn-danger',
+        className: 'btn-danger btn-sm mr-1',
         action: function (e, dt, node, config) {
         var ids = $.map(dt.rows({ selected: true }).data(), function (entry) {
             return entry.id
@@ -117,19 +129,6 @@
         { data: 'placeholder', name: 'placeholder' },
         { data: 'kd_prop_id', name: 'kd_prop.id', visible: false },
         { data: 'kd_prop_kd_prop', name: 'kd_prop.kd_prop' },
-        /*{ data: 'kd_prop_kd_prop', name: 'kd_prop.kd_prop' , render: function (data, type, row) {
-            if ( type === 'display' ) {
-                var url = '{{ route("admin.provinsis.show", ":id") }}';
-                url = url.replace(':id', row.kd_prop_id);
-                @can('provinsi_show')
-                    return "<a style='color:#9a0c0b;' href='"+url+"'>&#10140;</a>&nbsp&nbsp" + data;
-                @endcan
-                @cannot('provinsi_show')
-                    return data;
-                @endcannot
-            }    
-        }},*/
-        //{ data: 'kd_prop.nm_prop', name: 'kd_prop.nm_prop' },
         { data: 'kd_kab', name: 'kd_kab' },
         { data: 'nama_kab', name: 'nama_kab' },
         { data: 'kd_dt1', name: 'kd_dt1' },
