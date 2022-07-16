@@ -54,10 +54,10 @@ class HomeController extends Controller
         $agent = new Agent();
 
         //chart Renja
-        $sumyears = DataRenja::select(DB::raw('thang, SUM(jumlah) as totaljum'))->groupBy('thang')->offset(0)->limit(4)->orderBy('thang', 'DESC')->get();
+        //$sumyears = DataRenja::select(DB::raw('thang, SUM(jumlah) as totaljum'))->groupBy('thang')->offset(0)->limit(4)->orderBy('thang', 'DESC')->get();
         //end chart renja
 
-        //chart pagu vs realisasi
+        //chart (kinerja anggaran)
         $str = 'SELECT tabdata.tahun, GROUP_CONCAT(tabdata.totalpagu) as pagu, GROUP_CONCAT(tabdata.totalrealisasi) as realisasi FROM
                 (
                 select p.tahun, sum(p.amount) as totalpagu, null as totalrealisasi
@@ -70,7 +70,7 @@ class HomeController extends Controller
                 ) as tabdata 
                 GROUP BY tabdata.tahun';
         $prData = DB::select(DB::raw($str));
-        //end chart pagu
+        //end chart (kinerja anggaran)
         
         //chart belanja 526
         $banpemyear = BackdateBanpem::select(DB::raw('year, SUM(nominal) as total'))->groupBy('year')->offset(0)->limit(4)->orderBy('year', 'DESC')->get();
@@ -97,7 +97,7 @@ class HomeController extends Controller
         $pbData = DB::select(DB::raw($str));
         
         $breadcrumb = trans('cruds.dashboardvip.title_singular');
-        return view('admin.dashboard.vip', compact('banpemyear', 'databanpem', 'pbData', 'sumyears', 'prData',  'agent', 'breadcrumb'));
+        return view('admin.dashboard.vip', compact('banpemyear', 'databanpem', 'pbData', 'prData',  'agent', 'breadcrumb'));
     }
 
     /**

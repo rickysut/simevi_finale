@@ -277,7 +277,7 @@
 											<td>{{ $d->tahun }}</td>  
 											<td>{{ $d->pagu }}</td>  
 											<td>{{ $d->realisasi }}</td>  
-											<td>{{ $d->nilai }}</td>  
+											<td>{{ number_format($d->nilai,2,".",",") }}</td>  
 										</tr>
 										@endforeach
 									</tbody>
@@ -309,91 +309,7 @@
 	</div>
 	<!-- end widget realisasi 526-->
 
-	<!-- widget banpem old-->
-	<div class="col-12" hidden>
-		<div class="card mb-4 shadow">
-			<div class="card-body d-flex justify-content-between font-weight-bolder align-items-center" style="margin-bottom: -10px; background-color: #9915eb;border-top-right-radius: 12px; border-top-left-radius: 12px">
-				<h6 class="card-title text-white" style="margin-top: -8px; margin-bottom: -8px" >MONITORING KINERJA BANTUAN </h6>
-				<a class="btn btn-outline-primary text-white" href="{{ route('admin.detailbanpem') }}">Detail</a>
-			</div>
-			<div class="card-body " style="margin-bottom: -80px;" >
-				<div id="carouselBanpem" class="carousel slide carousel-multi-item v-2" data-interval="false">
-					<div class="carousel-inner v-2" role="listbox">
-						@if ($agent->isMobile())
-							@for ($i=0;$i<count($banpemyear);$i++)
-							<div class="carousel-item  @if ($i==0) active @endif">
-								<div class="col-12">
-									<div class="card mb-2">
-										<div class="card-body" style="height: 250px">
-											<div><span  class="font-weight-bolder"><h3>{{ $banpemyear[$i]->year }}</h3></span></div>
-											<div class="row">
-												<div class="col-12" id="banpem{{ $i }}" style="height: 210px; width: 200px"></div>    
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							@endfor
-						@elseif ($agent->isDesktop())
-							@for ($i=count($banpemyear)-1;$i>=0;$i--)
-							<div class="carousel-item @if ($i==count($banpemyear)-1) active @endif">
-								<div class="col-12 @if (count($banpemyear)<=2) col-md-6 @elseif(count($banpemyear)<=3)   col-md-4  @else  col-md-3  @endif">
-									<div class="card mb-2">
-										<div class="card-body" style="height: 250px">
-											<div><span  class="font-weight-bolder"><h3>{{ $banpemyear[$i]->year }}</h3></span></div>
-											<div class="row">
-												<div class="col-12" id="banpem{{ $i }}" style="height: 210px; width: 200px"></div>    
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>        
-							@endfor
-						@endif
-					</div>
-					@if ($agent->isMobile())
-					<div class="controls-top">
-						<a class="btn btn-floating mr-2" href="#carouselBanpem" data-slide="prev"><i class="fa fa-arrow-left"></i></a>
-						<a class="btn btn-floating ml-2" href="#carouselBanpem" data-slide="next"><i class="fa fa-arrow-right"></i></a>
-					</div>
-					@endif
-				</div>
-			</div>
-			<div class="row justify-content-md-center">
-				<div class="card-body col-md-auto">
-					<table class="col-md-auto table table-bordered table-striped table-hover " style="width: 100%; @if ($agent->isMobile()) font-size: 2.5vw; @else  font-size: 0.9vw; @endif">
-						<thead>
-							<tr>
-								<th>
-									Tahun
-								</th>
-								<th>
-									Pagu
-								</th>
-								<th>
-									Realisasi
-								</th>
-								<th>
-									%
-								</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach ($pbData as $d )
-							<tr>
-								<td>{{ $d->tahun }}</td>  
-								<td>{{ $d->pagu }}</td>  
-								<td>{{ $d->realisasi }}</td>  
-								<td>{{ $d->nilai }}</td>  
-							</tr>
-							@endforeach
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end widget banpem old-->
+	
 	<!-- widget gerdal opt-->
 	<div class="col-12">
 		<div id="panel-5" class="panel">
@@ -695,422 +611,399 @@
 @endsection
 @section('scripts')
 @parent
-@if ($agent->isDesktop())
-
 <!-- donut renja -->
 <script type="text/javascript">
-   var dom = document.getElementById('donutchart');
-var myChart = echarts.init(dom, {
-  renderer: 'svg',
-  useDirtyRect: false
-});
-var app = {};
+   	var dom = document.getElementById('donutchart');
+	var myChart = echarts.init(dom, {
+  		renderer: 'svg',
+ 	 	useDirtyRect: false
+	});
+	var app = {};
 
-var option;
+	var option;
 
-option = {
-  title: {
-    text: 'Tahun 2022',
-	subtext:'(nilai hanya contoh)',
-    left: 'center'
-  },
-  tooltip: {
-    trigger: 'item'
-  },
-  series: [
-    {
-      name: 'Alokasi untuk:',
-      type: 'pie',
-      radius: ['40%', '70%'],
-      avoidLabelOverlap: true,
-      itemStyle: {
-        borderRadius: 0,
-        borderColor: '#fff',
-        borderWidth: 0
-      },
-      label: {
-        show: false,
-        position: 'center'
-      },
-      emphasis: {
-        label: {
-          show: false,
-          fontSize: '40',
-          fontWeight: 'bold'
-        }
-      },
-      labelLine: {
-        show: false
-      },
-      data: [
-        { value: 842529631, name: 'Sayuran dan Tanaman Obat' },
-        { value: 699461144, name: 'Perlindungan Hortikultura' },
-        { value: 465788458, name: 'Sekretariat Direktorat Jenderal Hortikultura' },
-        { value: 1219432171, name: 'Perbenihan Hortikultura' },
-        { value: 465788458, name: 'Tanaman Buah dan Florikultura' }
-      ]
-    }
-  ]
-};
+	option = {
+		title: {
+			text: 'Tahun 2022',
+			subtext:'(nilai hanya contoh)',
+			left: 'center'
+		},
+		tooltip: {
+			trigger: 'item'
+		},
+		series: [
+			{
+			name: 'Alokasi untuk:',
+			type: 'pie',
+			radius: ['40%', '70%'],
+			avoidLabelOverlap: true,
+			itemStyle: {
+				borderRadius: 0,
+				borderColor: '#fff',
+				borderWidth: 0
+			},
+			label: {
+				show: false,
+				position: 'center'
+			},
+			emphasis: {
+				label: {
+				show: false,
+				fontSize: '40',
+				fontWeight: 'bold'
+				}
+			},
+			labelLine: {
+				show: false
+			},
+			data: [
+				{ value: 842529631, name: 'Sayuran dan Tanaman Obat' },
+				{ value: 699461144, name: 'Perlindungan Hortikultura' },
+				{ value: 465788458, name: 'Sekretariat Direktorat Jenderal Hortikultura' },
+				{ value: 1219432171, name: 'Perbenihan Hortikultura' },
+				{ value: 465788458, name: 'Tanaman Buah dan Florikultura' }
+			]
+			}
+		]
+	};
 
 
-if (option && typeof option === 'object') {
-  myChart.setOption(option);
-}
+	if (option && typeof option === 'object') {
+	myChart.setOption(option);
+	}
 
-window.addEventListener('resize', myChart.resize);
-  </script>
+	window.addEventListener('resize', myChart.resize);
+</script>
 <!-- end donut renja -->
 <!-- matrix banpem kewenangan -->
 <script>
-var dom = document.getElementById('banpemkwn');
-var myChart = echarts.init(dom, {
-  renderer: 'svg',
-  useDirtyRect: false
-});
-var app = {};
+	var dom = document.getElementById('banpemkwn');
+	var myChart = echarts.init(dom, {
+	renderer: 'svg',
+	useDirtyRect: false
+	});
+	var app = {};
 
-var option;
+	var option;
 
-option = {
-  legend: {
-    bottom: 'center',
-    top:'bottom'
-  },
-  tooltip: {},
-  dataset: {
-    source: [
-      ['product', 'KP', 'DK', 'TP Prov', 'TP Kab'],
-      ['2019', 43.3, 85.8, 93.7, 10],
-      ['2020', 83.1, 73.4, 55.1, 10],
-      ['2021', 86.4, 65.2, 82.5, 10],
-      ['2022', 72.4, 53.9, 39.1, 10]
-    ]
-  },
-  xAxis: { type: 'category' },
-  yAxis: {},
-  // Declare several bar series, each will be mapped
-  // to a column of dataset.source by default.
-  series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }, { type: 'bar' }]
-};
+	option = {
+	legend: {
+		bottom: 'center',
+		top:'bottom'
+	},
+	tooltip: {},
+	dataset: {
+		source: [
+			['Tahun', 'KP', 'DK', 'TP-PROV', 'TP-KAB'],
+			
+			@for ($i=0;$i<count($banpemyear);$i++)
+				[{{ $banpemyear[$i]->year }}, 
+				@foreach ($databanpem as $k) 
+					@if (($k->year == $banpemyear[$i]->year) && $k->kwn == 'KP')
+						'{{ $k->total }}',    
+					@endif
+				@endforeach
+				@foreach ($databanpem as $k) 
+					@if (($k->year == $banpemyear[$i]->year) && $k->kwn == 'DK')
+						'{{ $k->total }}',   
+					@endif
+				@endforeach
+				@foreach ($databanpem as $k) 
+					@if (($k->year == $banpemyear[$i]->year) && $k->kwn == 'TP (PROV)')
+						'{{ $k->total }}',    
+					@endif
+				@endforeach
+				@foreach ($databanpem as $k) 
+					@if (($k->year == $banpemyear[$i]->year) && $k->kwn == 'TP (KAB/KOTA)')
+						'{{ $k->total }}'    
+					@endif
+				@endforeach
+				],
+			@endfor
+		]
+	},
+	xAxis: { type: 'category' },
+	yAxis: {},
+	// Declare several bar series, each will be mapped
+	// to a column of dataset.source by default.
+	series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }, { type: 'bar' }]
+	};
 
-if (option && typeof option === 'object') {
-  myChart.setOption(option);
-}
+	if (option && typeof option === 'object') {
+	myChart.setOption(option);
+	}
 
-window.addEventListener('resize', myChart.resize);
+	window.addEventListener('resize', myChart.resize);
 </script>
 <!-- end matrix banpem kewenangan -->
 
 <!-- matrix banpem -->
-<!--script type="text/javascript">
-var dom = document.getElementById('matrix-banpem');
-var myChart = echarts.init(dom,  {
-  renderer: 'canvas',
-  useDirtyRect: false
-});
-var app = {};
-var option;
+<script type="text/javascript">
+	var dom = document.getElementById('matrix-banpem');
+	var myChart = echarts.init(dom,  {
+	renderer: 'canvas',
+	useDirtyRect: false
+	});
+	var app = {};
+	var option;
 
-option = {
-  title: {
-    text: 'Realisasi Belanja 526'
-  },
-  legend: {
-    bottom: 'center',
-    top:'bottom'
-  },
-  tooltip: {},
-  dataset: {
-    source: [
-      ['product', 'Pagu', 'Realisasi'],
-	  @ foreach ($pbData as $d )
-      [{ { $d->tahun }}, { { $d->pagu }}, { { $d->realisasi }}],
-	  @ endforeach
-    ]
-  },
-  xAxis: { type: 'category' },
-  yAxis: {},
-  // Declare several bar series, each will be mapped
-  // to a column of dataset.source by default.
-  series: [{ type: 'bar' }, { type: 'bar' }]
-};
+	option = {
+	title: {
+		text: 'Realisasi Belanja 526'
+	},
+	legend: {
+		bottom: 'center',
+		top:'bottom'
+	},
+	tooltip: {},
+	dataset: {
+		source: [
+		['product', 'Pagu', 'Realisasi'],
+		@ foreach ($pbData as $d )
+		[{ { $d->tahun }}, { { $d->pagu }}, { { $d->realisasi }}],
+		@ endforeach
+		]
+	},
+	xAxis: { type: 'category' },
+	yAxis: {},
+	// Declare several bar series, each will be mapped
+	// to a column of dataset.source by default.
+	series: [{ type: 'bar' }, { type: 'bar' }]
+	};
 
-if (option && typeof option === 'object') {
-  myChart.setOption(option);
-}
+	if (option && typeof option === 'object') {
+	myChart.setOption(option);
+	}
 
-window.addEventListener('resize', myChart.resize);
-</script -->
+	window.addEventListener('resize', myChart.resize);
+</script>
 <!-- end matrix banpem -->
 <!-- tanget banpem -->
 <script>
-var dom = document.getElementById('tangentBanpem');
-var myChart = echarts.init(dom, {
-  renderer: 'canvas',
-  useDirtyRect: false
-});
-var app = {};
+	var dom = document.getElementById('tangentBanpem');
+	var myChart = echarts.init(dom, {
+	renderer: 'canvas',
+	useDirtyRect: false
+	});
+	var app = {};
 
-var option;
+	var option;
 
-option = {
-//   title: {
-//    subtext: '(dalam %)'
-//  },
-  angleAxis: {
-    max: 100,
-    startAngle: 90,
-    splitLine: {
-      show: true
-    }
-  },
-  radiusAxis: {
-    type: 'category',
-    data: [],
-    z: 10
-  },
-  tooltip: {},
-  polar: {
-    radius: [30, '65%']
-  },
-  series: [
-	@foreach ($pbData as $d )
-    {
-      type: 'bar',
-      data: [{{ $d->nilai }}],
-      coordinateSystem: 'polar',
-      name: '{{ $d->tahun }}',
-      itemStyle: {
-        borderColor: 'white',
-        opacity: 0.8,
-        borderWidth: 1
-      }
-    },
-	@endforeach
-  ],
-  legend: {
-    show: true,
-    bottom: 'center',
-	top: 'bottom',
-    data: ['2019', '2020', '2021', '2022']
-  }
-};
+	option = {
+	//   title: {
+	//    subtext: '(dalam %)'
+	//  },
+	angleAxis: {
+		max: 100,
+		startAngle: 90,
+		splitLine: {
+		show: true
+		}
+	},
+	radiusAxis: {
+		type: 'category',
+		data: [],
+		z: 10
+	},
+	tooltip: {},
+	polar: {
+		radius: [30, '65%']
+	},
+	series: [
+		@foreach ($pbData as $d )
+		{
+		type: 'bar',
+		data: [{{ number_format($d->nilai,2,".",",") }}],
+		coordinateSystem: 'polar',
+		name: '{{ $d->tahun }}',
+		itemStyle: {
+			borderColor: 'white',
+			opacity: 0.8,
+			borderWidth: 1
+		}
+		},
+		@endforeach
+	],
+	legend: {
+		show: true,
+		bottom: 'center',
+		top: 'bottom',
+		data: ['2019', '2020', '2021', '2022']
+	}
+	};
 
 
-if (option && typeof option === 'object') {
-  myChart.setOption(option);
-}
+	if (option && typeof option === 'object') {
+	myChart.setOption(option);
+	}
 
-window.addEventListener('resize', myChart.resize);
+	window.addEventListener('resize', myChart.resize);
 </script>
 <!-- end tanget banpem -->
 <!-- line chart Gerdal APH/simpel duti -->
 <script>
-var dom = document.getElementById('chartAPH');
-var myChart = echarts.init(dom, {
-  renderer: 'svg',
-  useDirtyRect: false
-});
-var app = {};
+	var dom = document.getElementById('chartAPH');
+	var myChart = echarts.init(dom, {
+	renderer: 'svg',
+	useDirtyRect: false
+	});
+	var app = {};
 
-var option;
+	var option;
 
-option = {
-  xAxis: {
-    type: 'category',
-    data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']
-  },
-  yAxis: {
-    type: 'value'
-  },
-  series: [
-    {
-      data: [0, 5.5, 5, 7, 10, 9.5, 11],
-      type: 'line',
-      smooth: true
-    }
-  ]
-};
+	option = {
+	xAxis: {
+		type: 'category',
+		data: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul']
+	},
+	yAxis: {
+		type: 'value'
+	},
+	series: [
+		{
+		data: [0, 5.5, 5, 7, 10, 9.5, 11],
+		type: 'line',
+		smooth: true
+		}
+	]
+	};
 
-if (option && typeof option === 'object') {
-  myChart.setOption(option);
-}
+	if (option && typeof option === 'object') {
+	myChart.setOption(option);
+	}
 
-window.addEventListener('resize', myChart.resize);
+	window.addEventListener('resize', myChart.resize);
+	</script>
+	<!-- end line chart Gerdal APH/simpel duti -->
+
+	<!-- donut Gerdal APH/simpel duti -->
+	<script>
+	var dom = document.getElementById('donutAPH');
+	var myChart = echarts.init(dom,  {
+	renderer: 'svg',
+	useDirtyRect: false
+	});
+	var app = {};
+
+	var option;
+
+	option = {
+	title: {
+		text: 'Rerata Kinerja',
+		subtext:'(nilai hanya contoh)',
+		left: 'left'
+	},
+	tooltip: {
+		trigger: 'item'
+	},
+	series: [
+		{
+		name: 'Alokasi untuk:',
+		type: 'pie',
+		radius: ['40%', '70%'],
+		avoidLabelOverlap: true,
+		itemStyle: {
+			borderRadius: 0,
+			borderColor: '#fff',
+			borderWidth: 0
+		},
+		label: {
+			show: false,
+			position: 'center'
+		},
+		emphasis: {
+			label: {
+			show: false,
+			fontSize: '40',
+			fontWeight: 'bold'
+			}
+		},
+		labelLine: {
+			show: false
+		},
+		data: [
+			{ value: 0, name: 'Kinerja' },
+			{ value: 1, name: 'target' }
+		]
+		}
+	]
+	};
+
+
+	if (option && typeof option === 'object') {
+	myChart.setOption(option);
+	}
+
+	window.addEventListener('resize', myChart.resize);
 </script>
-<!-- end line chart Gerdal APH/simpel duti -->
-
-<!-- donut Gerdal APH/simpel duti -->
-<script>
-   var dom = document.getElementById('donutAPH');
-var myChart = echarts.init(dom,  {
-  renderer: 'svg',
-  useDirtyRect: false
-});
-var app = {};
-
-var option;
-
-option = {
-  title: {
-    text: 'Rerata Kinerja',
-	subtext:'(nilai hanya contoh)',
-    left: 'left'
-  },
-  tooltip: {
-    trigger: 'item'
-  },
-  series: [
-    {
-      name: 'Alokasi untuk:',
-      type: 'pie',
-      radius: ['40%', '70%'],
-      avoidLabelOverlap: true,
-      itemStyle: {
-        borderRadius: 0,
-        borderColor: '#fff',
-        borderWidth: 0
-      },
-      label: {
-        show: false,
-        position: 'center'
-      },
-      emphasis: {
-        label: {
-          show: false,
-          fontSize: '40',
-          fontWeight: 'bold'
-        }
-      },
-      labelLine: {
-        show: false
-      },
-      data: [
-        { value: 0, name: 'Kinerja' },
-		{ value: 1, name: 'target' }
-      ]
-    }
-  ]
-};
-
-
-if (option && typeof option === 'object') {
-  myChart.setOption(option);
-}
-
-window.addEventListener('resize', myChart.resize);
-  </script>
 <!-- end donut Gerdal APH/simpel duti -->
 
 <script>
-$('.carousel.carousel-multi-item.v-2 .carousel-item.active').each(function(){
-  var next = $(this).next();
-  if (!next.length) {
-    next = $(this).siblings(':first');
-  }
-  next.children(':first-child').clone().appendTo($(this));
+	$('.carousel.carousel-multi-item.v-2 .carousel-item.active').each(function(){
+  	var next = $(this).next();
+	if (!next.length) {
+		next = $(this).siblings(':first');
+	}
+  	next.children(':first-child').clone().appendTo($(this));
     
-  for (var i=0;i<4;i++) {
-    next=next.next();
-    if (!next.length) {
-      next = $(this).siblings(':first');
-    }
-    next.children(':first-child').clone().appendTo($(this));
-  }
+	for (var i=0;i<4;i++) {
+		next=next.next();
+		if (!next.length) {
+		next = $(this).siblings(':first');
+		}
+		next.children(':first-child').clone().appendTo($(this));
+	}
 });
 </script>
 
-<script>
-  var banpem1;
-  var option;
-  @for ($i=0;$i<count($banpemyear);$i++)
-      
-  banpem1 = echarts.init(document.getElementById('banpem{{ $i }}'))
-  option = {
-    tooltip: {},
-    legend: {},
-    xAxis: {
-        axisLabel: {
-              rotate: 45,
-        },
-        data: [
-            @foreach ($databanpem as $k) 
-            @if ($k->year == $banpemyear[$i]->year )
-                "{{ $k->kwn }}",    
-            @endif
-            @endforeach
-        ],
-        
-    },
-    yAxis: {type: 'value'},
-    series: [
-        {
-        type: 'bar',
-        barWidth: '40%',
-        label: {},
-        data: [
-            @foreach ($databanpem as $k) 
-            @if ($k->year == $banpemyear[$i]->year )
-                "{{ $k->total }}",    
-            @endif
-            @endforeach
-        ]
-        }
-    ]
-  };
-  option && banpem1.setOption(option);
-
-  @endfor
-</script>
 
 <!-- donut C3 Renja -->
 <script>
-var chart = c3.generate({
-    bindto: '#donutchart',
-    data: {
-        columns: [
-            ['rencana', 0],
-            ['alokasi', 100],
-        ],
-		order: 'null',
-        type : 'donut',
-        onclick: function (d, i) { console.log("onclick", d, i); },
-        onmouseover: function (d, i) { console.log("onmouseover", d, i); },
-        onmouseout: function (d, i) { console.log("onmouseout", d, i); }
-    },
-    donut: {
-        title: "Rencana Alokasi"
-    },
-	legend: {
-	  show: false
-	},
-	color: {
-        pattern: ['#1dc9b7','#868e96','#886ab5','#2196F3','#ffc241','#fd3995']
-    }
-});
+	var chart = c3.generate({
+		bindto: '#donutchart',
+		data: {
+			columns: [
+				['rencana', 0],
+				['alokasi', 100],
+			],
+			order: 'null',
+			type : 'donut',
+			onclick: function (d, i) { console.log("onclick", d, i); },
+			onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+			onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+		},
+		donut: {
+			title: "Rencana Alokasi"
+		},
+		legend: {
+		show: false
+		},
+		color: {
+			pattern: ['#1dc9b7','#868e96','#886ab5','#2196F3','#ffc241','#fd3995']
+		}
+	});
 
-setTimeout(function () {
-    chart.load({
-        columns: [
-            ["Sayuran dan Tanaman Obat", 842529631],
-            ["Perlindungan Hortikultura", 699461144],
-            ["Sekretariat Direktorat Jenderal Hortikultura", 465788458],
-            ["Perbenihan Hortikultura", 1219432171],
-            ["Tanaman Buah dan Florikultura", 699461144],
-            ["Pengolahan dan Pemasaran Hortikultura", 465788458],
-        ]
-    });
-}, 1500);
+	setTimeout(function () {
+		chart.load({
+			columns: [
+				["Sayuran dan Tanaman Obat", 842529631],
+				["Perlindungan Hortikultura", 699461144],
+				["Sekretariat Direktorat Jenderal Hortikultura", 465788458],
+				["Perbenihan Hortikultura", 1219432171],
+				["Tanaman Buah dan Florikultura", 699461144],
+				["Pengolahan dan Pemasaran Hortikultura", 465788458],
+			]
+		});
+	}, 1500);
 
-setTimeout(function () {
-    chart.unload({
-        ids: 'rencana'
-    });
-    chart.unload({
-        ids: 'alokasi'
-    });
-}, 2500);
+	setTimeout(function () {
+		chart.unload({
+			ids: 'rencana'
+		});
+		chart.unload({
+			ids: 'alokasi'
+		});
+	}, 2500);
 
 
 </script>
@@ -1128,5 +1021,4 @@ setTimeout(function () {
 	
 </script>
 
-@endif
 @endsection
