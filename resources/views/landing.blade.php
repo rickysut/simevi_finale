@@ -55,7 +55,7 @@
 						<h5 class="card-title fw-700">{{ trans('cruds.banpem.title') }}</h5>
 						<p class="card-text">{{ trans('simevi.banpem_desc') }}</p>
 						@can('banpem_access')
-						<a href="{{ route("admin.detailbanpem") }}" class="btn btn-sm btn-primary">{{ trans('simevi.visitbut') }}</a>
+						<a href="{{ route("admin.detailbanpem") }}" class="btn btn-sm btn-primary ">{{ trans('simevi.visitbut') }}</a>
 						@endcan
 					</div>
 				</div>
