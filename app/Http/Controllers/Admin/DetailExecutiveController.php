@@ -6,11 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\DataRenja;
 use App\Models\Provinsi;
 use App\Models\BackdateBanpem;
+use Error;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\DB; 
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Log;
 
 class DetailExecutiveController extends Controller
 {
@@ -275,19 +277,39 @@ class DetailExecutiveController extends Controller
             $dtYear = $request->dtYear;
         } 
 
-    
-            
-        if ($dtProp == ''){
-            $qryProp = '';
-        } else {
-            $qryProp = ' WHERE tabdata.provinsi = "' . $dtProp .'"';
-        }     
         if ($dtYear == ''){
             $dtYear = '0';
             $qryYear = '';
         } else {
             $qryYear = ' and backdate_banpems.`year` = "' . $dtYear .'"';
         }  
+        $st1 = 'select  COALESCE(GROUP_CONCAT(bigdata.totalbrg),0) totbrg,  COALESCE(GROUP_CONCAT(bigdata.totaluang),0) totuang, COALESCE(GROUP_CONCAT(bigdata.totaluang),0) + COALESCE(GROUP_CONCAT(bigdata.totalbrg),0) sumtot 
+        from
+        (
+        select  sum(backdate_banpems.nominal) as totalbrg , akuns.jenis as jenisbrg, null as totaluang, null as jenisuang
+        from backdate_banpems 
+        INNER JOIN akuns on akuns.kd_akun = backdate_banpems.kd_akun '. $qryYear .'  and  akuns.jenis = "Barang"
+        
+        
+        union ALL
+        
+        select null as totalbrg, null as jenisbrg, sum(backdate_banpems.nominal) as totaluang, akuns.jenis as jenisuang
+        from backdate_banpems 
+        INNER JOIN akuns on akuns.kd_akun = backdate_banpems.kd_akun '. $qryYear .' and  akuns.jenis = "Uang"
+        
+        )
+        as bigdata';
+        $totalInYear = DB::select(DB::raw($st1));
+
+
+        
+            
+        if ($dtProp == ''){
+            $qryProp = '';
+        } else {
+            $qryProp = ' WHERE tabdata.provinsi = "' . $dtProp .'"';
+        }     
+        
 
             $str = '
             SELECT '.$dtYear.' as year, tabdata.provinsi, format(sum(tabdata.tot1),0) as tot1, GROUP_CONCAT(tabdata.kwn1) as kwn1, format(sum(tabdata.tot2),0) as tot2, GROUP_CONCAT(tabdata.kwn2) as kwn2, format(sum(tabdata.tot3),0) as tot3, GROUP_CONCAT(tabdata.kwn3) as kwn3, format(sum(tabdata.tot4),0) as tot4, GROUP_CONCAT(tabdata.kwn4) as kwn4
@@ -396,9 +418,9 @@ class DetailExecutiveController extends Controller
             $stable = $dettable->make(true);
             //dd($stable);
         $breadcrumb = trans('cruds.detailbanpem.title_singular') ;
-        $provinsi = BackdateBanpem::where('provinsi', '!=', '')->distinct()->orderBy('provinsi', 'ASC')->get(['provinsi']); 
+        //$provinsi = BackdateBanpem::where('provinsi', '!=', '')->distinct()->orderBy('provinsi', 'ASC')->get(['provinsi']); 
         $years =  BackdateBanpem::distinct()->orderBy('year', 'ASC')->get(['year']);
-        return view('admin.detailbanpem.index', compact('breadcrumb', 'provinsi', 'years', 'dtYear', 'dtProp', 'stable'));
+        return view('admin.detailbanpem.index', compact('breadcrumb', 'years', 'dtYear', 'dtProp', 'stable', 'totalInYear'));
 
     }
 
@@ -464,5 +486,133 @@ class DetailExecutiveController extends Controller
         }
         return view('admin.detailbanpem.show', compact('breadcrumb', 'stable'));
 
+    }
+
+    public function getdataProv(Request $request)
+    {
+        $dtYear = ($request->route('year') ?? '');
+        $dtProp = ($request->route('provinsi') ?? '');
+        $result = '';
+        
+
+        if ($dtProp == ''){
+            $qryProp = '';
+        } else {
+            $qryProp = ' and backdate_banpems.provinsi = "' . $dtProp .'"';
+        }  
+
+        if (($dtYear == '')||($dtYear == '0')){
+            $qryYear = '';
+        } else {
+            $qryYear = ' and backdate_banpems.`year` = "' . $dtYear .'"';
+        }  
+
+        
+
+        /*$st2 = 'select  format(COALESCE(GROUP_CONCAT(bigdata.totalbrg),0),0) totbrg,  format(COALESCE(GROUP_CONCAT(bigdata.totaluang),0),0) totuang, format(COALESCE(GROUP_CONCAT(bigdata.totaluang),0) + COALESCE(GROUP_CONCAT(bigdata.totalbrg),0),0) sumtot 
+        from
+        (
+        select  sum(backdate_banpems.nominal) as totalbrg , akuns.jenis as jenisbrg, null as totaluang, null as jenisuang
+        from backdate_banpems 
+        INNER JOIN akuns on akuns.kd_akun = backdate_banpems.kd_akun '.$qryProp . $qryYear. ' and  akuns.jenis = "Barang"
+        
+        
+        union ALL
+        
+        select null as totalbrg, null as jenisbrg, sum(backdate_banpems.nominal) as totaluang, akuns.jenis as jenisuang
+        from backdate_banpems 
+        INNER JOIN akuns on akuns.kd_akun = backdate_banpems.kd_akun '.$qryProp . $qryYear. ' and  akuns.jenis = "Uang"
+        
+        )
+        as bigdata';*/
+
+        $st = '
+          select  format(COALESCE(GROUP_CONCAT(bigdata.totalbrg),0),0) totbrg,  format(COALESCE(GROUP_CONCAT(bigdata.totaluang),0),0) totuang, format(COALESCE(GROUP_CONCAT(bigdata.totaluang),0) + COALESCE(GROUP_CONCAT(bigdata.totalbrg),0),0) sumtot ,
+          format(COALESCE(GROUP_CONCAT(bigdata.kpbrg),0) + COALESCE(GROUP_CONCAT(bigdata.kpuang),0),0) kptot , 
+          format((COALESCE(GROUP_CONCAT(bigdata.kpbrg),0) + COALESCE(GROUP_CONCAT(bigdata.kpuang),0))/(COALESCE(GROUP_CONCAT(bigdata.totaluang),0)+ COALESCE(GROUP_CONCAT(bigdata.totalbrg),0)) * 100  ,0) kppers , 
+          format(COALESCE((COALESCE(GROUP_CONCAT(bigdata.kpbrg),0)/(COALESCE(GROUP_CONCAT(bigdata.kpbrg),0) + COALESCE(GROUP_CONCAT(bigdata.kpuang),0))*100), 0),0) kpbrg, 
+          format(COALESCE((COALESCE(GROUP_CONCAT(bigdata.kpuang),0)/(COALESCE(GROUP_CONCAT(bigdata.kpbrg),0) + COALESCE(GROUP_CONCAT(bigdata.kpuang),0))*100), 0),0) kpuang,
+          format(COALESCE(GROUP_CONCAT(bigdata.dkbrg),0) + COALESCE(GROUP_CONCAT(bigdata.dkuang),0),0) dktot , 
+          format((COALESCE(GROUP_CONCAT(bigdata.dkbrg),0) + COALESCE(GROUP_CONCAT(bigdata.dkuang),0))/(COALESCE(GROUP_CONCAT(bigdata.totaluang),0)+COALESCE(GROUP_CONCAT(bigdata.totalbrg),0)) * 100  ,0) dkpers , 
+          format(COALESCE((COALESCE(GROUP_CONCAT(bigdata.dkbrg),0)/(COALESCE(GROUP_CONCAT(bigdata.dkbrg),0) + COALESCE(GROUP_CONCAT(bigdata.dkuang),0))*100), 0),0) dkbrg, 
+          format(COALESCE((COALESCE(GROUP_CONCAT(bigdata.dkuang),0)/(COALESCE(GROUP_CONCAT(bigdata.dkbrg),0) + COALESCE(GROUP_CONCAT(bigdata.dkuang),0))*100), 0),0) dkuang,
+          format(COALESCE(GROUP_CONCAT(bigdata.tpbrg),0) + COALESCE(GROUP_CONCAT(bigdata.tpuang),0),0) tptot , 
+          format((COALESCE(GROUP_CONCAT(bigdata.tpbrg),0) + COALESCE(GROUP_CONCAT(bigdata.tpuang),0))/(COALESCE(GROUP_CONCAT(bigdata.totaluang),0)+ COALESCE(GROUP_CONCAT(bigdata.totalbrg),0)) * 100  ,0) tppers , 
+          format(COALESCE((COALESCE(GROUP_CONCAT(bigdata.tpbrg),0)/(COALESCE(GROUP_CONCAT(bigdata.tpbrg),0) + COALESCE(GROUP_CONCAT(bigdata.tpuang),0))*100), 0),0) tpbrg, 
+          format(COALESCE((COALESCE(GROUP_CONCAT(bigdata.tpuang),0)/(COALESCE(GROUP_CONCAT(bigdata.tpbrg),0) + COALESCE(GROUP_CONCAT(bigdata.tpuang),0))*100), 0),0) tpuang,
+          format(COALESCE(GROUP_CONCAT(bigdata.tpkbrg),0) + COALESCE(GROUP_CONCAT(bigdata.tpkuang),0),0) tpktot , 
+          format((COALESCE(GROUP_CONCAT(bigdata.tpkbrg),0) + COALESCE(GROUP_CONCAT(bigdata.tpkuang),0))/(COALESCE(GROUP_CONCAT(bigdata.totaluang),0)+ COALESCE(GROUP_CONCAT(bigdata.totalbrg),0)) * 100  ,0) tpkpers , 
+          format(COALESCE((COALESCE(GROUP_CONCAT(bigdata.tpkbrg),0)/(COALESCE(GROUP_CONCAT(bigdata.tpkbrg),0) + COALESCE(GROUP_CONCAT(bigdata.tpkuang),0))*100), 0),0) tpkbrg, 
+          format(COALESCE((COALESCE(GROUP_CONCAT(bigdata.tpkuang),0)/(COALESCE(GROUP_CONCAT(bigdata.tpkbrg),0) + COALESCE(GROUP_CONCAT(bigdata.tpkuang),0))*100), 0),0) tpkuang
+          
+      from
+      (
+      select  sum(backdate_banpems.nominal) as totalbrg , akuns.jenis as jenisbrg, null as totaluang, null as jenisuang, null kpbrg, null kpuang, null dkbrg, null dkuang, null tpbrg, null tpuang, null tpkbrg, null tpkuang
+      from backdate_banpems 
+      INNER JOIN akuns on akuns.kd_akun = backdate_banpems.kd_akun '.$qryProp . $qryYear. ' and  akuns.jenis = "Barang"
+      
+      
+      union ALL
+      
+      select null as totalbrg, null as jenisbrg, sum(backdate_banpems.nominal) as totaluang, akuns.jenis as jenisuang, null kpbrg, null kpuang, null dkbrg, null dkuang, null tpbrg, null tpuang, null tpkbrg, null tpkuang
+      from backdate_banpems 
+      INNER JOIN akuns on akuns.kd_akun = backdate_banpems.kd_akun '.$qryProp . $qryYear. ' and  akuns.jenis = "Uang"
+      
+      UNION ALL
+      
+      select null as totalbrg, null as jenisbrg, null as totaluang, null as jenisuang, sum(backdate_banpems.nominal) kpbrg, null kpuang, null dkbrg, null dkuang, null tpbrg, null tpuang, null tpkbrg, null tpkuang
+      from backdate_banpems 
+      INNER JOIN akuns on akuns.kd_akun = backdate_banpems.kd_akun and backdate_banpems.kwn = "KP" '.$qryProp . $qryYear. ' and  akuns.jenis = "Barang"
+      
+      UNION ALL
+      
+      select null as totalbrg, null as jenisbrg, null as totaluang, null as jenisuang, null kpbrg, sum(backdate_banpems.nominal) kpuang, null dkbrg, null dkuang, null tpbrg, null tpuang, null tpkbrg, null tpkuang
+      from backdate_banpems 
+      INNER JOIN akuns on akuns.kd_akun = backdate_banpems.kd_akun and backdate_banpems.kwn = "KP"  '.$qryProp . $qryYear. ' and  akuns.jenis = "Uang"
+      
+      UNION ALL
+      
+      select null as totalbrg, null as jenisbrg, null as totaluang, null as jenisuang, null kpbrg, null kpuang, sum(backdate_banpems.nominal) dkbrg, null dkuang, null tpbrg, null tpuang, null tpkbrg, null tpkuang
+      from backdate_banpems 
+      INNER JOIN akuns on akuns.kd_akun = backdate_banpems.kd_akun and backdate_banpems.kwn = "DK" '.$qryProp . $qryYear. ' and  akuns.jenis = "Barang"
+      
+      UNION ALL
+      
+      select null as totalbrg, null as jenisbrg, null as totaluang, null as jenisuang, null kpbrg, null kpuang, null dkbrg, sum(backdate_banpems.nominal) dkuang, null tpbrg, null tpuang, null tpkbrg, null tpkuang
+      from backdate_banpems 
+      INNER JOIN akuns on akuns.kd_akun = backdate_banpems.kd_akun and backdate_banpems.kwn = "DK" '.$qryProp . $qryYear. ' and  akuns.jenis = "Uang"
+      
+      UNION ALL
+      
+      select null as totalbrg, null as jenisbrg, null as totaluang, null as jenisuang, null kpbrg, null kpuang, null dkbrg, null dkuang, sum(backdate_banpems.nominal) tpbrg, null tpuang, null tpkbrg, null tpkuang
+      from backdate_banpems 
+      INNER JOIN akuns on akuns.kd_akun = backdate_banpems.kd_akun and backdate_banpems.kwn = "TP (PROV)" '.$qryProp . $qryYear. ' and  akuns.jenis = "Barang"
+      
+      UNION ALL
+      
+      select null as totalbrg, null as jenisbrg, null as totaluang, null as jenisuang, null kpbrg, null kpuang, null dkbrg, null dkuang, null tpbrg, sum(backdate_banpems.nominal) tpuang, null tpkbrg, null tpkuang
+      from backdate_banpems 
+      INNER JOIN akuns on akuns.kd_akun = backdate_banpems.kd_akun and backdate_banpems.kwn = "TP (PROV)" '.$qryProp . $qryYear. ' and  akuns.jenis = "Uang"
+      
+      UNION ALL
+      
+      select null as totalbrg, null as jenisbrg, null as totaluang, null as jenisuang, null kpbrg, null kpuang, null dkbrg, null dkuang, null tpbrg, null tpuang, sum(backdate_banpems.nominal) tpkbrg, null tpkuang
+      from backdate_banpems 
+      INNER JOIN akuns on akuns.kd_akun = backdate_banpems.kd_akun and backdate_banpems.kwn = "TP (KAB/KOTA)" '.$qryProp . $qryYear. ' and  akuns.jenis = "Barang"
+      
+      UNION ALL
+      
+      select null as totalbrg, null as jenisbrg, null as totaluang, null as jenisuang, null kpbrg, null kpuang, null dkbrg, null dkuang, null tpbrg, null tpuang, null tpkbrg, sum(backdate_banpems.nominal) tpkuang
+      from backdate_banpems 
+      INNER JOIN akuns on akuns.kd_akun = backdate_banpems.kd_akun and backdate_banpems.kwn = "TP (KAB/KOTA)" '.$qryProp . $qryYear. ' and  akuns.jenis = "Uang"
+      
+      
+      )
+      as bigdata';
+        
+        $result= DB::select(DB::raw($st));
+    
+        Log::info($result);
+        return response()->json(['success'=>$result]);
     }
 }

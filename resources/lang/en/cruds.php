@@ -39,6 +39,11 @@ return [
         'can_delete'     => '0',  
         'can_access'     => '1', 
         'can_create'     => '0',  
+        'fields'         => [
+            'totalamount'       => 'total bantuan',
+            'totalcash'         => 'bantuan uang',
+            'totalfacilities'   => 'bantuan barang',
+        ],
     ], 
     'dashboard' =>[
         'title'          => 'Dashboard',

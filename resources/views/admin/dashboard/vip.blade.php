@@ -202,7 +202,7 @@
 					Kinerja <span class="fw-300"><i>Kewenangan</i></span>
 				</h2>
 				<div class="panel-toolbar">
-					<a data-toggle="tooltip" title data-original-title="Detail" class="btn btn-panel btn-info hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.banpem') }}">
+					<a data-toggle="tooltip" title data-original-title="Detail" class="btn btn-panel btn-info hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.detailbanpem') }}">
 					</a>
 				</div>
 			</div>
@@ -237,7 +237,7 @@
 				</h2>
 				<div class="panel-toolbar">
 					<!--<a data-toggle="modal" title="lihat data tabular" class="btn btn-panel btn-primary btn-icon hover-effect-dot waves-effect waves-themed rounded-circle" type="button" data-target=".tablebanpem"></a>-->
-					<a data-toggle="tooltip" title data-original-title="Detail" class="btn btn-panel btn-info btn-icon hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.banpem') }}">
+					<a data-toggle="tooltip" title data-original-title="Detail" class="btn btn-panel btn-info btn-icon hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.detailbanpem') }}">
 					</a>
 				</div>
 			</div>
