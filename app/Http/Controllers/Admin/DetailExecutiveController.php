@@ -379,7 +379,12 @@ class DetailExecutiveController extends Controller
             $dettable->editColumn('actions', function ($row) {
                 $viewGate = 'detail_banpem_show';
                 $crudRoutePart = 'detailbanpem';
+
+                // $st =  '<a href="'.route('admin.' . $crudRoutePart . '.show', [$row->year, $row->provinsi]).'">'.
+                //      trans("global.view").'</a>';
+
                 return view('partials.detailBanpemAction', compact('viewGate','crudRoutePart','row'));
+                // return $st;
             });
             
             $dettable->editColumn('year', function ($row) {
