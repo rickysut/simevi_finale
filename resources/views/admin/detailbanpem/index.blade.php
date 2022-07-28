@@ -41,7 +41,7 @@
 					>{{ $data->year }}</option>
 			@endforeach
 		</select>
-		<a class="btn btn-primary text-white" type="button" onclick="fp.submit()" >Submit</a>
+		<a class="btn btn-primary text-white" type="button" onclick="fp.submit()" >{{ trans('global.view') }}</a>
 		</form>
 	</div>
 	
