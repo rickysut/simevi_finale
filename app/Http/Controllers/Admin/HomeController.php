@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Jenssegers\Agent\Agent;
+use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
@@ -118,24 +119,46 @@ class HomeController extends Controller
      */
     public function pagu(Request $request)
     {
-        $dtProp = '';
-        $dtYear1 = '';
-        $dtYear2 = '';
-        if (!empty($request->dtProp))
-        {
-            $dtProp = $request->dtProp;
+        $dtYear1 = ($request->dtYear1 ?? '');
+        $dtYear2 = ($request->dtYear2 ?? '');
+
+        if ($dtYear1 == ''){
+            $qryYear1 = '';
+        } else {
+            if ($dtYear1 == ''){
+                $qryYear1 = ' = "' . $dtYear1 . '"';
+            } else {
+                $qryYear1 = ' between "' . $dtYear1 . '"';
+            }
         }
-        if (!empty($request->dtYear1))
-        {
-            $dtYear1 = $request->dtYear1;
-        } 
-        if (!empty($request->dtYear2))
-        {
-            $dtYear2 = $request->dtYear2;
-        } 
+
+        if ($dtYear2 == ''){
+            $qryYear2 = '';
+        } else {
+            $qryYear2 = ' and "' . $dtYear2 . '"';   
+        }
+
+        //Log::info([$qryYear1, $qryYear2]);
+
         $breadcrumb = trans('cruds.pagu.title_singular');
         $years =  DataPagu::distinct()->orderBy('tahun', 'ASC')->get(['tahun']);
-        return view('admin.dashboard.pagu', compact('breadcrumb', 'years', 'dtYear1', 'dtYear2'));
+
+        $st = 'select format(GROUP_CONCAT(dbdata.pagus),0, "id_ID") pagus , format(GROUP_CONCAT(dbdata.reals),0, "id_ID") reals,
+        Format(COALESCE(GROUP_CONCAT(dbdata.reals),0)/COALESCE(GROUP_CONCAT(dbdata.pagus),0) * 100, 2) as persen
+        FROM
+        (
+        select sum(data_pagus.amount) pagus, null reals FROM
+        data_pagus where data_pagus.tahun '.$qryYear1.$qryYear2.'
+        union ALL
+        select null pagus, sum(data_realisasis.amount) reals FROM
+        data_realisasis where data_realisasis.tahun '.$qryYear1.$qryYear2.'
+        ) as dbdata';
+        
+        $prData = DB::select(DB::raw($st));
+    
+        //Log::info($prData);
+
+        return view('admin.dashboard.pagu', compact('breadcrumb', 'years', 'dtYear1', 'dtYear2', 'prData'));
     }
 
     /**

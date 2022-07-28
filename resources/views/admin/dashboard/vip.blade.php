@@ -281,7 +281,7 @@
 											<td>{{ $d->tahun }}</td>  
 											<td>{{ $d->pagu }}</td>  
 											<td>{{ $d->realisasi }}</td>  
-											<td>{{ number_format($d->nilai,2,".",",") }}</td>  
+											<td>{{ $d->nilai }}</td>  
 										</tr>
 										@endforeach
 									</tbody>
@@ -820,7 +820,7 @@
 		@foreach ($pbData as $d )
 		{
 		type: 'bar',
-		data: [{{ number_format($d->nilai,2,".",",") }}],
+		data: [{{ $d->nilai }}],
 		coordinateSystem: 'polar',
 		name: '{{ $d->tahun }}',
 		itemStyle: {

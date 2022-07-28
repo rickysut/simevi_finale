@@ -3,8 +3,6 @@
 @include('partials.subheader')
 @can('pagu_access')
 
-
-
 <style>
 	
 * {
@@ -59,7 +57,7 @@
 
 <div class="row d-flex justify-content-end mb-3">
 	<div class="col-sm-12 col-xl-12 mb-2">
-		<form id="fp" action="{{ route('admin.detailbanpem') }}" method="post">
+		<form id="fp" action="{{ route('admin.pagu') }}" method="post">
 			{{ csrf_field() }}
 		<label class="form-label" for="single-default">
 			Tahun :
@@ -136,9 +134,9 @@
 					<div class="row mb-3">
 						<div class="col-lg-7 col-sm-12 align-self-center text-center">
 							<div class="c-chart-wrapper">
-								<div class="js-easy-pie-chart color-primary-300 position-relative d-inline-flex align-items-center justify-content-center" data-percent="97.68" data-piesize="250" data-linewidth="20" data-linecap="butt" data-scalelength="7" data-toggle="tooltip" title data-original-title="Realisasi Nasional: 97.68%" data-placement="bottom">
+								<div  id = "naschart" class="js-easy-pie-chart color-primary-300 position-relative d-inline-flex align-items-center justify-content-center" data-percent="{{ $prData[0]->persen }}" data-piesize="250" data-linewidth="20" data-linecap="butt" data-scalelength="7" data-toggle="tooltip" title data-original-title="Realisasi Nasional: {{ $prData[0]->persen }}%" data-placement="bottom">
 									<div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-xl">
-										<span class="display-4 fw-500 text-dark">97.68<sup>%</sup></span>
+										<span class="display-4 fw-500 text-dark">{{ $prData[0]->persen }}<sup>%</sup></span>
 										<!--<span class="display-3 fw-500 js-percent d-block text-dark">97.68</span>-->
 									</div>
 								</div>
@@ -150,7 +148,7 @@
 									<div class="">
 										TOTAL PAGU
 										<h2 class="display-5 d-block l-h-n m-0 fw-500 mb-3">
-											625.187.029.000
+											{{ $prData[0]->pagus }}
 											<small class="d-inline m-0 l-h-n">rupiah</small>
 										</h2>
 										<div class="progress progress-xs mb-2">
@@ -165,7 +163,7 @@
 									<div class="">
 										TOTAL REALISASI
 										<h2 class="display-5 d-block l-h-n m-0 fw-500 mb-3">
-											610.695.580.823
+											{{ $prData[0]->reals }}
 											<small class="d-inline m-0 l-h-n">rupiah</small>
 										</h2>
 										<div class="progress progress-xs mb-2">
@@ -853,6 +851,8 @@
 @parent
 <!-- c3 omspan model 1-->
 <script>
+	$(document).ready(function()
+	{
 var barChart = c3.generate(
             {
                 bindto: "#twSTO",
@@ -1017,6 +1017,7 @@ setTimeout(function()
 		]
 	});
 }, 3000);
+})
 </script>
 
 @endsection

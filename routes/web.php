@@ -18,6 +18,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('/vip', 'HomeController@vip')->name('dashboardvip');
     //Route::get('/summary', 'HomeController@executive')->name('executive');
     Route::get('/pagu', 'HomeController@pagu')->name('pagu');
+    Route::post('/pagu', 'HomeController@pagu')->name('pagu');
     Route::get('/banpem', 'HomeController@banpem')->name('banpem');
 
     // DetailExecutive
