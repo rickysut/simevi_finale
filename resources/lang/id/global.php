@@ -325,4 +325,7 @@ return [
     'messenger'                      => 'Messenger',
     'new_password'                   => 'Kata sandi baru',
     'repeat_new_password'            => 'Ulangi kata sandi baru',
+    'kinerja_program'                => 'Kinerja Program',
+    'kinerja_kegiatan'               => 'Kinerja Kegiatan',
+    'top_10'                         => 'Top 10 Satker',
 ];

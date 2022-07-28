@@ -325,4 +325,7 @@ return [
     'messenger'                      => 'Messenger',
     'new_password'                   => 'New Password',
     'repeat_new_password'            => 'Repeat new password',
+    'kinerja_program'                => 'Programs Performance',
+    'kinerja_kegiatan'               => 'Acivities Performance',
+    'top_10'                         => 'Top 10 Work Unit',
 ];

@@ -1,5 +1,6 @@
 @extends('layouts.admin')
 @section('content')
+@include('partials.subheader')
 @can('pagu_access')
 
 
@@ -54,62 +55,68 @@
 	border-radius: 0 5px 5px 0;
 }
 </style>
-<div class="subheader">
-	<h1 class="subheader-title">
-		<i class='subheader-icon fal fa-chart-area'></i> {{ $breadcrumb ?? '' }}
-		<small>
-		</small>
-	</h1>
-	<div class="subheader-block d-lg-flex align-items-center">
-		<div class="d-inline-flex flex-column justify-content-center mr-3 text-right" data-toggle="tooltip" title data-original-title="waktu terakhir data diperbaharusi">
-			<span class="fw-300 fs-xs d-block opacity-50">
-				<small>Terakhir diperbaharui</small>
-			</span>
-			<span class="fw-500 fs-xl d-block color-danger-500">
-				<span class="text-muted text-truncate text-truncate-sm js-get-date"></span>
-		</div>
-		<span class="sparklines hidden-xl-down" sparkType="bar" sparkBarColor="#886ab5" sparkHeight="32px" sparkBarWidth="5px" values="3,4,3,6,7,3,3,6,2,6,4"></span>
-	</div>
-</div>
+
 
 <div class="row d-flex justify-content-end mb-3">
-	<div class="col-md-7 col-sm-12">
+	<div class="col-sm-12 col-xl-12 mb-2">
+		<form id="fp" action="{{ route('admin.detailbanpem') }}" method="post">
+			{{ csrf_field() }}
+		<label class="form-label" for="single-default">
+			Tahun :
+		</label>
+		<select class="custom-select col-md-2" id="dtYear1" name="dtYear1" >
+			<option  value="">- Tahun awal -</option>
+			@foreach($years as $data)
+				<option  value="{{ $data->tahun }}"
+				@if ($dtYear1 == $data->tahun)
+					selected   
+				@endif    
+					>{{ $data->tahun }}</option>
+			@endforeach
+		</select>
+		<label class="form-label" for="single-default">
+			s/d Tahun :
+		</label>
+		<select class="custom-select col-md-2" id="dtYear2" name="dtYear2" >
+			<option  value="">- Tahun akhir -</option>
+			@foreach($years as $data)
+				<option  value="{{ $data->tahun }}"
+				@if ($dtYear2 == $data->tahun)
+					selected   
+				@endif    
+					>{{ $data->tahun }}</option>
+			@endforeach
+		</select>
+		<a class="btn btn-primary text-white" type="button" onclick="fp.submit()" >{{ trans('global.view') }}</a>
+		</form>
+	</div>
+	<div class="col-md-12 col-sm-12">
 		<ul class="nav nav-pills " id="myTab" role="tablist">
 			<li class="nav-item">
 				<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
 					<i class="fas fa-home mr-1"></i>
-					Home
+					{{ trans('global.home') }}
 				</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" id="program-tab" data-toggle="tab" href="#program" role="tab" aria-controls="program" aria-selected="false">
 					<i class="fas fa-chart-pie mr-1"></i>
-					Kinerja Program
+					{{ trans('global.kinerja_program') }}
 				</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" id="kegiatan-tab" data-toggle="tab" href="#kegiatan" role="tab" aria-controls="kegiatan" aria-selected="false">
 					<i class="fas fa-chart-bar mr-1"></i>
-					Kinerja Kegiatan
+					{{ trans('global.kinerja_kegiatan') }}
 				</a>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" id="satker-tab" data-toggle="tab" href="#satker" role="tab" aria-controls="satker" aria-selected="false">
 					<i class="fas fa-list-ol mr-1"></i>
-					Top 10 Satker
+					{{ trans('global.top_10') }}
 				</a>
 			</li>
 		</ul>
-	</div>
-	<div class="col-md-5 col-sm-12 pos-end">
-		<form class="form-inline my-2 my-lg-0">
-			<select class="custom-select">
-				<option class="text-muted" hidden="">Pilih Tahun Anggaran</option>
-				<option disabled=""></option>
-				<option>2021</option>
-				<option>2022</option>
-			</select>
-		</form> 
 	</div>
 </div>
 

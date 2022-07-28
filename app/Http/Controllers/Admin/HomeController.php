@@ -116,10 +116,26 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function pagu()
+    public function pagu(Request $request)
     {
+        $dtProp = '';
+        $dtYear1 = '';
+        $dtYear2 = '';
+        if (!empty($request->dtProp))
+        {
+            $dtProp = $request->dtProp;
+        }
+        if (!empty($request->dtYear1))
+        {
+            $dtYear1 = $request->dtYear1;
+        } 
+        if (!empty($request->dtYear2))
+        {
+            $dtYear2 = $request->dtYear2;
+        } 
         $breadcrumb = trans('cruds.pagu.title_singular');
-        return view('admin.dashboard.pagu', compact('breadcrumb'));
+        $years =  DataPagu::distinct()->orderBy('tahun', 'ASC')->get(['tahun']);
+        return view('admin.dashboard.pagu', compact('breadcrumb', 'years', 'dtYear1', 'dtYear2'));
     }
 
     /**
