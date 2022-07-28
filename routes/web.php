@@ -28,7 +28,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('/detailbanpem', 'DetailExecutiveController@banpem')->name('detailbanpem');
     Route::post('/detailbanpem', 'DetailExecutiveController@banpem')->name('detailbanpem');
     Route::get('/detbanpemview/{year}/{provinsi}', 'DetailExecutiveController@banpemshow')->name('detailbanpem.show');
-    Route::get('/banpemgetdataprov/{year}/{provinsi}','DetailExecutiveController@getdataProv');
+    Route::get('/banpemgetdataprov/{year1}/{year2}/{provinsi}','DetailExecutiveController@getdataProv');
 
     // Permissions
     Route::delete('permissions/destroy', 'PermissionsController@massDestroy')->name('permissions.massDestroy');
