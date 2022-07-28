@@ -164,11 +164,11 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
 		<script src="{{ asset('js/pdfmake/vfs_fonts.js') }}"></script>
 		<script src="{{ asset('js/jszip/jszip.min.js') }}"></script> 
 		
-		<script type="text/javascript">
+		{{-- <script type="text/javascript">
             /* Activate smart panels */
             $('#js-page-content').smartPanel();
 			
-        </script>
+        </script> --}}
 		<!-- search bar -->
 		<script>
 			console.log("Init Language");

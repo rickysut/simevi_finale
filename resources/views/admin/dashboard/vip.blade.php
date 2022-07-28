@@ -24,7 +24,8 @@
 					Rencana Kerja | <span class="fw-300"><i>Renja</i></span>
 				</h2>
 				<div class="panel-toolbar">
-					<a data-toggle="tooltip" title data-original-title="Detail" class="btn btn-panel btn-info hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.detailrenja') }}">
+					<a data-toggle="tooltip" title data-original-title="Detail" class="hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.detailrenja') }}">
+						<i class="ni ni-action-redo"></i>
 					</a>
 				</div>
 			</div>
@@ -108,7 +109,8 @@
 					Kinerja <span class="fw-300"><i>Anggaran</i></span>
 				</h2>
 				<div class="panel-toolbar">
-					<a data-toggle="tooltip" title data-original-title="Detail" class="btn btn-panel btn-info hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.pagu') }}">
+					<a data-toggle="tooltip" title data-original-title="Detail" class="hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.pagu') }}">
+						<i class="ni ni-action-redo"></i>
 					</a>
 				</div>
 			</div>
@@ -202,7 +204,8 @@
 					Kinerja <span class="fw-300"><i>Kewenangan</i></span>
 				</h2>
 				<div class="panel-toolbar">
-					<a data-toggle="tooltip" title data-original-title="Detail" class="btn btn-panel btn-info hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.detailbanpem') }}">
+					<a data-toggle="tooltip" title data-original-title="Detail" class="hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.detailbanpem') }}">
+						<i class="ni ni-action-redo"></i>
 					</a>
 				</div>
 			</div>
@@ -237,7 +240,8 @@
 				</h2>
 				<div class="panel-toolbar">
 					<!--<a data-toggle="modal" title="lihat data tabular" class="btn btn-panel btn-primary btn-icon hover-effect-dot waves-effect waves-themed rounded-circle" type="button" data-target=".tablebanpem"></a>-->
-					<a data-toggle="tooltip" title data-original-title="Detail" class="btn btn-panel btn-info btn-icon hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.detailbanpem') }}">
+					<a data-toggle="tooltip" title data-original-title="Detail" class="hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.detailbanpem') }}">
+						<i class="ni ni-action-redo"></i>
 					</a>
 				</div>
 			</div>
@@ -318,7 +322,8 @@
 					Kinerja <span class="fw-300"><i>Pengendalian</i></span>
 				</h2>
 				<div class="panel-toolbar">
-					<a data-toggle="tooltip" title data-original-title="Detail" class="btn btn-panel btn-info btn-icon hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="/simpelduti">
+					<a data-toggle="tooltip" title data-original-title="Detail" class="hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="/simpelduti">
+						<i class="ni ni-action-redo"></i>
 					</a>
 				</div>
 			</div>
@@ -405,7 +410,8 @@
 					Kampung <span class="fw-300"><i>Hortikultura</i></span>
 				</h2>
 				<div class="panel-toolbar">
-					<a data-toggle="tooltip" title data-original-title="Detail" class="btn btn-panel btn-info btn-icon hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="/srikandi">
+					<a data-toggle="tooltip" title data-original-title="Detail" class="hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="/srikandi">
+						<i class="ni ni-action-redo"></i>
 					</a>
 				</div>
 			</div>
@@ -481,7 +487,8 @@
 					Wajib Tanam | <span class="fw-300"><i>Bawang Putih</i></span>
 				</h2>
 				<div class="panel-toolbar">
-					<a data-toggle="tooltip" title data-original-title="Detail" class="btn btn-panel btn-info btn-icon hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="/wajibtanam">
+					<a data-toggle="tooltip" title data-original-title="Detail" class="hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="/wajibtanam">
+						<i class="ni ni-action-redo"></i>
 					</a>
 				</div>
 			</div>
