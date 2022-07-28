@@ -167,10 +167,11 @@
 						<div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
 							<div class="text-left ml-2">Kantor Pusat</div>
 							<div id="kppiechart" class="px-3 py-2 d-flex align-items-center">
-								<div  class="js-easy-pie-chart color-primary-600 position-relative d-flex align-items-center justify-content-center" data-percent="45" data-piesize="50" data-linewidth="5" data-trackcolor="#ccbfdf" data-scalelength="1">
-									<div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-xl">
-										<span class="js-percent d-block text-dark kppie"></span>
-									</div>
+								<div  class="js-easy-pie-chart color-primary-600 position-relative d-flex align-items-center justify-content-center" data-percent="45" data-piesize="50" data-linewidth="5" data-trackcolor="#ccbfdf" data-scalelength="0">
+									<div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark kppie">0</div>
+									{{-- <div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-xl">
+										<span class="js-percent d-block text-dark kppie">45%</span>
+									</div> --}}
 								</div>
 								<div class="d-inline-flex flex-column ml-2">
 									<span class="d-inline-block js-jqvmap-amtkp kpnmbrg text-right"></span>
@@ -191,10 +192,11 @@
 						<div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
 							<div class="text-left ml-2">Dekonsentrasi</div>
 							<div id="dkpiechart" class="px-3 py-2 d-flex align-items-center">
-								<div class="js-easy-pie-chart color-success-600 position-relative d-flex align-items-center justify-content-center" data-percent="25" data-piesize="50" data-linewidth="5" data-trackcolor="#7aece0" data-scalelength="1">
-									<div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-xl">
+								<div class="js-easy-pie-chart color-success-600 position-relative d-flex align-items-center justify-content-center" data-percent="25" data-piesize="50" data-linewidth="5" data-trackcolor="#7aece0" data-scalelength="0">
+									<div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark dkpie">0</div>
+									{{-- <div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-xl">
 										<span class="js-percent d-block text-dark"></span>
-									</div>
+									</div> --}}
 								</div>
 								<div class="d-inline-flex flex-column ml-2">
 									<span class="d-inline-block js-jqvmap-amtkp dknmbrg text-right"></span>
@@ -215,10 +217,11 @@
 						<div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
 							<div class="text-left ml-2">TP Provinsi</div>
 							<div id="tppiechart" class="px-3 py-2 d-flex align-items-center">
-								<div  class="js-easy-pie-chart color-warning-600 position-relative d-flex align-items-center justify-content-center" data-percent="15" data-piesize="50" data-linewidth="5" data-trackcolor="#ffebc1" data-scalelength="1">
-									<div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-xl">
+								<div  class="js-easy-pie-chart color-warning-600 position-relative d-flex align-items-center justify-content-center" data-percent="15" data-piesize="50" data-linewidth="5" data-trackcolor="#ffebc1" data-scalelength="0">
+									<div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark tppie">0</div>
+									{{-- <div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-xl">
 										<span class="js-percent d-block text-dark"></span>
-									</div>
+									</div> --}}
 								</div>
 								<div class="d-inline-flex flex-column ml-2">
 									<span class="d-inline-block js-jqvmap-amtkp tpnmbrg text-right"></span>
@@ -239,10 +242,11 @@
 						<div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
 							<div class="text-left ml-2">TP Kabupaten</div>
 							<div id="tpkpiechart" class="px-3 py-2 d-flex align-items-center">
-								<div  class="js-easy-pie-chart color-danger-600 position-relative d-flex align-items-center justify-content-center" data-percent="10" data-piesize="50" data-linewidth="5" data-trackcolor="#feb7d9" data-scalelength="1">
-									<div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-xl">
+								<div  class="js-easy-pie-chart color-danger-600 position-relative d-flex align-items-center justify-content-center" data-percent="10" data-piesize="50" data-linewidth="5" data-trackcolor="#feb7d9" data-scalelength="0">
+									<div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark tpkpie">0</div>
+									{{-- <div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-xl">
 										<span class="js-percent d-block text-dark"></span>
-									</div>
+									</div> --}}
 								</div>
 								<div class="d-inline-flex flex-column ml-2">
 									<span class="d-inline-block js-jqvmap-amtkp tpknmbrg text-right"></span>
@@ -518,24 +522,25 @@ $(document).ready(function()
 				$('.js-jqvmap-amtbrg').html('Rp ' + numbers(response.success[0].totbrg));
 				$('.js-jqvmap-amtcash').html('Rp ' + numbers(response.success[0].totuang));
 				$('#kppiechart .js-easy-pie-chart').data('easyPieChart').update(numbers(response.success[0].kppers) + '%');
+				$('.kppie').html( numbers(response.success[0].kppers) + '%');
 				$('.kpnmbrg').html( numbers(response.success[0].kpnmbrg));
 				$('.kpnmuang').html( numbers(response.success[0].kpnmuang));
 				$('.kpbrg').html(' '+numbers(response.success[0].kpbrg)+'%');
 				$('.kpuang').html(' '+numbers(response.success[0].kpuang)+'%');
 				$('#dkpiechart .js-easy-pie-chart').data('easyPieChart').update(numbers(response.success[0].dkpers) + '%');
-				//$('.dktot').html( numbers(response.success[0].dktot));
+				$('.dkpie').html( numbers(response.success[0].dkpers) + '%');
 				$('.dknmbrg').html( numbers(response.success[0].dknmbrg));
 				$('.dknmuang').html( numbers(response.success[0].dknmuang));
 				$('.dkbrg').html(' '+numbers(response.success[0].dkbrg)+'%');
 				$('.dkuang').html(' '+numbers(response.success[0].dkuang)+'%');
 				$('#tppiechart .js-easy-pie-chart').data('easyPieChart').update(numbers(response.success[0].tppers) + '%');
-				// $('.tptot').html( numbers(response.success[0].tptot));
+				$('.tppie').html( numbers(response.success[0].tppers) + '%');
 				$('.tpnmbrg').html( numbers(response.success[0].tpnmbrg));
 				$('.tpnmuang').html( numbers(response.success[0].tpnmuang));
 				$('.tpbrg').html(' '+numbers(response.success[0].tpbrg)+'%');
 				$('.tpuang').html(' '+numbers(response.success[0].tpuang)+'%');
 				$('#tpkpiechart .js-easy-pie-chart').data('easyPieChart').update(numbers(response.success[0].tpkpers) + '%');
-				// $('.tpktot').html( numbers(response.success[0].tpktot));
+				$('.tpkpie').html( numbers(response.success[0].tpkpers) + '%');
 				$('.tpknmbrg').html( numbers(response.success[0].tpknmbrg));
 				$('.tpknmuang').html( numbers(response.success[0].tpknmuang));
 				$('.tpkbrg').html(' '+numbers(response.success[0].tpkbrg)+'%');

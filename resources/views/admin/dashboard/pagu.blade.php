@@ -380,7 +380,7 @@
 								<div class="p-1 pos-left pos-top mr-3 z-index-cloud d-flex align-items-center justify-content-center">
 									<div class="py-2 pr-4 mr-3">
 										<div class="js-easy-pie-chart color-primary-400 position-relative d-inline-flex align-items-center justify-content-center" data-percent="97.68" data-piesize="95" data-linewidth="10" data-scalelength="5">
-											<div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark">97.68%</div>
+											<div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark">97.69%</div>
 										</div>
 									</div>
 									<div class="text-right fw-500 l-h-n d-flex flex-column hidden-sm-down">
