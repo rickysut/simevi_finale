@@ -25,8 +25,15 @@ class KinerjaSerapanController extends Controller
             $qry = 'select max(YEAR(STR_TO_DATE(tanggal,"%d/%m/%Y"))) as year from data_realisasis';
             $Year = DB::select(DB::raw($qry));
             $qryByYear = ' and globaldata.tahun = '. $Year[0]->year;  
+            $qy1 = ' where tabdata.tahun = '. $Year[0]->year;
+            $qy2 = ' where tabdata2.tahun = '. $Year[0]->year;
+            $qy3 = ' where tabdata3.tahun = '. $Year[0]->year;
         } else {
             $qryByYear = ' and globaldata.tahun = '. $dtYear;
+            $qy1 = ' where tabdata.tahun = '. $dtYear;
+            $qy2 = ' where tabdata2.tahun = '. $dtYear;
+            $qy3 = ' where tabdata3.tahun = '. $dtYear;
+
         } 
 
 
@@ -72,7 +79,7 @@ class KinerjaSerapanController extends Controller
                 INNER JOIN satkers ON data_realisasis.kdsatker = satkers.kd_satker 
                 INNER JOIN kd_kwn kwn ON kwn.kode = data_realisasis.kewenangan and (MONTH(STR_TO_DATE(data_realisasis.tanggal, "%d/%m/%Y")) <= 12) and kwn.kode=1
                 GROUP BY satkers.kd_satker, satkers.nm_satker, data_realisasis.kewenangan, data_realisasis.tahun
-                ) as tabdata3 
+                ) as tabdata3 '. $qy3 .'
                 GROUP BY tabdata3.kd_satker
                 
                 UNION ALL
@@ -109,7 +116,7 @@ class KinerjaSerapanController extends Controller
                 INNER JOIN satkers ON data_realisasis.kdsatker = satkers.kd_satker 
                 INNER JOIN kd_kwn kwn ON kwn.kode = data_realisasis.kewenangan and (MONTH(STR_TO_DATE(data_realisasis.tanggal, "%d/%m/%Y")) <= 12) and kwn.kode=3
                 GROUP BY satkers.kd_satker, satkers.nm_satker, data_realisasis.kewenangan, data_realisasis.tahun
-                ) as tabdata 
+                ) as tabdata '. $qy1 .'
                 GROUP BY tabdata.kd_satker
                 
                 UNION ALL
@@ -146,7 +153,7 @@ class KinerjaSerapanController extends Controller
                 INNER JOIN satkers ON data_realisasis.kdsatker = satkers.kd_satker 
                 INNER JOIN kd_kwn kwn ON kwn.kode = data_realisasis.kewenangan and (MONTH(STR_TO_DATE(data_realisasis.tanggal, "%d/%m/%Y")) <= 12) and kwn.kode=4
                 GROUP BY satkers.kd_satker, satkers.nm_satker, data_realisasis.kewenangan, data_realisasis.tahun
-                ) as tabdata2 
+                ) as tabdata2 '. $qy2 .'
                 GROUP BY tabdata2.kd_satker
         ) as globaldata	
         inner JOIN data_pagus dp on dp.kdsatker = globaldata.kd_satker '.$qryByYear.$qryBySatker.' 
