@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\DB; 
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Support\Facades\Log;
 
 class KinerjaSerapanController extends Controller
 {
@@ -28,12 +29,13 @@ class KinerjaSerapanController extends Controller
             $qy1 = ' where tabdata.tahun = '. $Year[0]->year;
             $qy2 = ' where tabdata2.tahun = '. $Year[0]->year;
             $qy3 = ' where tabdata3.tahun = '. $Year[0]->year;
+            $yh = $Year[0]->year;
         } else {
             $qryByYear = ' and globaldata.tahun = '. $dtYear;
             $qy1 = ' where tabdata.tahun = '. $dtYear;
             $qy2 = ' where tabdata2.tahun = '. $dtYear;
             $qy3 = ' where tabdata3.tahun = '. $dtYear;
-
+            $yh = $dtYear;
         } 
 
 
@@ -43,7 +45,7 @@ class KinerjaSerapanController extends Controller
             $qryBySatker = ' and globaldata.kd_satker = "'. $dtSatker .'"';
         } 
 
-        $str = 'select globaldata.tahun, globaldata.kd_satker, globaldata.nm_satker, sum(dp.amount) as total,  globaldata.kwn4, format((((globaldata.amount1 / sum(dp.amount)))/0.15)*100,2) as amnt1 , globaldata.kwn2, format((((globaldata.amount2 / sum(dp.amount)))/0.40)*100,2) as amnt2, globaldata.kwn3, format((((globaldata.amount3 / sum(dp.amount)))/0.60)*100,2) as amnt3, globaldata.kwn4, format((globaldata.amount4 / sum(dp.amount))*100,2) as amnt4
+        $str = 'select globaldata.tahun, globaldata.kd_satker, globaldata.nm_satker, sum(dp.amount) as total,  globaldata.kwn1, format((((globaldata.amount1 / sum(dp.amount)))/0.15)*100,2) as amnt1 , globaldata.kwn2, format((((globaldata.amount2 / sum(dp.amount)))/0.40)*100,2) as amnt2, globaldata.kwn3, format((((globaldata.amount3 / sum(dp.amount)))/0.60)*100,2) as amnt3, globaldata.kwn4, format((globaldata.amount4 / sum(dp.amount))*100,2) as amnt4
         FROM
         (		
             /*KP*/
@@ -61,7 +63,8 @@ class KinerjaSerapanController extends Controller
                 SELECT  data_realisasis.tahun, satkers.kd_satker, satkers.nm_satker, null as kwn1, null as amount1, kwn.nam as kwn2,  Sum(data_realisasis.amount) AS amount2,  null as kwn3, null as amount3, null as kwn4, null as amount4
                 FROM data_realisasis 
                 INNER JOIN satkers ON data_realisasis.kdsatker = satkers.kd_satker 
-                INNER JOIN kd_kwn kwn ON kwn.kode = data_realisasis.kewenangan and (MONTH(STR_TO_DATE(data_realisasis.tanggal, "%d/%m/%Y")) < 7) and kwn.kode=1
+                INNER JOIN kd_kwn kwn ON kwn.kode = data_realisasis.kewenangan and (MONTH(STR_TO_DATE(data_realisasis.tanggal, "%d/%m/%Y")) < 7)  and kwn.kode=1
+                and ((MONTH(NOW()) > 3 and YEAR(NOW()) = '.$yh.') || YEAR(NOW()) > '.$yh.')
                 GROUP BY satkers.kd_satker, satkers.nm_satker, data_realisasis.kewenangan, data_realisasis.tahun
         
                 UNION ALL
@@ -69,7 +72,8 @@ class KinerjaSerapanController extends Controller
                 SELECT  data_realisasis.tahun, satkers.kd_satker, satkers.nm_satker, null as kwn1, null as amount1,  null as kwn2, null as amount2,  kwn.nam as kwn3,  Sum(data_realisasis.amount) AS amount3,  null as kwn4, null as amount4
                 FROM data_realisasis 
                 INNER JOIN satkers ON data_realisasis.kdsatker = satkers.kd_satker 
-                INNER JOIN kd_kwn kwn ON kwn.kode = data_realisasis.kewenangan and (MONTH(STR_TO_DATE(data_realisasis.tanggal, "%d/%m/%Y")) < 10) and kwn.kode=1
+                INNER JOIN kd_kwn kwn ON kwn.kode = data_realisasis.kewenangan and (MONTH(STR_TO_DATE(data_realisasis.tanggal, "%d/%m/%Y")) < 10)  and kwn.kode=1
+                and ((MONTH(NOW()) > 6 and YEAR(NOW()) = '.$yh.') || YEAR(NOW()) > '.$yh.')
                 GROUP BY satkers.kd_satker, satkers.nm_satker, data_realisasis.kewenangan, data_realisasis.tahun
         
                 UNION ALL
@@ -77,7 +81,8 @@ class KinerjaSerapanController extends Controller
                 SELECT  data_realisasis.tahun, satkers.kd_satker, satkers.nm_satker, null as kwn1, null as amount1,  null as kwn2, null as amount2,  null as kwn3, null as amount3, kwn.nam as kwn4,  Sum(data_realisasis.amount) AS amount4  
                 FROM data_realisasis 
                 INNER JOIN satkers ON data_realisasis.kdsatker = satkers.kd_satker 
-                INNER JOIN kd_kwn kwn ON kwn.kode = data_realisasis.kewenangan and (MONTH(STR_TO_DATE(data_realisasis.tanggal, "%d/%m/%Y")) <= 12) and kwn.kode=1
+                INNER JOIN kd_kwn kwn ON kwn.kode = data_realisasis.kewenangan and (MONTH(STR_TO_DATE(data_realisasis.tanggal, "%d/%m/%Y")) <= 12)  and kwn.kode=1
+                and ((MONTH(NOW()) > 9 and YEAR(NOW()) = '.$yh.') || YEAR(NOW()) > '.$yh.')
                 GROUP BY satkers.kd_satker, satkers.nm_satker, data_realisasis.kewenangan, data_realisasis.tahun
                 ) as tabdata3 '. $qy3 .'
                 GROUP BY tabdata3.kd_satker
@@ -98,7 +103,8 @@ class KinerjaSerapanController extends Controller
                 SELECT  data_realisasis.tahun, satkers.kd_satker, satkers.nm_satker, null as kwn1, null as amount1, kwn.nam as kwn2,  Sum(data_realisasis.amount) AS amount2,  null as kwn3, null as amount3, null as kwn4, null as amount4
                 FROM data_realisasis 
                 INNER JOIN satkers ON data_realisasis.kdsatker = satkers.kd_satker 
-                INNER JOIN kd_kwn kwn ON kwn.kode = data_realisasis.kewenangan and (MONTH(STR_TO_DATE(data_realisasis.tanggal, "%d/%m/%Y")) < 7) and kwn.kode=3
+                INNER JOIN kd_kwn kwn ON kwn.kode = data_realisasis.kewenangan and (MONTH(STR_TO_DATE(data_realisasis.tanggal, "%d/%m/%Y")) < 7)  and kwn.kode=3
+                and ((MONTH(NOW()) > 3 and YEAR(NOW()) = '.$yh.') || YEAR(NOW()) > '.$yh.')
                 GROUP BY satkers.kd_satker, satkers.nm_satker, data_realisasis.kewenangan, data_realisasis.tahun
         
                 UNION ALL
@@ -107,6 +113,7 @@ class KinerjaSerapanController extends Controller
                 FROM data_realisasis 
                 INNER JOIN satkers ON data_realisasis.kdsatker = satkers.kd_satker 
                 INNER JOIN kd_kwn kwn ON kwn.kode = data_realisasis.kewenangan and (MONTH(STR_TO_DATE(data_realisasis.tanggal, "%d/%m/%Y")) < 10) and kwn.kode=3
+                and ((MONTH(NOW()) > 6 and YEAR(NOW()) = '.$yh.') || YEAR(NOW()) > '.$yh.')
                 GROUP BY satkers.kd_satker, satkers.nm_satker, data_realisasis.kewenangan, data_realisasis.tahun
         
                 UNION ALL
@@ -114,7 +121,8 @@ class KinerjaSerapanController extends Controller
                 SELECT  data_realisasis.tahun, satkers.kd_satker, satkers.nm_satker, null as kwn1, null as amount1,  null as kwn2, null as amount2,  null as kwn3, null as amount3, kwn.nam as kwn4,  Sum(data_realisasis.amount) AS amount4  
                 FROM data_realisasis 
                 INNER JOIN satkers ON data_realisasis.kdsatker = satkers.kd_satker 
-                INNER JOIN kd_kwn kwn ON kwn.kode = data_realisasis.kewenangan and (MONTH(STR_TO_DATE(data_realisasis.tanggal, "%d/%m/%Y")) <= 12) and kwn.kode=3
+                INNER JOIN kd_kwn kwn ON kwn.kode = data_realisasis.kewenangan and (MONTH(STR_TO_DATE(data_realisasis.tanggal, "%d/%m/%Y")) <= 12)  and kwn.kode=3
+                and ((MONTH(NOW()) > 9 and YEAR(NOW()) = '.$yh.') || YEAR(NOW()) > '.$yh.')
                 GROUP BY satkers.kd_satker, satkers.nm_satker, data_realisasis.kewenangan, data_realisasis.tahun
                 ) as tabdata '. $qy1 .'
                 GROUP BY tabdata.kd_satker
@@ -136,6 +144,7 @@ class KinerjaSerapanController extends Controller
                 FROM data_realisasis 
                 INNER JOIN satkers ON data_realisasis.kdsatker = satkers.kd_satker 
                 INNER JOIN kd_kwn kwn ON kwn.kode = data_realisasis.kewenangan and (MONTH(STR_TO_DATE(data_realisasis.tanggal, "%d/%m/%Y")) < 7) and kwn.kode=4
+                and ((MONTH(NOW()) > 3 and YEAR(NOW()) = '.$yh.') || YEAR(NOW()) > '.$yh.')
                 GROUP BY satkers.kd_satker, satkers.nm_satker, data_realisasis.kewenangan, data_realisasis.tahun
         
                 UNION ALL
@@ -144,6 +153,7 @@ class KinerjaSerapanController extends Controller
                 FROM data_realisasis 
                 INNER JOIN satkers ON data_realisasis.kdsatker = satkers.kd_satker 
                 INNER JOIN kd_kwn kwn ON kwn.kode = data_realisasis.kewenangan and (MONTH(STR_TO_DATE(data_realisasis.tanggal, "%d/%m/%Y")) < 10) and kwn.kode=4
+                and ((MONTH(NOW()) > 6 and YEAR(NOW()) = '.$yh.') || YEAR(NOW()) > '.$yh.')
                 GROUP BY satkers.kd_satker, satkers.nm_satker, data_realisasis.kewenangan, data_realisasis.tahun
         
                 UNION ALL
@@ -152,6 +162,7 @@ class KinerjaSerapanController extends Controller
                 FROM data_realisasis 
                 INNER JOIN satkers ON data_realisasis.kdsatker = satkers.kd_satker 
                 INNER JOIN kd_kwn kwn ON kwn.kode = data_realisasis.kewenangan and (MONTH(STR_TO_DATE(data_realisasis.tanggal, "%d/%m/%Y")) <= 12) and kwn.kode=4
+                and ((MONTH(NOW()) > 9 and YEAR(NOW()) = '.$yh.') || YEAR(NOW()) > '.$yh.')
                 GROUP BY satkers.kd_satker, satkers.nm_satker, data_realisasis.kewenangan, data_realisasis.tahun
                 ) as tabdata2 '. $qy2 .'
                 GROUP BY tabdata2.kd_satker
@@ -161,6 +172,8 @@ class KinerjaSerapanController extends Controller
         ORDER BY globaldata.kd_satker
         ';
         
+        //Log::info($str);
+
         $query = DB::select(DB::raw($str));
         $table = Datatables::of($query);
 
