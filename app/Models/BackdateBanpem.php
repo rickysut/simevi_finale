@@ -36,6 +36,7 @@ class BackdateBanpem extends Model
         'kd_giat',
         'kd_akun',
         'kwn',
+        'jenis_barang',
         'created_at',
         'updated_at',
         'deleted_at',
