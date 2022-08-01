@@ -167,12 +167,12 @@ class KinerjaSerapanController extends Controller
                 ) as tabdata2 '. $qy2 .'
                 GROUP BY tabdata2.kd_satker
         ) as globaldata	
-        inner JOIN data_pagus dp on dp.kdsatker = globaldata.kd_satker '.$qryByYear.$qryBySatker.' 
+        inner JOIN data_pagus dp on dp.tahun = '.$yh.' and dp.kdsatker = globaldata.kd_satker '.$qryByYear.$qryBySatker.' 
         GROUP BY globaldata.kd_satker
         ORDER BY globaldata.kd_satker
         ';
         
-        //Log::info($str);
+        Log::info($str);
 
         $query = DB::select(DB::raw($str));
         $table = Datatables::of($query);
