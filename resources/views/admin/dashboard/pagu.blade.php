@@ -55,7 +55,7 @@
 </style>
 
 
-<div class="row d-flex justify-content-end mb-3">
+<div class="row d-flex mb-3 align-items-center">
 	<div class="col-sm-12 col-xl-12 mb-2">
 		<form id="fp" action="{{ route('admin.pagu') }}" method="post">
 			{{ csrf_field() }}
