@@ -1,3 +1,5 @@
+<!-- /admin/pagu -->
+
 @extends('layouts.admin')
 @section('content')
 @include('partials.subheader')
@@ -56,40 +58,8 @@
 
 
 <div class="row d-flex mb-3 align-items-center">
-	<div class="col-sm-12 col-xl-12 mb-2">
-		<form id="fp" action="{{ route('admin.pagu') }}" method="post">
-			{{ csrf_field() }}
-		<label class="form-label" for="single-default">
-			Tahun :
-		</label>
-		<select class="custom-select col-md-2" id="dtYear1" name="dtYear1" >
-			<option  value="">- Tahun awal -</option>
-			@foreach($years as $data)
-				<option  value="{{ $data->tahun }}"
-				@if ($dtYear1 == $data->tahun)
-					selected   
-				@endif    
-					>{{ $data->tahun }}</option>
-			@endforeach
-		</select>
-		<label class="form-label" for="single-default">
-			s/d Tahun :
-		</label>
-		<select class="custom-select col-md-2" id="dtYear2" name="dtYear2" >
-			<option  value="">- Tahun akhir -</option>
-			@foreach($years as $data)
-				<option  value="{{ $data->tahun }}"
-				@if ($dtYear2 == $data->tahun)
-					selected   
-				@endif    
-					>{{ $data->tahun }}</option>
-			@endforeach
-		</select>
-		<a class="btn btn-primary text-white" type="button" onclick="fp.submit()" >{{ trans('global.view') }}</a>
-		</form>
-	</div>
-	<div class="col-md-12 col-sm-12">
-		<ul class="nav nav-pills " id="myTab" role="tablist">
+	<div class="col-md-7 col-sm-12 justify-content-start mb-3">
+		<ul class="nav nav-pills flex-column flex-sm-row" id="myTab" role="tablist">
 			<li class="nav-item">
 				<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
 					<i class="fas fa-home mr-1"></i>
@@ -115,6 +85,43 @@
 				</a>
 			</li>
 		</ul>
+	</div>
+	<!-- the change: move year selector inline to nav-pills -->
+	<div class="col-sm-12 col-md-5 mb-3 justify-content-end">
+		<form id="fp" action="{{ route('admin.pagu') }}" method="post" class="form-group ">
+			{{ csrf_field() }}
+			<div class="input-group">
+			<label class="form-label col-form-label mr-2" for="single-default">
+				Select Year
+			</label>
+				<select class="custom-select col-md-2" id="dtYear1" name="dtYear1" >
+					<option  value="">- Tahun awal -</option>
+					@foreach($years as $data)
+						<option  value="{{ $data->tahun }}"
+						@if ($dtYear1 == $data->tahun)
+							selected   
+						@endif    
+							>{{ $data->tahun }}</option>
+					@endforeach
+				</select>
+				<div class="input-group-append input-group-prepend">
+					<span class="input-group-text"> to </span>
+				</div>
+				<select class="custom-select col-md-2" id="dtYear2" name="dtYear2" >
+					<option  value="">- Tahun akhir -</option>
+					@foreach($years as $data)
+						<option  value="{{ $data->tahun }}"
+						@if ($dtYear2 == $data->tahun)
+							selected   
+						@endif    
+							>{{ $data->tahun }}</option>
+					@endforeach
+				</select>
+				<div class="input-group-append">
+					<a class="btn btn-info text-white" type="button" onclick="fp.submit()" >{{ trans('global.view') }}</a>
+				</div>
+			</div>
+		</form>
 	</div>
 </div>
 
@@ -176,60 +183,71 @@
 						</div>
 					</div>
 					<hr>
+					<!-- the change: added % to pie value  and remove toolbar icon -->
+						<!--
+							nilai capaian (%) diperoleh dari:
+							Total Realisasi (per kewenangan) dibagi Total Realisasi Nasional
+						-->
 					<div class="row row-grid no-gutters">
-						<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 mb-3">
-							<span class="hidden-sm-up fw-500">Kantor Pusat</span>
-							<div class="px-3 py-2 d-flex align-items-center">
-								<div class="js-easy-pie-chart color-info-300 position-relative d-inline-flex align-items-center justify-content-center" data-percent="98%" data-piesize="50" data-linewidth="5" data-linecap="butt" data-scalelength="0" data-toggle="tooltip" title data-original-title="Realisasi Kantor Pusat: 98%">
-									<div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-lg">
-										<span class="js-percent fw-500 d-block text-dark">98</span>
-									</div>
+						<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+							<div class="text-left ml-2">Kantor Pusat</div>
+							<div id="kppiechart" class="px-3 py-2 d-flex align-items-center">
+								<div  class="js-easy-pie-chart color-primary-600 position-relative d-flex align-items-center justify-content-center" data-percent="45" data-piesize="50" data-linewidth="5" data-trackcolor="#ccbfdf" data-scalelength="0">
+									<div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark kppie">0</div>
+									{{-- <div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-xl">
+										<span class="js-percent d-block text-dark kppie">100%</span>
+									</div> --}}
 								</div>
-								<span class="hidden-sm-down d-inline-block fs-md ml-2 text-muted" data-toggle="tooltip" title data-original-title="Kantor Pusat">
-									KP
-								</span>
 								<div class="ml-auto d-inline-flex align-items-center">
 									<div class="d-inline-flex flex-column small ml-2">
-										<span class="fs-md d-inline-block badge badge-info text-right p-1 width-20" data-toggle="tooltip" title data-original-title="Realisasi">380.848.357.428</span>
-										<span class="fs-sm d-inline-block badge bg-success-50 color-fusion-900 text-right p-1 width-50 mt-1" data-toggle="tooltip" title data-original-title="Pagu">Rp Rp 387.850.098.000</span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4 mb-3">
-							<span class="hidden-sm-up fw-500">Dekonsentrasi</span>
-							<div class="px-3 py-2 d-flex align-items-center">
-								<div class="js-easy-pie-chart color-danger-300 position-relative d-inline-flex align-items-center justify-content-center" data-percent="96" data-piesize="50" data-linewidth="5" data-linecap="butt" data-scalelength="0" data-toggle="tooltip" title data-original-title="Realisasi Dekonsentrasi: 96%">
-									<div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-lg">
-										<span class="js-percent fw-500 d-block text-dark">96</span>
-									</div>
-								</div>
-								<span class="hidden-sm-down d-inline-block fs-md ml-2 text-muted" data-toggle="tooltip" title data-original-title="Dekonsentrasi">
-									DK
-								</span>
-								<div class="ml-auto d-inline-flex align-items-center">
-									<div class="d-inline-flex flex-column small ml-2">
-										<span class="fs-md d-inline-block badge badge-danger text-right p-1 width-20" data-toggle="tooltip" title data-original-title="Realisasi">Rp 105.151.968.326</span>
-										<span class="fs-sm d-inline-block badge bg-success-50 color-fusion-900 text-right p-1 width-50 mt-1" data-toggle="tooltip" title data-original-title="Pagu">Rp 109.180.389.000</span>
+										<span class="fs-md d-inline-block badge badge-info text-right p-1 width-20" data-toggle="tooltip" title data-original-title="Realisasi">
+											Rp 380.848.357.428
+										</span>
+										<span class="fs-sm d-inline-block badge bg-success-50 color-fusion-900 text-right p-1 width-50 mt-1" data-toggle="tooltip" title data-original-title="Pagu">
+											Rp 387.850.098.000
+										</span>
 									</div>
 								</div>
 							</div>
 						</div>
 						<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
-							<span class="hidden-sm-up fw-500">Tugas Pembantuan</span>
-							<div class="px-3 py-2 d-flex align-items-center">
-								<div class="js-easy-pie-chart color-warning-300 position-relative d-inline-flex align-items-center justify-content-center" data-percent="97" data-piesize="50" data-linewidth="5" data-linecap="butt" data-scalelength="0" data-toggle="tooltip" title data-original-title="Realisasi Tugas Pembantuan: 97%">
-									<div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-lg">
-										<span class="js-percent fw-500 d-block text-dark">97</span>
+							<div class="text-left ml-2">Dekonsentrasi</div>
+							<div id="dkpiechart" class="px-3 py-2 d-flex align-items-center">
+								<div class="js-easy-pie-chart color-success-600 position-relative d-flex align-items-center justify-content-center" data-percent="25" data-piesize="50" data-linewidth="5" data-trackcolor="#7aece0" data-scalelength="0">
+									<div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark dkpie">0</div>
+									{{-- <div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-xl">
+										<span class="js-percent d-block text-dark">100</span>
+									</div> --}}
+								</div>
+								<div class="ml-auto d-inline-flex align-items-center">
+									<div class="d-inline-flex flex-column small ml-2">
+										<span class="fs-md d-inline-block badge badge-danger text-right p-1 width-20" data-toggle="tooltip" title data-original-title="Realisasi">
+											Rp 380.848.357.428
+										</span>
+										<span class="fs-sm d-inline-block badge bg-success-50 color-fusion-900 text-right p-1 width-50 mt-1" data-toggle="tooltip" title data-original-title="Pagu">
+											Rp 387.850.098.000
+										</span>
 									</div>
 								</div>
-								<span class="hidden-sm-down d-inline-block fs-md ml-2 text-muted" data-toggle="tooltip" title data-original-title="Tugas Pembantuan">
-									TP
-								</span>
+							</div>
+						</div>
+						<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
+							<div class="text-left ml-2">Tugas Pembantuan</div>
+							<div id="tppiechart" class="px-3 py-2 d-flex align-items-center">
+								<div  class="js-easy-pie-chart color-warning-600 position-relative d-flex align-items-center justify-content-center" data-percent="15" data-piesize="50" data-linewidth="5" data-trackcolor="#ffebc1" data-scalelength="0">
+									<div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark tppie">0</div>
+									{{-- <div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-xl">
+										<span class="js-percent d-block text-dark">100</span>
+									</div> --}}
+								</div>
 								<div class="ml-auto d-inline-flex align-items-center">
-									<div class="d-inline-flex flex-column ml-2">
-										<span class="fs-md d-inline-block badge badge-warning text-white text-right p-1 width-20" data-toggle="tooltip" title data-original-title="Realisasi">Rp 124.695.255.069</span>
-										<span class="fs-sm d-inline-block badge bg-success-50 color-fusion-900 text-right p-1 width-50 mt-1" data-toggle="tooltip" title data-original-title="Pagu">Rp 128.156.542.000</span>
+									<div class="d-inline-flex flex-column small ml-2">
+										<span class="fs-md d-inline-block badge badge-warning text-right p-1 width-20" data-toggle="tooltip" title data-original-title="Realisasi">
+											Rp 380.848.357.428
+										</span>
+										<span class="fs-sm d-inline-block badge bg-success-50 color-fusion-900 text-right p-1 width-50 mt-1" data-toggle="tooltip" title data-original-title="Pagu">
+											Rp 387.850.098.000
+										</span>
 									</div>
 								</div>
 							</div>
@@ -239,7 +257,13 @@
 			</div>
 		</div>
 	</div>
-	<!-- tab program -->
+	<!-- tab program.
+		The change: add % to the pie value
+		
+		nilai capaian (%) diperoleh dari:
+		Total Realisasi (per program) dibagi Total Pagu (per program)
+	-->
+	
 	<div class="tab-pane" id="program" role="tabpanel" aria-labelledby="home-tab">
 		<div class="row d-flex">
 			<div class="col-lg-4">
@@ -256,10 +280,8 @@
 							<div class="row mb-5">
 								<div class="col-12 align-self-center text-center">
 									<div class="c-chart-wrapper">
-										<div class="js-easy-pie-chart color-primary-300 position-relative d-inline-flex align-items-center justify-content-center" data-percent="98.21" data-piesize="200" data-linewidth="20" data-linecap="button" data-scalelength="7" data-toggle="popover" data-trigger="hover" title data-original-title="Nilai Tambah dan Daya Saing Industri" data-content="Realisasi: 98.21%" data-placement="top" data-template='<div class="popover opacity-90 bg-primary-900 border-primary" role="tooltip"><div class="arrow"></div><h3 class="popover-header bg-transparent"></h3><div class="popover-body text-white"></div></div>'>
-											<div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-xl">
-												<span class="display-3 fw-500 js-percent d-block text-dark">98.21</span>
-											</div>
+										<div class="js-easy-pie-chart color-primary-300 position-relative d-inline-flex align-items-center justify-content-center" data-percent="97.68" data-piesize="200" data-linewidth="20" data-scalelength="7">
+											<div class="display-4 position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 text-dark">97.68%</div>
 										</div>
 									</div>
 								</div>
@@ -297,10 +319,8 @@
 							<div class="row mb-5">
 								<div class="col-12 align-self-center text-center">
 									<div class="c-chart-wrapper">
-										<div class="js-easy-pie-chart color-info-300 position-relative d-inline-flex align-items-center justify-content-center" data-percent="97.64" data-piesize="200" data-linewidth="20" data-linecap="button" data-scalelength="7" data-toggle="popover" data-trigger="hover" title data-original-title="Ketersediaan Akses dan Konsumsi Pangan Berkualitas" data-content="Realisasi: 97.64%" data-placement="top" data-template='<div class="popover opacity-90 bg-info-900 border-info" role="tooltip"><div class="arrow"></div><h3 class="popover-header bg-transparent"></h3><div class="popover-body text-white"></div></div>'>
-											<div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-xl">
-												<span class="display-3 fw-500 js-percent d-block text-dark">97.64</span>
-											</div>
+										<div class="js-easy-pie-chart color-info-300 position-relative d-inline-flex align-items-center justify-content-center" data-percent="97.68" data-piesize="200" data-linewidth="20" data-scalelength="7">
+											<div class="display-4 position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 text-dark">97.68%</div>
 										</div>
 									</div>
 								</div>
@@ -338,10 +358,8 @@
 							<div class="row mb-5">
 								<div class="col-12 align-self-center text-center">
 									<div class="c-chart-wrapper">
-										<div class="js-easy-pie-chart color-success-300 position-relative d-inline-flex align-items-center justify-content-center" data-percent="97.46" data-piesize="200" data-linewidth="20" data-linecap="button" data-scalelength="7" data-toggle="popover" data-trigger="hover" title data-original-title="Dukungan Manajemen" data-content="Realisasi: 97.46%" data-placement="top" data-template='<div class="popover opacity-90 bg-success-900 border-success" role="tooltip"><div class="arrow"></div><h3 class="popover-header bg-transparent"></h3><div class="popover-body text-white"></div></div>'>
-											<div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-xl">
-												<span class="display-3 fw-500 js-percent d-block text-dark">97.46</span>
-											</div>
+										<div class="js-easy-pie-chart color-success-300 position-relative d-inline-flex align-items-center justify-content-center" data-percent="97.68" data-piesize="200" data-linewidth="20" data-scalelength="7">
+											<div class="display-4 position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 text-dark">97.68%</div>
 										</div>
 									</div>
 								</div>
@@ -368,12 +386,15 @@
 		</div>
 	</div>
 		
-	<!-- tab kegiatan -->
+	<!--
+		tab kegiatan
+		TIDAK DIGUNAKAN/HIDDEN/HAPUS/BUANG
+	-->
 	<div class="tab-pane" id="kegiatan" role="tabpanel" aria-labelledby="home-tab">
 		<div class="row d-flex">
 			<!-- STO -->
-			<div class="col-md-6">
-				<div id="panel-5" class="panel panel-locked" data-panel-sortable data-panel-collapsed data-panel-close>
+			<div class="col-md-6" hidden>
+				<div id="panel-5" class="panel">
 					<div class="panel-hdr">
 						<h2 data-toggle="tooltip" title data-original-title="Realisasi Anggaran Kegiatan per Triwulan">
 							<span class="">Realisasi Anggaran Kegiatan per Triwulan Model 1</span>
@@ -407,9 +428,8 @@
 					</div>
 				</div>
 			</div>
-			<!-- model 2 -->
 			<div class="col-md-6">
-				<div id="panel-5" class="panel panel-locked" data-panel-sortable data-panel-collapsed data-panel-close>
+				<div id="panel-5" class="panel">
 					<div class="panel-hdr">
 						<h2 data-toggle="tooltip" title data-original-title="Realisasi Anggaran Kegiatan per Triwulan">
 							<span class="">Realisasi Anggaran Kegiatan per Triwulan Model 2</span>
@@ -419,11 +439,19 @@
 						<div class="panel-content poisition-relative">
 							<div class="col">
 								<div class="p-1 pos-left pos-top mr-3 z-index-cloud d-flex align-items-center justify-content-center">
+									<!--
+										model 2 Barchart Triwulan
+										#Nilai Pie (%) diperoleh dari:
+											Total Realisasi dibagi Total Pagu
+									-->
 									<div class="py-2 pr-4 mr-3">
 										<div class="js-easy-pie-chart color-primary-400 position-relative d-inline-flex align-items-center justify-content-center" data-percent="97.68" data-piesize="95" data-linewidth="10" data-scalelength="5">
 											<div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark">97.68%</div>
 										</div>
-									</div>
+									</div>			
+									<!--
+										#Nilai dibawah ini diperoleh dari Total Realisasi Nasional
+									-->
 									<div class="text-right fw-500 l-h-n d-flex flex-column hidden-sm-down">
 											<div class="h3 m-0 d-flex align-items-center justify-content-end">
 												<div class='icon-stack mr-2'>
@@ -444,15 +472,22 @@
 				</div>
 			</div>
 			
-			<div class="col-md-5">
-				<div id="panel-6" class="panel panel-locked" data-panel-sortable data-panel-collapsed data-panel-close>
+			<div class="col-md-6" style="height: 300px">
+				<!--
+					model 2 Barchart Triwulan
+					#Nilai Capaian (Rp) diperoleh dari:
+						Total Realisasi per kegiatan (kode kegiatan) secara nasional
+					#Nilai capaian (%) diperoleh dari:
+						Total Realisasi (per kegiatan) dibagi Total Pagu (per kegiatan)
+				-->
+				<div id="panel-6" class="panel">
 					<div class="panel-hdr">
 						<h2 data-toggle="tooltip" title data-original-title="Realisasi Anggaran Kegiatan per Triwulan">
-							<span class="text-truncate text-truncate-lg">Realisasi Anggaran per Kegiatan</span>
+							<span>Realisasi Anggaran per Kegiatan</span>
 						</h2>
 					</div>
 					<div class="panel-container show">
-						<div class="panel-content poisition-relative">
+						<div class="panel-content">
 							<div class="d-flex mt-2 mb-1 fs-xs text-primary">
 								Sayuran dan Tanaman Obat
 								<span class="d-inline-block ml-auto">125.744.204.088 | 98.67%</span>
@@ -505,8 +540,43 @@
 	<!-- tab top 10 -->
 	<div class="tab-pane" id="satker" role="tabpanel" aria-labelledby="home-tab">
 		<div class="row d-flex align-items-center ">
+			<!--
+				The Change: this 1st rank will be shown on first row only on mobile			-->
+			<div class="col-lg-4 hidden-sm-up">
+				<div class="panel" id="panel-7">
+					<div class="card-header text-center text-align-items-center bg-primary-500 bg-info-gradient">
+						<!--
+							#Nilai capaian (%) dibawah ini diperoleh dari:
+								Total Realisasi (per satker) dibagi Total Pagu (per satker)
+						-->
+						<h2 class="fw-500">
+							100%
+						</h2>
+					</div>
+					<div class="panel-container card-body text-center show">
+						<div class="panel-content">
+							<!-- Row -->
+							<div class="row text-center">
+								<div class="col-12">
+									<div class="mb-3">
+										<h3 class="fw-500">339156</h3>
+									</div>
+									<div class="">
+										<div class="text-center">
+											<i class="fal fa-award fa-6x text-warning mb-5"></i>
+											<h4 class="fw-700 mb-0 text-truncate text-truncate-xl" data-toggle="tooltip" title data-original-title="DINAS TANAMAN PANGAN HORTIKULTURA DAN PERKEBUNAN PROVINSI PAPUA BARAT">DINAS TANAMAN PANGAN HORTIKULTURA DAN PERKEBUNAN PROVINSI PAPUA BARAT</h4>
+											<p class="text-muted mb-0">Rp. 1.659.390.000</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end 1st rank for mobile -->
 			<div class="col-lg-4">
-				<div class="panel" id="panel-7" data-panel-sortable data-panel-collapsed data-panel-close data-panel-fullscreen >
+				<div class="panel" id="panel-7">
 					<div class="card-header text-center">
 						<h2 class="fw-500">
 							100%
@@ -533,8 +603,9 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-lg-4">
-				<div class="panel" id="panel-7" data-panel-sortable data-panel-collapsed data-panel-close data-panel-fullscreen >
+			<!-- this 1st rank will be shown on middle column only on large screen -->
+			<div class="col-lg-4 hidden-md-down">
+				<div class="panel" id="panel-7">
 					<div class="card-header text-center text-align-items-center bg-primary-500 bg-info-gradient">
 						<h2 class="fw-500">
 							100%
@@ -561,8 +632,9 @@
 					</div>
 				</div>
 			</div>
+			<!-- end 1st rank for large screen -->
 			<div class="col-lg-4">
-				<div class="panel" id="panel-7" data-panel-sortable data-panel-collapsed data-panel-close data-panel-fullscreen >
+				<div class="panel" id="panel-7">
 					<div class="card-header text-center">
 						<h2 class="fw-500">
 							100%
@@ -851,105 +923,107 @@
 @parent
 <!-- c3 omspan model 1-->
 <script>
-	$(document).ready(function()
-	{
-var barChart = c3.generate(
-            {
-                bindto: "#twSTO",
-                data:
-                {
-                    columns: [
-                        ['STO', 1.80, 13.56, 70.38, 98.67]
-                    ],
-				type: 'bar'
-                },
-				legend: {
-				  show: true
+$(document).ready(function()
+{
+	var barChart = c3.generate(
+		{
+			bindto: "#twSTO",
+			data:
+			{
+				columns: [
+					['STO', 1.80, 13.56, 70.38, 98.67]
+				],
+			type: 'bar'
+			},
+			legend: {
+			  show: true
+			},
+			color:
+			{
+				pattern: ['#886ab5','#2196F3','#1dc9b7','#ffc241','#fd3995','#868e96']
+			},
+			axis: {
+				x: {
+					type: 'category',
+					categories: ['TW1', 'TW2', 'TW3', 'TW4']
 				},
-                color:
-                {
-                    pattern: ['#886ab5','#2196F3','#1dc9b7','#ffc241','#fd3995','#868e96']
-                },
-				axis: {
-					x: {
-						type: 'category',
-						categories: ['TW1', 'TW2', 'TW3', 'TW4']
-					},
-					y:{
-						show: true
-					}
+				y:{
+					show: true
+				}
+			},
+			bar:
+			{
+				width:
+				{
+					ratio: 0.8 // this makes bar width 50% of length between ticks
 				},
-                bar:
-                {
-                    width:
-                    {
-                        ratio: 0.8 // this makes bar width 50% of length between ticks
-                    },
-					space: 0.25
-                    // or
-                    //width: 100 // this makes bar width 100px
-                }
-            });
+				space: 0.25
+				// or
+				//width: 100 // this makes bar width 100px
+			}
+		});
 
-			setTimeout(function()
+		setTimeout(function()
+		{
+			barChart.load(
 			{
-				barChart.load(
-				{
-					columns: [
-						['Ditlin', 1.58, 32.83, 52.69, 99.24]
-					]
-				});
-			}, 1000);
+				columns: [
+					['Ditlin', 1.58, 32.83, 52.69, 99.24]
+				]
+			});
+		}, 1000);
 
-			setTimeout(function()
+		setTimeout(function()
+		{
+			barChart.load(
 			{
-				barChart.load(
-				{
-					columns: [
-						['Sesdit', 11.57, 38.72, 66.94, 97.46]
-					]
-				});
-			}, 2000);
+				columns: [
+					['Sesdit', 11.57, 38.72, 66.94, 97.46]
+				]
+			});
+		}, 2000);
 
-			setTimeout(function()
+		setTimeout(function()
+		{
+			barChart.load(
 			{
-				barChart.load(
-				{
-					columns: [
-						['Ditbenih', 0.73, 17.53, 59.73, 96.56]
-					]
-				});
-			}, 3000);
+				columns: [
+					['Ditbenih', 0.73, 17.53, 59.73, 96.56]
+				]
+			});
+		}, 3000);
 
-			setTimeout(function()
+		setTimeout(function()
+		{
+			barChart.load(
 			{
-				barChart.load(
-				{
-					columns: [
-						['Buflo', 0.82, 11.09, 55.03, 97.67]
-					]
-				});
-			}, 4000);
+				columns: [
+					['Buflo', 0.82, 11.09, 55.03, 97.67]
+				]
+			});
+		}, 4000);
 
-			setTimeout(function()
+		setTimeout(function()
+		{
+			barChart.load(
 			{
-				barChart.load(
-				{
-					columns: [
-						['PPHH', 0.70, 13.89, 50.68, 99.24]
-					]
-				});
-			}, 5000);
+				columns: [
+					['PPHH', 0.70, 13.89, 50.68, 99.24]
+				]
+			});
+		}, 5000);
 
-			setTimeout(function()
-			{
-				$("#barChartLoad").text("load complete")
-			}, 6000);
-
+		setTimeout(function()
+		{
+			$("#barChartLoad").text("load complete")
+		}, 6000);
+});
 </script>
-<!-- C3 omspan model 1 -->
+
 <!-- C3 omspan model 2 -->
 <script>
+$(document).ready(function()
+{
 var barTW = c3.generate(
 {
 	bindto: "#tw1234",
@@ -1016,8 +1090,8 @@ setTimeout(function()
 			['TW4',98.67,99.24,97.46,96.56,97.67,99.24]
 		]
 	});
-}, 3000);
-})
+}, 3000)
+});
 </script>
 
 @endsection
