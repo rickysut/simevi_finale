@@ -59,6 +59,11 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
 		<meta name="csrf-token" content="{{ csrf_token() }}">
 		@yield('styles')
     </head>
+	<!--
+		ditambahkan class fixed footer "footer-function-fixed"
+		pada body class sebagai default layout antisipasi
+		saat tampil di android webview
+	-->
 	<body class="mod-bg-1 mod-nav-link footer-function-fixed">
 		<script src="{{ asset('js/smartadmin/pagesetting.js') }}"></script>
 		<!-- begin page wrapper -->
