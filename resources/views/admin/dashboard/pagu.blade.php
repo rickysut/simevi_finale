@@ -192,19 +192,16 @@
 						<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
 							<div class="text-left ml-2">Kantor Pusat</div>
 							<div id="kppiechart" class="px-3 py-2 d-flex align-items-center">
-								<div  class="js-easy-pie-chart color-primary-600 position-relative d-flex align-items-center justify-content-center" data-percent="45" data-piesize="50" data-linewidth="5" data-trackcolor="#ccbfdf" data-scalelength="0">
-									<div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark kppie">0</div>
-									{{-- <div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-xl">
-										<span class="js-percent d-block text-dark kppie">100%</span>
-									</div> --}}
+								<div  class="js-easy-pie-chart color-primary-600 position-relative d-flex align-items-center justify-content-center" data-percent="{{ $prData[0]->persenkp }}" data-piesize="50" data-linewidth="5" data-trackcolor="#ccbfdf" data-scalelength="0">
+									<div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark kppie">{{ $prData[0]->persenkp }}%</div>
 								</div>
 								<div class="ml-auto d-inline-flex align-items-center">
 									<div class="d-inline-flex flex-column small ml-2">
 										<span class="fs-md d-inline-block badge badge-info text-right p-1 width-20" data-toggle="tooltip" title data-original-title="Realisasi">
-											Rp 380.848.357.428
+											Rp {{ $prData[0]->KP_REAL }}
 										</span>
 										<span class="fs-sm d-inline-block badge bg-success-50 color-fusion-900 text-right p-1 width-50 mt-1" data-toggle="tooltip" title data-original-title="Pagu">
-											Rp 387.850.098.000
+											Rp {{ $prData[0]->KP_PAGU }}
 										</span>
 									</div>
 								</div>
@@ -213,8 +210,8 @@
 						<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
 							<div class="text-left ml-2">Dekonsentrasi</div>
 							<div id="dkpiechart" class="px-3 py-2 d-flex align-items-center">
-								<div class="js-easy-pie-chart color-success-600 position-relative d-flex align-items-center justify-content-center" data-percent="25" data-piesize="50" data-linewidth="5" data-trackcolor="#7aece0" data-scalelength="0">
-									<div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark dkpie">0</div>
+								<div class="js-easy-pie-chart color-success-600 position-relative d-flex align-items-center justify-content-center" data-percent="{{ $prData[0]->persendk }}" data-piesize="50" data-linewidth="5" data-trackcolor="#7aece0" data-scalelength="0">
+									<div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark dkpie">{{ $prData[0]->persendk }}%</div>
 									{{-- <div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-xl">
 										<span class="js-percent d-block text-dark">100</span>
 									</div> --}}
@@ -222,10 +219,10 @@
 								<div class="ml-auto d-inline-flex align-items-center">
 									<div class="d-inline-flex flex-column small ml-2">
 										<span class="fs-md d-inline-block badge badge-danger text-right p-1 width-20" data-toggle="tooltip" title data-original-title="Realisasi">
-											Rp 380.848.357.428
+											Rp {{ $prData[0]->DK_REAL }}
 										</span>
 										<span class="fs-sm d-inline-block badge bg-success-50 color-fusion-900 text-right p-1 width-50 mt-1" data-toggle="tooltip" title data-original-title="Pagu">
-											Rp 387.850.098.000
+											Rp {{ $prData[0]->DK_PAGU }}
 										</span>
 									</div>
 								</div>
@@ -234,8 +231,8 @@
 						<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
 							<div class="text-left ml-2">Tugas Pembantuan</div>
 							<div id="tppiechart" class="px-3 py-2 d-flex align-items-center">
-								<div  class="js-easy-pie-chart color-warning-600 position-relative d-flex align-items-center justify-content-center" data-percent="15" data-piesize="50" data-linewidth="5" data-trackcolor="#ffebc1" data-scalelength="0">
-									<div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark tppie">0</div>
+								<div  class="js-easy-pie-chart color-warning-600 position-relative d-flex align-items-center justify-content-center" data-percent="{{ $prData[0]->persentp }}" data-piesize="50" data-linewidth="5" data-trackcolor="#ffebc1" data-scalelength="0">
+									<div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark tppie">{{ $prData[0]->persentp }}%</div>
 									{{-- <div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-xl">
 										<span class="js-percent d-block text-dark">100</span>
 									</div> --}}
@@ -243,10 +240,10 @@
 								<div class="ml-auto d-inline-flex align-items-center">
 									<div class="d-inline-flex flex-column small ml-2">
 										<span class="fs-md d-inline-block badge badge-warning text-right p-1 width-20" data-toggle="tooltip" title data-original-title="Realisasi">
-											Rp 380.848.357.428
+											Rp {{ $prData[0]->TP_REAL }}
 										</span>
 										<span class="fs-sm d-inline-block badge bg-success-50 color-fusion-900 text-right p-1 width-50 mt-1" data-toggle="tooltip" title data-original-title="Pagu">
-											Rp 387.850.098.000
+											Rp {{ $prData[0]->TP_PAGU }}
 										</span>
 									</div>
 								</div>

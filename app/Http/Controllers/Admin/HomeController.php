@@ -143,19 +143,47 @@ class HomeController extends Controller
         $breadcrumb = trans('cruds.pagu.title_singular');
         $years =  DataPagu::distinct()->orderBy('tahun', 'ASC')->get(['tahun']);
 
-        $st = 'select format(GROUP_CONCAT(dbdata.pagus),0, "id_ID") pagus , format(GROUP_CONCAT(dbdata.reals),0, "id_ID") reals,
-        Format(COALESCE(GROUP_CONCAT(dbdata.reals),0)/COALESCE(GROUP_CONCAT(dbdata.pagus),0) * 100, 2) as persen
+        $st = 'select 
+        format(GROUP_CONCAT(dbdata.pagus),0, "id_ID") pagus , format(GROUP_CONCAT(dbdata.reals),0, "id_ID") reals, 
+        Format(COALESCE(GROUP_CONCAT(dbdata.reals),0)/COALESCE(GROUP_CONCAT(dbdata.pagus),0) * 100, 2) as persen,
+        format(GROUP_CONCAT(dbdata.KP_PAGU),0, "id_ID") KP_PAGU , format(GROUP_CONCAT(dbdata.KP_REAL),0, "id_ID") KP_REAL, 
+        Format(COALESCE(GROUP_CONCAT(dbdata.KP_REAL),0)/COALESCE(GROUP_CONCAT(dbdata.pagus),0) * 100, 0) as persenkp,
+        format(GROUP_CONCAT(dbdata.DK_PAGU),0, "id_ID") DK_PAGU , format(GROUP_CONCAT(dbdata.DK_REAL),0, "id_ID") DK_REAL, 
+        Format(COALESCE(GROUP_CONCAT(dbdata.DK_REAL),0)/COALESCE(GROUP_CONCAT(dbdata.pagus),0) * 100, 0) as persendk,
+        format(GROUP_CONCAT(dbdata.TP_PAGU),0, "id_ID") TP_PAGU , format(GROUP_CONCAT(dbdata.TP_REAL),0, "id_ID") TP_REAL ,
+        Format(COALESCE(GROUP_CONCAT(dbdata.TP_REAL),0)/COALESCE(GROUP_CONCAT(dbdata.pagus),0) * 100, 0) as persentp
+        
         FROM
         (
-        select sum(data_pagus.amount) pagus, null reals FROM
+        select sum(data_pagus.amount) pagus, null reals , null as KP_PAGU, null as KP_REAL, null as DK_PAGU, null as DK_REAL, null as TP_PAGU, null as TP_REAL FROM
         data_pagus where data_pagus.tahun '.$qryYear1.$qryYear2.'
         union ALL
-        select null pagus, sum(data_realisasis.amount) reals FROM
+        select null pagus, sum(data_realisasis.amount) reals , null as KP_PAGU, null as KP_REAL, null as DK_PAGU, null as DK_REAL, null as TP_PAGU, null as TP_REAL  FROM
         data_realisasis where data_realisasis.tahun '.$qryYear1.$qryYear2.'
+        union all
+        select  null pagus, null reals , sum(data_pagus.amount) KP_PAGU, null as KP_REAL, null as DK_PAGU, null as DK_REAL, null as TP_PAGU, null as TP_REAL FROM
+        data_pagus where data_pagus.tahun '.$qryYear1.$qryYear2.' and data_pagus.kewenangan = 1
+        UNION ALL
+        select  null pagus, null reals , null KP_PAGU,sum(data_realisasis.amount) KP_REAL, null as DK_PAGU, null as DK_REAL, null as TP_PAGU, null as TP_REAL FROM
+        data_realisasis where data_realisasis.tahun '.$qryYear1.$qryYear2.' and data_realisasis.kewenangan = 1
+        UNION ALL
+        select  null pagus, null reals , null as KP_PAGU, null as KP_REAL, sum(data_pagus.amount) DK_PAGU, null as DK_REAL, null as TP_PAGU, null as TP_REAL FROM
+        data_pagus where data_pagus.tahun '.$qryYear1.$qryYear2.' and data_pagus.kewenangan = 3
+        UNION ALL
+        select  null pagus, null reals , null KP_PAGU,null as KP_REAL, null as DK_PAGU, sum(data_realisasis.amount) DK_REAL, null as TP_PAGU, null as TP_REAL FROM
+        data_realisasis where data_realisasis.tahun '.$qryYear1.$qryYear2.' and data_realisasis.kewenangan = 3
+        UNION ALL
+        select  null pagus, null reals , null as KP_PAGU, null as KP_REAL, null as DK_PAGU, null as DK_REAL, sum(data_pagus.amount) TP_PAGU, null as TP_REAL FROM
+        data_pagus where data_pagus.tahun '.$qryYear1.$qryYear2.' and data_pagus.kewenangan = 4
+        UNION ALL
+        select  null pagus, null reals , null KP_PAGU,null as KP_REAL, null as DK_PAGU, null as DK_REAL, null as TP_PAGU, sum(data_realisasis.amount) TP_REAL FROM
+        data_realisasis where data_realisasis.tahun '.$qryYear1.$qryYear2.' and data_realisasis.kewenangan = 4
         ) as dbdata';
         
         $prData = DB::select(DB::raw($st));
     
+
+        
         //Log::info($prData);
 
         return view('admin.dashboard.pagu', compact('breadcrumb', 'years', 'dtYear1', 'dtYear2', 'prData'));
