@@ -58,7 +58,7 @@
 
 
 <div class="row d-flex mb-3 align-items-center">
-	<div class="col-md-7 col-sm-12 justify-content-start mb-3">
+	<div class="col-md-6 col-sm-12 justify-content-start mb-3">
 		<ul class="nav nav-pills flex-column flex-sm-row" id="myTab" role="tablist">
 			<li class="nav-item">
 				<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
@@ -87,10 +87,10 @@
 		</ul>
 	</div>
 	<!-- the change: move year selector inline to nav-pills -->
-	<div class="col-sm-12 col-md-5 mb-3 justify-content-end">
+	<div class="col-sm-12 col-md-6 mb-3 ">
 		<form id="fp" action="{{ route('admin.pagu') }}" method="post" class="form-group ">
 			{{ csrf_field() }}
-			<div class="input-group">
+			<div class="input-group justify-content-end">
 			<label class="form-label col-form-label mr-2" for="single-default">
 				Select Year
 			</label>
@@ -263,123 +263,51 @@
 	
 	<div class="tab-pane" id="program" role="tabpanel" aria-labelledby="home-tab">
 		<div class="row d-flex">
-			<div class="col-lg-4">
-				<div class="panel" id="panel-2">
-					<div class="panel-hdr">
-						<h2>
-							<i class="fw-300">Kode Program: </i><span class="fw-500"> EC</span>
-						</h2>
-					</div>
-					<div class="panel-container show">
-						<div class="panel-content">
-							<h5 class="fw-500 mb-3">Nilai Tambah dan Daya Saing Industri</h5>
-							<!-- Row -->
-							<div class="row mb-5">
-								<div class="col-12 align-self-center text-center">
-									<div class="c-chart-wrapper">
-										<div class="js-easy-pie-chart color-primary-300 position-relative d-inline-flex align-items-center justify-content-center" data-percent="97.68" data-piesize="200" data-linewidth="20" data-scalelength="7">
-											<div class="display-4 position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 text-dark">97.68%</div>
+			{{-- start loop  --}}
+			@foreach ($programData as $data)
+				<div class="col-lg-4">
+					<div class="panel" id="panel-2">
+						<div class="panel-hdr">
+							<h2>
+								<i class="fw-300">Kode Program: </i><span class="fw-500"> {{ $data->kode1 }}</span>
+							</h2>
+						</div>
+						<div class="panel-container show">
+							<div class="panel-content" style="height: 30em">
+								<h5 class="fw-500 mb-3">{{ $data->deskripsi }}</h5>
+								<!-- Row -->
+								<div class="row mb-5">
+									<div class="col-12 align-self-center text-center">
+										<div class="c-chart-wrapper">
+											<div class="js-easy-pie-chart color-primary-300 position-relative d-inline-flex align-items-center justify-content-center" data-percent="{{ $data->persen }}" data-piesize="200" data-linewidth="20" data-scalelength="7">
+												<div class="display-4 position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 text-dark">{{ $data->persen }}%</div>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-							<hr>
-							<div class="row mb-5">
-								<div class="align-items-center">
-									<div class="d-inline-flex flex-column ml-2">
-										<span class="fs-md d-inline-block p-1 width-20" >Realisasi</span>
-										<span class="fs-md d-inline-block p-1 width-50 mt-1" >Pagu</span>
+								<hr>
+								<div class="row mb-5">
+									<div class="align-items-center">
+										<div class="d-inline-flex flex-column ml-2">
+											<span class="fs-md d-inline-block p-1 width-20" >Realisasi</span>
+											<span class="fs-md d-inline-block p-1 width-50 mt-1" >Pagu</span>
+										</div>
 									</div>
-								</div>
-								<div class="ml-auto d-inline-flex align-items-center">
-									<div class="d-inline-flex flex-column ml-2 mr-2">
-										<span class="fs-md d-inline-block badge badge-primary text-white text-right p-1 width-20">Rp 79.307.738.405</span>
-										<span class="fs-md d-inline-block badge bg-fusion-50 text-white text-right p-1 width-20 mt-1">Rp 80.756.722.000</span>
+									<div class="ml-auto d-inline-flex align-items-center">
+										<div class="d-inline-flex flex-column ml-2 mr-2">
+											<span class="fs-md d-inline-block badge badge-primary text-white text-right p-1 width-20">Rp {{ $data->totrealisasi }}</span>
+											<span class="fs-md d-inline-block badge bg-fusion-50 text-white text-right p-1 width-20 mt-1">Rp {{ $data->totpagu }}</span>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="panel" id="panel-3">
-					<div class="panel-hdr">
-						<h2>
-							<i class="fw-300">Kode Program: </i><span class="fw-500"> HA</span>
-						</h2>
-					</div>
-					<div class="panel-container show">
-						<div class="panel-content">
-							<h5 class="fw-500 mb-3 inline-block text-truncate truncate-sm">Ketersediaa Akses dan Konsumsi Pangan Berkualitas</h5>
-							<!-- Row -->
-							<div class="row mb-5">
-								<div class="col-12 align-self-center text-center">
-									<div class="c-chart-wrapper">
-										<div class="js-easy-pie-chart color-info-300 position-relative d-inline-flex align-items-center justify-content-center" data-percent="97.68" data-piesize="200" data-linewidth="20" data-scalelength="7">
-											<div class="display-4 position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 text-dark">97.68%</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<hr>
-							<div class="row mb-5">
-								<div class="align-items-center">
-									<div class="d-inline-flex flex-column ml-2">
-										<span class="fs-md d-inline-block p-1 width-20" >Realisasi</span>
-										<span class="fs-md d-inline-block p-1 width-50 mt-1" >Pagu</span>
-									</div>
-								</div>
-								<div class="ml-auto d-inline-flex align-items-center">
-									<div class="d-inline-flex flex-column ml-2 mr-2">
-										<span class="fs-md d-inline-block badge badge-info text-white text-right p-1 width-20" >Rp 425.539.364.432</span>
-										<span class="fs-md d-inline-block badge bg-fusion-50 text-white text-right p-1 width-20 mt-1">Rp 435.819.591.000</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-4">
-				<div class="panel" id="panel-4">
-					<div class="panel-hdr">
-						<h2>
-							<i class="fw-300">Kode Program: </i><span class="fw-500"> WA</span>
-						</h2>
-					</div>
-					<div class="panel-container show">
-						<div class="panel-content">
-							<h5 class="fw-500 mb-3">Dukungan Manajemen</h5>
-							<!-- Row -->
-							<div class="row mb-5">
-								<div class="col-12 align-self-center text-center">
-									<div class="c-chart-wrapper">
-										<div class="js-easy-pie-chart color-success-300 position-relative d-inline-flex align-items-center justify-content-center" data-percent="97.68" data-piesize="200" data-linewidth="20" data-scalelength="7">
-											<div class="display-4 position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 text-dark">97.68%</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<hr>
-							<div class="row mb-5">
-								<div class="align-items-center">
-									<div class="d-inline-flex flex-column ml-2">
-										<span class="fs-md d-inline-block p-1 width-20" >Realisasi</span>
-										<span class="fs-md d-inline-block p-1 width-50 mt-1" >Pagu</span>
-									</div>
-								</div>
-								<div class="ml-auto d-inline-flex align-items-center">
-									<div class="d-inline-flex flex-column ml-2 mr-2">
-										<span class="fs-md d-inline-block badge badge-success text-white text-right p-1 width-20" >Rp 105.848.477.986</span>
-										<span class="fs-md d-inline-block badge bg-fusion-50 text-white text-right p-1 width-50 mt-1" >Rp 108.610.716.000</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+				
+			@endforeach
+				
+			{{-- end loop --}}
 		</div>
 	</div>
 		

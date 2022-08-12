@@ -182,11 +182,37 @@ class HomeController extends Controller
         
         $prData = DB::select(DB::raw($st));
     
-
+        $st2 = 'select
+            detdata1.kode1, detdata1.deskripsi,
+            format(COALESCE(detdata1.pagunya,0),0, "id_ID") as totpagu,
+            format(COALESCE(detdata2.realisasinya,0),0, "id_ID") as totrealisasi,
+            format(COALESCE((detdata2.realisasinya/detdata1.pagunya)*100,0),2) as persen
+            
+            FROM
+            (
+            SELECT RIGHT(data_pagus.program,2) kode1, sum(data_pagus.amount) pagunya, tbl_program.deskripsi as deskripsi
+            FROM
+            data_pagus 
+            INNER JOIN tbl_program ON RIGHT(data_pagus.program,2) = tbl_program.kode and data_pagus.tahun '.$qryYear1.$qryYear2.'
+            GROUP BY 
+            tbl_program.kode
+            ) as detdata1
+            INNER JOIN
+            (
+            SELECT RIGHT(data_realisasis.program,2) kode2, sum(data_realisasis.amount) realisasinya
+            FROM
+            data_realisasis 
+            INNER JOIN tbl_program ON RIGHT(data_realisasis.program,2) = tbl_program.kode and data_realisasis.tahun '.$qryYear1.$qryYear2.'
+            GROUP BY 
+            tbl_program.kode
+            ) as detdata2
+            ON detdata1.kode1 = detdata2.kode2 
+            ORDER BY detdata1.kode1';
+        $programData = DB::select(DB::raw($st2));
         
-        //Log::info($prData);
+        Log::info($programData);
 
-        return view('admin.dashboard.pagu', compact('breadcrumb', 'years', 'dtYear1', 'dtYear2', 'prData'));
+        return view('admin.dashboard.pagu', compact('breadcrumb', 'years', 'dtYear1', 'dtYear2', 'prData','programData'));
     }
 
     /**

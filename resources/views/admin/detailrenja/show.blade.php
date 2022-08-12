@@ -77,28 +77,28 @@
                             </td>
                             <td class="text-center">
                                 {{ $data->vol1 }} 
-                                {{ $data->sat1 }}
+                                {{-- {{ $data->sat1 }} --}}
                             </td>
                             <td class="text-right">
                                 {{ $data->jumlah1 }}
                             </td>
                             <td class="text-center">
                                 {{ $data->vol2 }}  
-                                {{ $data->sat2 }}
+                                {{-- {{ $data->sat2 }} --}}
                             </td>
                             <td class="text-right">
                                 {{ $data->jumlah2 }}
                             </td>
                             <td class="text-center">
                                 {{ $data->vol3 }}  
-                                {{ $data->sat3 }}
+                                {{-- {{ $data->sat3 }} --}}
                             </td>
                             <td class="text-right">
                                 {{ $data->jumlah3 }}
                             </td>
                             <td class="text-center">
                                 {{ $data->vol4 }}   
-                                {{ $data->sat4 }}
+                                {{-- {{ $data->sat4 }} --}}
                             </td>
                             <td class="text-right">
                                 {{ $data->jumlah4 }}
