@@ -318,46 +318,11 @@
 	<div class="tab-pane" id="kegiatan" role="tabpanel" aria-labelledby="home-tab">
 		<div class="row d-flex">
 			<!-- STO -->
-			<div class="col-md-6" hidden>
-				<div id="panel-5" class="panel">
-					<div class="panel-hdr">
-						<h2 data-toggle="tooltip" title data-original-title="Realisasi Anggaran Kegiatan per Triwulan">
-							<span class="">Realisasi Anggaran Kegiatan per Triwulan Model 1</span>
-						</h2>
-					</div>
-					<div class="panel-container show">
-						<div class="panel-content poisition-relative">
-							<div class="col">
-								<div class="p-1 pos-left pos-top mr-3 z-index-cloud d-flex align-items-center justify-content-center">
-									<div class="py-2 pr-4 mr-3">
-										<div class="js-easy-pie-chart color-primary-400 position-relative d-inline-flex align-items-center justify-content-center" data-percent="97.68" data-piesize="95" data-linewidth="10" data-scalelength="5">
-											<div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark">97.69%</div>
-										</div>
-									</div>
-									<div class="text-right fw-500 l-h-n d-flex flex-column hidden-sm-down">
-											<div class="h3 m-0 d-flex align-items-center justify-content-end">
-												<div class='icon-stack mr-2'>
-													<i class="base base-7 icon-stack-3x opacity-100 color-primary-600"></i>
-													<i class="base base-7 icon-stack-2x opacity-100 color-primary-200"></i>
-													<i class="fas fa-coins icon-stack-1x opacity-100 color-white"></i>
-												</div>
-												Rp 610.695.580.823
-											</div>
-											<span class="m-0 fs-xs text-muted" hidden>Increased Profit as per redux margins and estimates</span>
-										</div>
-									
-								</div>
-								<div id="twSTO" style="width:100%; height:250px;"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 			<div class="col-md-6">
 				<div id="panel-5" class="panel">
 					<div class="panel-hdr">
 						<h2 data-toggle="tooltip" title data-original-title="Realisasi Anggaran Kegiatan per Triwulan">
-							<span class="">Realisasi Anggaran Kegiatan per Triwulan Model 2</span>
+							<span class="">Realisasi Anggaran Kegiatan per Triwulan</span>
 						</h2>
 					</div>
 					<div class="panel-container show">
@@ -370,8 +335,8 @@
 											Total Realisasi dibagi Total Pagu
 									-->
 									<div class="py-2 pr-4 mr-3">
-										<div class="js-easy-pie-chart color-primary-400 position-relative d-inline-flex align-items-center justify-content-center" data-percent="97.68" data-piesize="95" data-linewidth="10" data-scalelength="5">
-											<div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark">97.68%</div>
+										<div class="js-easy-pie-chart color-primary-400 position-relative d-inline-flex align-items-center justify-content-center" data-percent="{{ $prData[0]->persen }}" data-piesize="95" data-linewidth="10" data-scalelength="5">
+											<div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark">{{ $prData[0]->persen }}%</div>
 										</div>
 									</div>			
 									<!--
@@ -384,7 +349,15 @@
 													<i class="base base-7 icon-stack-2x opacity-100 color-primary-200"></i>
 													<i class="fas fa-coins icon-stack-1x opacity-100 color-white"></i>
 												</div>
-												Rp 610.695.580.823
+												Rp {{ $prData[0]->pagus }}
+											</div>
+											<div class="h3 m-0 d-flex align-items-center justify-content-end">
+												<div class='icon-stack mr-2'>
+													<i class="base base-7 icon-stack-3x opacity-100 color-info-600"></i>
+													<i class="base base-7 icon-stack-2x opacity-100 color-info-200"></i>
+													<i class="fas fa-coins icon-stack-1x opacity-100 color-white"></i>
+												</div>
+												Rp {{ $prData[0]->reals }}
 											</div>
 											<span class="m-0 fs-xs text-muted" hidden>Increased Profit as per redux margins and estimates</span>
 										</div>
@@ -846,105 +819,6 @@
 @endsection
 @section('scripts')
 @parent
-<!-- c3 omspan model 1-->
-<script>
-$(document).ready(function()
-{
-	var barChart = c3.generate(
-		{
-			bindto: "#twSTO",
-			data:
-			{
-				columns: [
-					['STO', 1.80, 13.56, 70.38, 98.67]
-				],
-			type: 'bar'
-			},
-			legend: {
-			  show: true
-			},
-			color:
-			{
-				pattern: ['#886ab5','#2196F3','#1dc9b7','#ffc241','#fd3995','#868e96']
-			},
-			axis: {
-				x: {
-					type: 'category',
-					categories: ['TW1', 'TW2', 'TW3', 'TW4']
-				},
-				y:{
-					show: true
-				}
-			},
-			bar:
-			{
-				width:
-				{
-					ratio: 0.8 // this makes bar width 50% of length between ticks
-				},
-				space: 0.25
-				// or
-				//width: 100 // this makes bar width 100px
-			}
-		});
-
-		setTimeout(function()
-		{
-			barChart.load(
-			{
-				columns: [
-					['Ditlin', 1.58, 32.83, 52.69, 99.24]
-				]
-			});
-		}, 1000);
-
-		setTimeout(function()
-		{
-			barChart.load(
-			{
-				columns: [
-					['Sesdit', 11.57, 38.72, 66.94, 97.46]
-				]
-			});
-		}, 2000);
-
-		setTimeout(function()
-		{
-			barChart.load(
-			{
-				columns: [
-					['Ditbenih', 0.73, 17.53, 59.73, 96.56]
-				]
-			});
-		}, 3000);
-
-		setTimeout(function()
-		{
-			barChart.load(
-			{
-				columns: [
-					['Buflo', 0.82, 11.09, 55.03, 97.67]
-				]
-			});
-		}, 4000);
-
-		setTimeout(function()
-		{
-			barChart.load(
-			{
-				columns: [
-					['PPHH', 0.70, 13.89, 50.68, 99.24]
-				]
-			});
-		}, 5000);
-
-		setTimeout(function()
-		{
-			$("#barChartLoad").text("load complete")
-		}, 6000);
-});
-</script>
-
 <!-- C3 omspan model 2 -->
 <script>
 $(document).ready(function()
@@ -955,8 +829,13 @@ var barTW = c3.generate(
 	data:
 	{
 		columns: [
-			['TW1',1.80,1.58,11.57,0.73,0.82,0.70]
+			['TW1',
+			@foreach ($twData as $k) 
+                {{ $k->tw1 }},    
+            @endforeach
+			]
 		],
+		
 	type: 'bar'
 	},
 	legend: {
@@ -969,7 +848,12 @@ var barTW = c3.generate(
 	axis: {
 		x: {
 			type: 'category',
-			categories: ['STO', 'Ditlin', 'Sesdit', 'Ditbenih','Buflo','PPHH']
+			categories: 
+			[
+			@foreach ($twData as $k) 
+                "{{ $k->kode1 }}",    
+            @endforeach
+			]
 		},
 		y:{
 			show: true
@@ -992,7 +876,11 @@ setTimeout(function()
 	barTW.load(
 	{
 		columns: [
-			['TW2',13.56,32.83,38.72,17.53,11.09,13.89]
+			['TW2',
+			@foreach ($twData as $k) 
+                {{ $k->tw2 }},    
+            @endforeach
+			]
 		]
 	});
 }, 1000);
@@ -1002,7 +890,11 @@ setTimeout(function()
 	barTW.load(
 	{
 		columns: [
-			['TW3',70.38,52.69,66.94,59.73,55.03,50.68]
+			['TW3',
+			@foreach ($twData as $k) 
+                {{ $k->tw3 }},    
+            @endforeach
+			]
 		]
 	});
 }, 2000);
@@ -1012,7 +904,12 @@ setTimeout(function()
 	barTW.load(
 	{
 		columns: [
-			['TW4',98.67,99.24,97.46,96.56,97.67,99.24]
+			['TW4',
+			@foreach ($twData as $k) 
+                {{ $k->tw4 }},    
+            @endforeach
+			
+			]
 		]
 	});
 }, 3000)

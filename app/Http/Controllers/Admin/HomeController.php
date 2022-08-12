@@ -210,9 +210,123 @@ class HomeController extends Controller
             ORDER BY detdata1.kode1';
         $programData = DB::select(DB::raw($st2));
         
-        Log::info($programData);
+        if ($dtYear1 == '') { $dtYear1 = date("Y");}
 
-        return view('admin.dashboard.pagu', compact('breadcrumb', 'years', 'dtYear1', 'dtYear2', 'prData','programData'));
+        $st3 = 'select tw1.kode1, COALESCE(tw1.persen,0) as tw1, COALESCE(tw2.persen,0)	as tw2, COALESCE(tw3.persen,0) as tw3, COALESCE(tw4.persen,0) as tw4			
+        FROM(				
+                        SELECT
+                        detdata1.kode1, 
+                        format(COALESCE((detdata2.realisasinya/detdata1.pagunya)*100,0),2) as persen
+                        FROM
+                        (
+                        SELECT data_pagus.kegiatan kode1, sum(data_pagus.amount) pagunya
+                        FROM
+                        data_pagus 
+                        INNER JOIN master_kegiatans ON data_pagus.kegiatan = master_kegiatans.kd_kegiatan and data_pagus.tahun ="'.$dtYear1.'"
+                        GROUP BY 
+                        master_kegiatans.kd_kegiatan
+                        ) as detdata1
+                        INNER JOIN
+                        (
+                        SELECT data_realisasis.kegiatan kode2, sum(data_realisasis.amount) realisasinya
+                        FROM
+                        data_realisasis 
+                        INNER JOIN master_kegiatans ON data_realisasis.kegiatan = master_kegiatans.kd_kegiatan and data_realisasis.tahun ="'.$dtYear1.'"
+                        and  (MONTH(STR_TO_DATE(data_realisasis.tanggal, "%d/%m/%Y")) < 4)
+                        GROUP BY 
+                        master_kegiatans.kd_kegiatan
+                        ) as detdata2
+                        ON detdata1.kode1 = detdata2.kode2 
+        ) as tw1
+        LEFT JOIN
+        (				
+                        SELECT
+                        detdata1.kode1, 
+                        format(COALESCE((detdata2.realisasinya/detdata1.pagunya)*100,0),2) as persen
+                        FROM
+                        (
+                        SELECT data_pagus.kegiatan kode1, sum(data_pagus.amount) pagunya
+                        FROM
+                        data_pagus 
+                        INNER JOIN master_kegiatans ON data_pagus.kegiatan = master_kegiatans.kd_kegiatan and data_pagus.tahun ="'.$dtYear1.'"
+                        GROUP BY 
+                        master_kegiatans.kd_kegiatan
+                        ) as detdata1
+                        INNER JOIN
+                        (
+                        SELECT data_realisasis.kegiatan kode2, sum(data_realisasis.amount) realisasinya
+                        FROM
+                        data_realisasis 
+                        INNER JOIN master_kegiatans ON data_realisasis.kegiatan = master_kegiatans.kd_kegiatan and data_realisasis.tahun ="'.$dtYear1.'"
+                        and  (MONTH(STR_TO_DATE(data_realisasis.tanggal, "%d/%m/%Y")) < 7) and ((MONTH(NOW()) > 3 and YEAR(NOW()) = '.$dtYear1.') || YEAR(NOW()) > '.$dtYear1.')
+                        GROUP BY 
+                        master_kegiatans.kd_kegiatan
+                        ) as detdata2
+                        ON detdata1.kode1 = detdata2.kode2 
+        ) as tw2
+        ON tw1.kode1 = tw2.kode1
+        LEFT JOIN
+        (				
+                        SELECT
+                        detdata1.kode1, 
+                        format(COALESCE((detdata2.realisasinya/detdata1.pagunya)*100,0),2) as persen
+                        FROM
+                        (
+                        SELECT data_pagus.kegiatan kode1, sum(data_pagus.amount) pagunya
+                        FROM
+                        data_pagus 
+                        INNER JOIN master_kegiatans ON data_pagus.kegiatan = master_kegiatans.kd_kegiatan and data_pagus.tahun ="'.$dtYear1.'"
+                        GROUP BY 
+                        master_kegiatans.kd_kegiatan
+                        ) as detdata1
+                        INNER JOIN
+                        (
+                        SELECT data_realisasis.kegiatan kode2, sum(data_realisasis.amount) realisasinya
+                        FROM
+                        data_realisasis 
+                        INNER JOIN master_kegiatans ON data_realisasis.kegiatan = master_kegiatans.kd_kegiatan and data_realisasis.tahun ="'.$dtYear1.'"
+                        and  (MONTH(STR_TO_DATE(data_realisasis.tanggal, "%d/%m/%Y")) < 9) and ((MONTH(NOW()) > 6 and YEAR(NOW()) = '.$dtYear1.') || YEAR(NOW()) > '.$dtYear1.')
+                        GROUP BY 
+                        master_kegiatans.kd_kegiatan
+                        ) as detdata2
+                        ON detdata1.kode1 = detdata2.kode2 
+        ) as tw3
+        ON tw1.kode1 = tw3.kode1
+        LEFT JOIN
+        (				
+                        SELECT
+                        detdata1.kode1, 
+                        format(COALESCE((detdata2.realisasinya/detdata1.pagunya)*100,0),2) as persen
+                        FROM
+                        (
+                        SELECT data_pagus.kegiatan kode1, sum(data_pagus.amount) pagunya
+                        FROM
+                        data_pagus 
+                        INNER JOIN master_kegiatans ON data_pagus.kegiatan = master_kegiatans.kd_kegiatan and data_pagus.tahun ="'.$dtYear1.'"
+                        GROUP BY 
+                        master_kegiatans.kd_kegiatan
+                        ) as detdata1
+                        INNER JOIN
+                        (
+                        SELECT data_realisasis.kegiatan kode2, sum(data_realisasis.amount) realisasinya
+                        FROM
+                        data_realisasis 
+                        INNER JOIN master_kegiatans ON data_realisasis.kegiatan = master_kegiatans.kd_kegiatan and data_realisasis.tahun ="'.$dtYear1.'"
+                        and  (MONTH(STR_TO_DATE(data_realisasis.tanggal, "%d/%m/%Y")) <= 12) and ((MONTH(NOW()) > 9 and YEAR(NOW()) = '.$dtYear1.') || YEAR(NOW()) > '.$dtYear1.')
+                        GROUP BY 
+                        master_kegiatans.kd_kegiatan
+                        ) as detdata2
+                        ON detdata1.kode1 = detdata2.kode2 
+        ) as tw4
+        ON tw1.kode1 = tw4.kode1
+        ORDER BY tw1.kode1
+        ';
+        $twData = DB::select(DB::raw($st3));      
+
+        //Log::info($twData);
+
+
+        return view('admin.dashboard.pagu', compact('breadcrumb', 'years', 'dtYear1', 'dtYear2', 'prData','programData','twData'));
     }
 
     /**
