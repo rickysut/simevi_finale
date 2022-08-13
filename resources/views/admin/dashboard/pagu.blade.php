@@ -386,48 +386,19 @@
 					</div>
 					<div class="panel-container show">
 						<div class="panel-content">
-							<div class="d-flex mt-2 mb-1 fs-xs text-primary">
-								Sayuran dan Tanaman Obat
-								<span class="d-inline-block ml-auto">125.744.204.088 | 98.67%</span>
-							</div>
-							<div class="progress progress-xs mb-3">
-								<div class="progress-bar bg-primary" role="progressbar" style="width: 98.67%;" aria-valuenow="98.67" aria-valuemin="0" aria-valuemax="100"></div>
-							</div>
-							<div class="d-flex mt-2 mb-1 fs-xs text-info">
-								Perlindungan Hortikultura
-								<span class="d-inline-block ml-auto">38.758.167.264 | 99.24%</span>
-							</div>
-							<div class="progress progress-xs mb-3">
-								<div class="progress-bar bg-info" role="progressbar" style="width: 99.24%;" aria-valuenow="99.24" aria-valuemin="0" aria-valuemax="100"></div>
-							</div>
-							<div class="d-flex mt-2 mb-1 fs-xs text-warning">
-								Sekretariat Direktorat Jenderal Hortikultura
-								<span class="d-inline-block ml-auto">105.848.477.986 | 97.46%</span>
-							</div>
-							<div class="progress progress-xs mb-3">
-								<div class="progress-bar bg-warning" role="progressbar" style="width: 97.46%;" aria-valuenow="97.46" aria-valuemin="0" aria-valuemax="100"></div>
-							</div>
-							<div class="d-flex mt-2 mb-1 fs-xs text-danger">
-								Perbenihan Hortikultura
-								<span class="d-inline-block ml-auto">174.469.762.405 | 96.56%</span>
-							</div>
-							<div class="progress progress-xs mb-3">
-								<div class="progress-bar bg-danger" role="progressbar" style="width: 96.56%;" aria-valuenow="96.56" aria-valuemin="0" aria-valuemax="100"></div>
-							</div>
-							<div class="d-flex mt-2 mb-1 fs-xs text-success">
-								Tanaman Buah dan Florikultura
-								<span class="d-inline-block ml-auto">86.567.230.675 | 97.67%</span>
-							</div>
-							<div class="progress progress-xs mb-3">
-								<div class="progress-bar bg-success" role="progressbar" style="width: 97.67%;" aria-valuenow="97.67" aria-valuemin="0" aria-valuemax="100"></div>
-							</div>
-							<div class="d-flex mt-2 mb-1 fs-xs text-dark">
-								Pengolahan dan Pemasaran Hortikultura
-								<span class="d-inline-block ml-auto">79.307.738.405 | 99.24%</span>
-							</div>
-							<div class="progress progress-xs mb-3">
-								<div class="progress-bar bg-dark" role="progressbar" style="width: 99.24%;" aria-valuenow="00.24" aria-valuemin="0" aria-valuemax="100"></div>
-							</div>
+							
+							@foreach ($barData as $data)
+								@if ($color = sprintf("#%06x",rand(0,16777215)))
+								<div class="d-flex mt-2 mb-1 fs-xs text-primary"  >
+									<span style="max-width: 350px;"> {{ $data->namakegiatan }} </span>
+									<span class="d-inline-block ml-auto justify-content-end">{{ $data->amount }} | {{ $data->tw1 }}%</span>
+								</div>
+								<div class="progress progress-xs mb-3">
+									<div class="progress-bar" style="background-color : {{ $color }}; width: {{ $data->tw1 }}%;" role="progressbar"  aria-valuenow="{{ $data->tw1 }}" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>	
+								@endif
+							@endforeach
+							
 						</div>
 					</div>
 				</div>
@@ -448,7 +419,7 @@
 								Total Realisasi (per satker) dibagi Total Pagu (per satker)
 						-->
 						<h2 class="fw-500">
-							100%
+							{{ $topData[0]->persen }}
 						</h2>
 					</div>
 					<div class="panel-container card-body text-center show">
@@ -457,13 +428,13 @@
 							<div class="row text-center">
 								<div class="col-12">
 									<div class="mb-3">
-										<h3 class="fw-500">339156</h3>
+										<h3 class="fw-500">{{ $topData[0]->kodesatker }}</h3>
 									</div>
 									<div class="">
 										<div class="text-center">
 											<i class="fal fa-award fa-6x text-warning mb-5"></i>
-											<h4 class="fw-700 mb-0 text-truncate text-truncate-xl" data-toggle="tooltip" title data-original-title="DINAS TANAMAN PANGAN HORTIKULTURA DAN PERKEBUNAN PROVINSI PAPUA BARAT">DINAS TANAMAN PANGAN HORTIKULTURA DAN PERKEBUNAN PROVINSI PAPUA BARAT</h4>
-											<p class="text-muted mb-0">Rp. 1.659.390.000</p>
+											<h4 class="fw-700 mb-0 text-truncate text-truncate-xl" data-toggle="tooltip" title data-original-title="{{ $topData[0]->namasatker }}">{{ $topData[0]->namasatker }}</h4>
+											<p class="text-muted mb-0">Rp. {{ $topData[0]->realisasi }}</p>
 										</div>
 									</div>
 								</div>
@@ -475,9 +446,9 @@
 			<!-- end 1st rank for mobile -->
 			<div class="col-lg-4">
 				<div class="panel" id="panel-7">
-					<div class="card-header text-center">
+					<div class="card-header text-center text-align-items-center bg-fusion-200 bg-info-gradient">
 						<h2 class="fw-500">
-							100%
+							{{ $topData[2]->persen }}
 						</h2>
 					</div>
 					<div class="panel-container card-body text-center show">
@@ -486,13 +457,13 @@
 							<div class="row text-center">
 								<div class="col-12">
 									<div class="mb-3">
-										<h4 class="fw-500">331210</h4>
+										<h4 class="fw-500">{{ $topData[2]->kodesatker }}</h4>
 									</div>
 									<div class="">
 										<div class="text-center">
 											<i class="fal fa-award fa-3x mb-5"></i>
-											<h5 class="mb-0 text-truncate text-truncate-xl" data-toggle="tooltip" title data-original-title="DINAS PERTANIAN DAN KETAHANAN PANGAN KAB. MANOKWARI SELATAN">DINAS PERTANIAN DAN KETAHANAN PANGAN KAB. MANOKWARI SELATAN</h5>
-											<p class="text-muted mb-0">Rp. 498.500.000</p>
+											<h5 class="mb-0 text-truncate text-truncate-xl" data-toggle="tooltip" title data-original-title="{{ $topData[2]->namasatker }}">{{ $topData[2]->namasatker }}</h5>
+											<p class="text-muted mb-0">Rp. {{ $topData[2]->realisasi }}</p>
 										</div>
 									</div>
 								</div>
@@ -504,9 +475,9 @@
 			<!-- this 1st rank will be shown on middle column only on large screen -->
 			<div class="col-lg-4 hidden-md-down">
 				<div class="panel" id="panel-7">
-					<div class="card-header text-center text-align-items-center bg-primary-500 bg-info-gradient">
+					<div class="card-header text-center text-align-items-center bg-warning-600 bg-fusion-gradient">
 						<h2 class="fw-500">
-							100%
+							{{ $topData[0]->persen }}
 						</h2>
 					</div>
 					<div class="panel-container card-body text-center show">
@@ -515,13 +486,13 @@
 							<div class="row text-center">
 								<div class="col-12">
 									<div class="mb-3">
-										<h3 class="fw-500">339156</h3>
+										<h3 class="fw-500">{{ $topData[0]->kodesatker }}</h3>
 									</div>
 									<div class="">
 										<div class="text-center">
 											<i class="fal fa-award fa-6x text-warning mb-5"></i>
-											<h4 class="fw-700 mb-0 text-truncate text-truncate-xl" data-toggle="tooltip" title data-original-title="DINAS TANAMAN PANGAN HORTIKULTURA DAN PERKEBUNAN PROVINSI PAPUA BARAT">DINAS TANAMAN PANGAN HORTIKULTURA DAN PERKEBUNAN PROVINSI PAPUA BARAT</h4>
-											<p class="text-muted mb-0">Rp. 1.659.390.000</p>
+											<h4 class="fw-700 mb-0 text-truncate text-truncate-xl" data-toggle="tooltip" title data-original-title="{{ $topData[0]->namasatker }}">{{ $topData[0]->namasatker }}</h4>
+											<p class="text-muted mb-0">Rp. {{ $topData[0]->realisasi }}</p>
 										</div>
 									</div>
 								</div>
@@ -533,9 +504,9 @@
 			<!-- end 1st rank for large screen -->
 			<div class="col-lg-4">
 				<div class="panel" id="panel-7">
-					<div class="card-header text-center">
+					<div class="card-header text-center text-align-items-center bg-gray-200 bg-fusion-gradient">
 						<h2 class="fw-500">
-							100%
+							{{ $topData[1]->persen }}
 						</h2>
 					</div>
 					<div class="panel-container card-body text-center show">
@@ -544,13 +515,13 @@
 							<div class="row text-center">
 								<div class="col-12">
 									<div class="mb-3">
-										<h4 class="fw-500">259098</h4>
+										<h4 class="fw-500">{{ $topData[1]->kodesatker }}</h4>
 									</div>
 									<div class="">
 										<div class="text-center">
 											<i class="fal fa-award fa-3x mb-5"></i>
-											<h5 class="mb-0 text-truncate text-truncate-xl" data-toggle="tooltip" title data-original-title="DINAS PERTANIAN DAN PANGAN PROVINSI PAPUA">DINAS PERTANIAN DAN PANGAN PROVINSI PAPUA</h5>
-											<p class="text-muted mb-0">Rp. 1.523.069.250</p>
+											<h5 class="mb-0 text-truncate text-truncate-xl" data-toggle="tooltip" title data-original-title="{{ $topData[1]->namasatker }}">{{ $topData[1]->namasatker }}</h5>
+											<p class="text-muted mb-0">Rp. {{ $topData[1]->realisasi }}</p>
 										</div>
 									</div>
 								</div>
@@ -577,90 +548,20 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr data-toggle="tooltip" title data-original-title="DINAS PERTANIAN PROVINSI GORONTALO">
-								<td>319002</td>
-								<td>
-									<div class="d-flex align-items-baseline">
-										<span class="truncate hidden-md-up">DINAS PERTANIAN PROVINSI GORONTALO</span>
-										<span class="hidden-md-down">DINAS PERTANIAN PROVINSI GORONTALO</span>
-									</div>
-								</td>
-								<td>1.400.134.000</td>
-								<td>1.399.816.000</td>
-								<td>99%</td>
-							</tr>
-							<tr data-toggle="tooltip" title data-original-title="DINAS TANAMAN PANGAN HORTIKULTURA DAN PETERNAKAN PROVINSI JAMBI">
-								<td>109905</td>
-								<td>
-									<div class="d-flex align-items-baseline">
-										<span class="truncate hidden-sm-up" >DINAS TANAMAN PANGAN HORTIKULTURA DAN PETERNAKAN PROVINSI JAMBI</span>
-										<span class="hidden-sm-down" >DINAS TANAMAN PANGAN HORTIKULTURA DAN PETERNAKAN PROVINSI JAMBI</span>
-									</div>
-								</td>
-								<td>2.420.000.000</td>
-								<td>2.419.120.120</td>
-								<td>99%</td>
-							</tr>
-							<tr data-toggle="tooltip" title data-original-title="DINAS PERTANIAN TANAMAN PANGAN KAB KEPAHIANG">
-								<td>269057</td>
-								<td>
-									<div class="d-flex align-items-baseline">
-										<span class="truncate hidden-sm-up" >DINAS PERTANIAN TANAMAN PANGAN KAB KEPAHIANG</span>
-										<span class="hidden-sm-down" >DINAS PERTANIAN TANAMAN PANGAN KAB KEPAHIANG</span>
-									</div>
-								</td>
-								<td>2.711.700.000</td>
-								<td>2.708.355.157</td>
-								<td>99%</td>
-							</tr>
-							<tr data-toggle="tooltip" title data-original-title="DINAS PERTANIAN DAN PANGAN PROVINSI PAPUA">
-								<td>259018</td>
-								<td>
-									<div class="d-flex align-items-baseline">
-										<span class="truncate hidden-sm-up" >DINAS PERTANIAN DAN PANGAN PROVINSI PAPUA</span>
-										<span class="hidden-sm-down" >DINAS PERTANIAN DAN PANGAN PROVINSI PAPUA</span>
-									</div>
-								</td>
-								<td>1.538.021.000</td>
-								<td>1.535.820.000</td>
-								<td>99%</td>
-							</tr>
-							<tr data-toggle="tooltip" title data-original-title="DINAS TANAMAN PANGAN DAN HORTIKULTURA PROVINSI LAMPUNG">
-								<td>129000</td>
-								<td>
-									<div class="d-flex align-items-baseline">
-										<span class="truncate hidden-sm-up" >DINAS TANAMAN PANGAN DAN HORTIKULTURA PROVINSI LAMPUNG</span>
-										<span class="hidden-sm-down" >DINAS TANAMAN PANGAN DAN HORTIKULTURA PROVINSI LAMPUNG</span>
-									</div>
-								</td>
-								<td>6.213.323.000</td>
-								<td>6.204.285.700</td>
-								<td>99%</td>
-							</tr>
-							<tr data-toggle="tooltip" title data-original-title="DINAS TANAMAN PANGAN & HORTIKULTURA KAB SOPPENG">
-								<td>199545</td>
-								<td>
-									<div class="d-flex align-items-baseline">
-										<span class="truncate hidden-sm-up" >DINAS TANAMAN PANGAN & HORTIKULTURA KAB SOPPENG</span>
-										<span class="hidden-sm-down" >DINAS TANAMAN PANGAN & HORTIKULTURA KAB SOPPENG</span>
-									</div>
-								</td>
-								<td>615.000.000</td>
-								<td>614.000.000</td>
-								<td>99%</td>
-							</tr>
-							<tr data-toggle="tooltip" title data-original-title="DINAS PERKEBUNAN & HORTIKULTURA PROP. SULAWESI TENGGARA">
-								<td>209065</td>
-								<td>
-									<div class="d-flex align-items-baseline">
-										<span class="truncate hidden-sm-up" >DINAS PERKEBUNAN & HORTIKULTURA PROP. SULAWESI TENGGARA</span>
-										<span class="hidden-sm-down" >DINAS PERKEBUNAN & HORTIKULTURA PROP. SULAWESI TENGGARA</span>
-									</div>
-								</td>
-								<td>3.462.371.000</td>
-								<td>3.456.734.000</td>
-								<td>99%</td>
-							</tr>
+							@foreach ($topData as $data )
+								<tr data-toggle="tooltip" title data-original-title="{{ $data->namasatker }}">
+									<td>{{ $data->kodesatker }}</td>
+									<td>
+										<div class="d-flex align-items-baseline">
+											<span class="truncate hidden-md-up">{{ $data->namasatker }}</span>
+											<span class="hidden-md-down">{{ $data->namasatker }}</span>
+										</div>
+									</td>
+									<td>{{ $data->pagu }}</td>
+									<td>{{ $data->realisasi }}</td>
+									<td>{{ $data->persen }}%</td>
+								</tr>									
+							@endforeach
 						</tbody>
 					</table>
 				</div>
@@ -682,129 +583,20 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr data-toggle="tooltip" title data-original-title="DINAS PERTANIAN PROVINSI KEPULAUAN BANGKA BELITUNG">
-								<td>309032</td>
-								<td>
-									<div class="d-flex align-items-baseline">
-										<span class="truncate hidden-md-up">DINAS PERTANIAN PROVINSI KEPULAUAN BANGKA BELITUNG</span>
-										<span class="hidden-md-down">DINAS PERTANIAN PROVINSI KEPULAUAN BANGKA BELITUNG</span>
-									</div>
-								</td>
-								<td>1.506.327.000</td>
-								<td>1.172.030.000</td>
-								<td>78%</td>
-							</tr>
-							<tr data-toggle="tooltip" title data-original-title="DINAS PERTANIAN DAN KETAHANAN PANGAN PROVINSI BALI">
-								<td>229027</td>
-								<td>
-									<div class="d-flex align-items-baseline">
-										<span class="truncate hidden-sm-up" >DINAS PERTANIAN DAN KETAHANAN PANGAN PROVINSI BALI</span>
-										<span class="hidden-sm-down" >DINAS PERTANIAN DAN KETAHANAN PANGAN PROVINSI BALI</span>
-									</div>
-								</td>
-								<td>4.535.127.000</td>
-								<td>3.932.584.036</td>
-								<td>87%</td>
-							</tr>
-							<tr data-toggle="tooltip" title data-original-title="DINAS PERTANIAN KABUPATEN SUMBAWA">
-								<td>230576</td>
-								<td>
-									<div class="d-flex align-items-baseline">
-										<span class="truncate hidden-sm-up" >DINAS PERTANIAN KABUPATEN SUMBAWA</span>
-										<span class="hidden-sm-down" >DINAS PERTANIAN KABUPATEN SUMBAWA</span>
-									</div>
-								</td>
-								<td>595.850.000</td>
-								<td>528.821.875</td>
-								<td>89%</td>
-							</tr>
-							<tr data-toggle="tooltip" title data-original-title="DINAS PERTANIAN DAN HOLTIKULTURA KABUPATEN PINRANG">
-								<td>190140</td>
-								<td>
-									<div class="d-flex align-items-baseline">
-										<span class="truncate hidden-sm-up" >DINAS PERTANIAN DAN HOLTIKULTURA KABUPATEN PINRANG</span>
-										<span class="hidden-sm-down" >DINAS PERTANIAN DAN HOLTIKULTURA KABUPATEN PINRANG</span>
-									</div>
-								</td>
-								<td>374.250.000</td>
-								<td>338.227.000</td>
-								<td>90%</td>
-							</tr>
-							<tr data-toggle="tooltip" title data-original-title="DINAS PERTANIAN DAN PERKEBUNAN PROVINSI JAWA TENGAH">
-								<td>039012</td>
-								<td>
-									<div class="d-flex align-items-baseline">
-										<span class="truncate hidden-sm-up" >DINAS PERTANIAN DAN PERKEBUNAN PROVINSI JAWA TENGAH</span>
-										<span class="hidden-sm-down" >DINAS PERTANIAN DAN PERKEBUNAN PROVINSI JAWA TENGAH</span>
-									</div>
-								</td>
-								<td>14.364.535.000</td>
-								<td>13.200.351.750</td>
-								<td>91%</td>
-							</tr>
-							<tr data-toggle="tooltip" title data-original-title="DINAS TANAMAN PANGAN DAN HORTIKULTURA PROVINSI SULAWESI TENGAH">
-								<td>189016</td>
-								<td>
-									<div class="d-flex align-items-baseline">
-										<span class="truncate hidden-sm-up" >DINAS TANAMAN PANGAN DAN HORTIKULTURA PROVINSI SULAWESI TENGAH</span>
-										<span class="hidden-sm-down" >DINAS TANAMAN PANGAN DAN HORTIKULTURA PROVINSI SULAWESI TENGAH</span>
-									</div>
-								</td>
-								<td>3.347.337.000</td>
-								<td>3.139.621.500,00</td>
-								<td>94%</td>
-							</tr>
-							<tr data-toggle="tooltip" title data-original-title="DINAS PERTANIAN KABUPATEN MINAHASA">
-								<td>179221</td>
-								<td>
-									<div class="d-flex align-items-baseline">
-										<span class="truncate hidden-sm-up" >DINAS PERTANIAN KABUPATEN MINAHASA</span>
-										<span class="hidden-sm-down" >DINAS PERTANIAN KABUPATEN MINAHASA</span>
-									</div>
-								</td>
-								<td>448.000.000</td>
-								<td>421.150.000</td>
-								<td>94%</td>
-							</tr>
-							</tr>
-							<tr data-toggle="tooltip" title data-original-title="DINAS PERTANIAN PROVINSI MALUKU UTARA">
-								<td>289034</td>
-								<td>
-									<div class="d-flex align-items-baseline">
-										<span class="truncate hidden-sm-up" >DINAS PERTANIAN PROVINSI MALUKU UTARA</span>
-										<span class="hidden-sm-down" >DINAS PERTANIAN PROVINSI MALUKU UTARA</span>
-									</div>
-								</td>
-								<td>2.249.627.000</td>
-								<td>2.116.053.600,00</td>
-								<td>94%</td>
-							</tr>
-							</tr>
-							<tr data-toggle="tooltip" title data-original-title="DINAS PERTANIAN DAN KETAHANAN PANGAN DIY">
-								<td>049025</td>
-								<td>
-									<div class="d-flex align-items-baseline">
-										<span class="truncate hidden-sm-up" >DINAS PERTANIAN DAN KETAHANAN PANGAN DIY</span>
-										<span class="hidden-sm-down" >DINAS PERTANIAN DAN KETAHANAN PANGAN DIY</span>
-									</div>
-								</td>
-								<td>2.506.834.000</td>
-								<td>2.359.904.950</td>
-								<td>94%</td>
-							</tr>
-							</tr>
-							<tr data-toggle="tooltip" title data-original-title="DINAS PERTANIAN DAN KETAHANAN PANGAN DIY">
-								<td>049088</td>
-								<td>
-									<div class="d-flex align-items-baseline">
-										<span class="truncate hidden-sm-up" >DINAS PERTANIAN DAN KETAHANAN PANGAN DIY</span>
-										<span class="hidden-sm-down" >DINAS PERTANIAN DAN KETAHANAN PANGAN DIY</span>
-									</div>
-								</td>
-								<td>6.032.994.000</td>
-								<td>5.681.076.390,00</td>
-								<td>94%</td>
-							</tr>
+							@foreach ($lowData as $data )
+								<tr data-toggle="tooltip" title data-original-title="{{ $data->namasatker }}">
+									<td>{{ $data->kodesatker }}</td>
+									<td>
+										<div class="d-flex align-items-baseline">
+											<span class="truncate hidden-md-up">{{ $data->namasatker }}</span>
+											<span class="hidden-md-down">{{ $data->namasatker }}</span>
+										</div>
+									</td>
+									<td>{{ $data->pagu }}</td>
+									<td>{{ $data->realisasi }}</td>
+									<td>{{ $data->persen }}%</td>
+								</tr>									
+							@endforeach
 						</tbody>
 					</table>
 				</div>

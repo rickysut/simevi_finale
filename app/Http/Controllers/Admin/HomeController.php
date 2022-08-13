@@ -324,9 +324,99 @@ class HomeController extends Controller
         $twData = DB::select(DB::raw($st3));      
 
         //Log::info($twData);
+        $st4 = 'select tw1.kode1, tw1.amount, COALESCE(tw1.persen,0) as tw1,	tw1.namakegiatan
+        FROM(				
+                        SELECT
+                        detdata1.kode1, 
+                        format(COALESCE(detdata2.realisasinya,0),0, "id_ID") as amount,
+                        format(COALESCE((detdata2.realisasinya/detdata1.pagunya)*100,0),2) as persen,
+                        detdata2.namakegiatan
+                        FROM
+                        (
+                        SELECT data_pagus.kegiatan kode1, sum(data_pagus.amount) pagunya
+                        FROM
+                        data_pagus 
+                        INNER JOIN master_kegiatans ON data_pagus.kegiatan = master_kegiatans.kd_kegiatan and data_pagus.tahun ="'.$dtYear1.'"
+                        GROUP BY 
+                        master_kegiatans.kd_kegiatan
+                        ) as detdata1
+                        INNER JOIN
+                        (
+                        SELECT data_realisasis.kegiatan kode2, sum(data_realisasis.amount) realisasinya, master_kegiatans.nomenklatur_giat as namakegiatan
+                        FROM
+                        data_realisasis 
+                        INNER JOIN master_kegiatans ON data_realisasis.kegiatan = master_kegiatans.kd_kegiatan and data_realisasis.tahun ="'.$dtYear1.'"
+                        GROUP BY 
+                        master_kegiatans.kd_kegiatan
+                        ) as detdata2
+                        ON detdata1.kode1 = detdata2.kode2 
+        ) as tw1
+        ORDER BY tw1.kode1';
+        $barData =  DB::select(DB::raw($st4)); 
 
+        $topst = 'select satkerdata.kodesatker, satkerdata.namasatker, satkerdata.pagu, satkerdata.realisasi, format(satkerdata.persen,2) as persen
+        FROM(				
+                        SELECT
+                        detdata1.kodesatker, 
+                        format(COALESCE(detdata1.pagunya,0),0, "id_ID") as pagu,
+                        format(COALESCE(detdata2.realisasinya,0),0, "id_ID") as realisasi,
+                        COALESCE((detdata2.realisasinya/detdata1.pagunya)*100,0) as persen,
+                        detdata2.namasatker
+                        FROM
+                        (
+                        SELECT data_pagus.kdsatker kodesatker, sum(data_pagus.amount) pagunya
+                        FROM
+                        data_pagus 
+                        INNER JOIN satkers ON satkers.kd_satker = data_pagus.kdsatker and data_pagus.tahun '.$qryYear1.$qryYear2.'
+                        GROUP BY 
+                        satkers.kd_satker
+                        ) as detdata1
+                        INNER JOIN
+                        (
+                        SELECT data_realisasis.kdsatker kode2, sum(data_realisasis.amount) realisasinya, satkers.nm_satker namasatker
+                        FROM
+                        data_realisasis 
+                        INNER JOIN satkers ON data_realisasis.kdsatker = satkers.kd_satker and data_realisasis.tahun '.$qryYear1.$qryYear2.'
+                        GROUP BY 
+                        satkers.kd_satker
+                        ) as detdata2
+                        ON detdata1.kodesatker = detdata2.kode2 
+        ) as satkerdata
+        ORDER BY satkerdata.persen desc LIMIT 10 ';
+        $topData =  DB::select(DB::raw($topst)); 
 
-        return view('admin.dashboard.pagu', compact('breadcrumb', 'years', 'dtYear1', 'dtYear2', 'prData','programData','twData'));
+        $lowst = 'select satkerdata.kodesatker, satkerdata.namasatker, satkerdata.pagu, satkerdata.realisasi, format(satkerdata.persen,2) as persen
+        FROM(				
+                        SELECT
+                        detdata1.kodesatker, 
+                        format(COALESCE(detdata1.pagunya,0),0, "id_ID") as pagu,
+                        format(COALESCE(detdata2.realisasinya,0),0, "id_ID") as realisasi,
+                        COALESCE((detdata2.realisasinya/detdata1.pagunya)*100,0) as persen,
+                        detdata2.namasatker
+                        FROM
+                        (
+                        SELECT data_pagus.kdsatker kodesatker, sum(data_pagus.amount) pagunya
+                        FROM
+                        data_pagus 
+                        INNER JOIN satkers ON satkers.kd_satker = data_pagus.kdsatker and data_pagus.tahun '.$qryYear1.$qryYear2.'
+                        GROUP BY 
+                        satkers.kd_satker
+                        ) as detdata1
+                        INNER JOIN
+                        (
+                        SELECT data_realisasis.kdsatker kode2, sum(data_realisasis.amount) realisasinya, satkers.nm_satker namasatker
+                        FROM
+                        data_realisasis 
+                        INNER JOIN satkers ON data_realisasis.kdsatker = satkers.kd_satker and data_realisasis.tahun '.$qryYear1.$qryYear2.'
+                        GROUP BY 
+                        satkers.kd_satker
+                        ) as detdata2
+                        ON detdata1.kodesatker = detdata2.kode2 
+        ) as satkerdata
+        ORDER BY satkerdata.persen LIMIT 10 ';
+        $lowData =  DB::select(DB::raw($lowst)); 
+
+        return view('admin.dashboard.pagu', compact('breadcrumb', 'years', 'dtYear1', 'dtYear2', 'prData','programData','twData','barData', 'topData', 'lowData'));
     }
 
     /**
