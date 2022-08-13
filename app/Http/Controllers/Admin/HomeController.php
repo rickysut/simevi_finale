@@ -96,9 +96,36 @@ class HomeController extends Controller
         
         GROUP BY tabdata.tahun';
         $pbData = DB::select(DB::raw($str));
+
+        $dtYear = date("Y");
+        $renjast = '		
+        SELECT
+        detdata2.kode2, 
+        format(COALESCE(detdata2.totgiat,0),0,"id_ID") as totgiat,
+        format(COALESCE((detdata2.totgiat/detdata1.totalnya)*100,0),2) as persen,
+        detdata2.namakegiatan
+        FROM
+        (
+        SELECT  data_renjas.kdgiat kode2, sum( data_renjas.jumlah) totgiat, master_kegiatans.nomenklatur_giat as namakegiatan
+        FROM
+         data_renjas 
+        INNER JOIN master_kegiatans ON  data_renjas.kdgiat = master_kegiatans.kd_kegiatan and  data_renjas.thang ='.$dtYear.'
+        GROUP BY 
+        master_kegiatans.kd_kegiatan
+        ) as detdata2
+        INNER JOIN
+        (
+        SELECT data_renjas.kdgiat kode1, sum(data_renjas.jumlah) totalnya
+        FROM
+         data_renjas 
+        where data_renjas.thang ='.$dtYear.'
+        ) as detdata1
+        ORDER BY detdata2.kode2
+        ';
+        $renjaData = DB::select(DB::raw($renjast));
         
         $breadcrumb = trans('cruds.dashboardvip.title_singular');
-        return view('admin.dashboard.vip', compact('banpemyear', 'databanpem', 'pbData', 'prData',  'agent', 'breadcrumb'));
+        return view('admin.dashboard.vip', compact('banpemyear', 'databanpem', 'pbData', 'prData',  'agent', 'breadcrumb', 'renjaData'));
     }
 
     /**

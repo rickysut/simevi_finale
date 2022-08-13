@@ -39,48 +39,21 @@
 							</div>
 						</div>
 						<div class="col-md-6 col-lg-5">
-							<div class="d-flex mt-2 mb-1 fs-xs">
-								Sayuran dan Tanaman Obat
-								<span class="d-inline-block ml-auto">842.529.631</span>
-							</div>
-							<div class="progress progress-xs mb-3">
-								<div class="progress-bar bg-primary" role="progressbar" style="width: 19.2%;" aria-valuenow="19.2" aria-valuemin="0" aria-valuemax="100"></div>
-							</div>
-							<div class="d-flex mt-2 mb-1 fs-xs">
-								Perlindungan Hortikultura
-								<span class="d-inline-block ml-auto">699.461.144</span>
-							</div>
-							<div class="progress progress-xs mb-3">
-								<div class="progress-bar bg-info" role="progressbar" style="width: 15.9%;" aria-valuenow="15.9" aria-valuemin="0" aria-valuemax="100"></div>
-							</div>
-							<div class="d-flex mt-2 mb-1 fs-xs">
-								Sekretariat Direktorat Jenderal Hortikultura
-								<span class="d-inline-block ml-auto">465.788.458</span>
-							</div>
-							<div class="progress progress-xs mb-3">
-								<div class="progress-bar bg-warning" role="progressbar" style="width: 10.6%;" aria-valuenow="10.6" aria-valuemin="0" aria-valuemax="100"></div>
-							</div>
-							<div class="d-flex mt-2 mb-1 fs-xs">
-								Perbenihan Hortikultura
-								<span class="d-inline-block ml-auto">1.219.432.171</span>
-							</div>
-							<div class="progress progress-xs mb-3">
-								<div class="progress-bar bg-danger" role="progressbar" style="width: 27.8%;" aria-valuenow="27.8" aria-valuemin="0" aria-valuemax="100"></div>
-							</div>
-							<div class="d-flex mt-2 mb-1 fs-xs">
-								Tanaman Buah dan Florikultura
-								<span class="d-inline-block ml-auto">699.461.144</span>
-							</div>
-							<div class="progress progress-xs mb-3">
-								<div class="progress-bar bg-success" role="progressbar" style="width: 15.9%;" aria-valuenow="15.9" aria-valuemin="0" aria-valuemax="100"></div>
-							</div>
-							<div class="d-flex mt-2 mb-1 fs-xs">
-								Pengolahan dan Pemasaran Hortikultura
-								<span class="d-inline-block ml-auto">465.788.458</span>
-							</div>
-							<div class="progress progress-xs mb-3">
-								<div class="progress-bar bg-dark" role="progressbar" style="width: 10.6%;" aria-valuenow="10.6" aria-valuemin="0" aria-valuemax="100"></div>
-							</div>
+						{{-- renjaData --}}
+						@foreach ($renjaData as $data )
+							@if ($color = sprintf("#%06x",rand(0,16777215)))
+								<div class="d-flex mt-2 mb-1 fs-xs">
+									{{ $data->namakegiatan }}
+									<span class="d-inline-block ml-auto">{{ $data->totgiat }}</span>
+								</div>
+								<div class="progress progress-xs mb-3">
+									<div class="progress-bar"  role="progressbar" style="background-color: {{ $color }}; width: {{ $data->persen }}%;" aria-valuenow="{{ $data->persen }}" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+							@endif		
+						@endforeach
+						
+							
+							
 						</div>
 						<hr>
 					</div>
@@ -618,70 +591,7 @@
 @endsection
 @section('scripts')
 @parent
-<!-- donut renja -->
-<script type="text/javascript">
-   	var dom = document.getElementById('donutchart');
-	var myChart = echarts.init(dom, {
-  		renderer: 'svg',
- 	 	useDirtyRect: false
-	});
-	var app = {};
 
-	var option;
-
-	option = {
-		title: {
-			text: 'Tahun 2022',
-			subtext:'(nilai hanya contoh)',
-			left: 'center'
-		},
-		tooltip: {
-			trigger: 'item'
-		},
-		series: [
-			{
-			name: 'Alokasi untuk:',
-			type: 'pie',
-			radius: ['40%', '70%'],
-			avoidLabelOverlap: true,
-			itemStyle: {
-				borderRadius: 0,
-				borderColor: '#fff',
-				borderWidth: 0
-			},
-			label: {
-				show: false,
-				position: 'center'
-			},
-			emphasis: {
-				label: {
-				show: false,
-				fontSize: '40',
-				fontWeight: 'bold'
-				}
-			},
-			labelLine: {
-				show: false
-			},
-			data: [
-				{ value: 842529631, name: 'Sayuran dan Tanaman Obat' },
-				{ value: 699461144, name: 'Perlindungan Hortikultura' },
-				{ value: 465788458, name: 'Sekretariat Direktorat Jenderal Hortikultura' },
-				{ value: 1219432171, name: 'Perbenihan Hortikultura' },
-				{ value: 465788458, name: 'Tanaman Buah dan Florikultura' }
-			]
-			}
-		]
-	};
-
-
-	if (option && typeof option === 'object') {
-	myChart.setOption(option);
-	}
-
-	window.addEventListener('resize', myChart.resize);
-</script>
-<!-- end donut renja -->
 <!-- matrix banpem kewenangan -->
 <script>
 	var dom = document.getElementById('banpemkwn');
@@ -986,19 +896,22 @@
 		show: false
 		},
 		color: {
-			pattern: ['#1dc9b7','#868e96','#886ab5','#2196F3','#ffc241','#fd3995']
+			pattern: [
+				@foreach ($renjaData as $data )
+				@if ($color = sprintf("#%06x",rand(0,16777215)))
+				'{{ $color }}',
+				@endif
+				@endforeach
+			]
 		}
 	});
 
 	setTimeout(function () {
 		chart.load({
 			columns: [
-				["Sayuran dan Tanaman Obat", 842529631],
-				["Perlindungan Hortikultura", 699461144],
-				["Sekretariat Direktorat Jenderal Hortikultura", 465788458],
-				["Perbenihan Hortikultura", 1219432171],
-				["Tanaman Buah dan Florikultura", 699461144],
-				["Pengolahan dan Pemasaran Hortikultura", 465788458],
+				@foreach ($renjaData as $data )
+				["{{ $data->namakegiatan }}", {{ str_replace('.','',$data->totgiat) }}],
+				@endforeach
 			]
 		});
 	}, 1500);
