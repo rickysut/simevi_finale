@@ -43,16 +43,16 @@
 										{{ trans('cruds.detailrenja.fields.kabupaten') }}
 									</th>
 									<th class="text-center" >
-										2019
+										{{ $calcyears[0]->thang }}
 									</th>
 									<th class="text-center" >
-										2020
+										{{ $calcyears[1]->thang }}
 									</th>
 									<th class="text-center" >
-										2021
+										{{ $calcyears[2]->thang }}
 									</th>
 									<th class="text-center" >
-										2022
+										{{ $calcyears[3]->thang }}
 									</th>
 									<th class="text-center" rowspan="2" style="width: 15%;vertical-align : middle;">
 										Tindakan  

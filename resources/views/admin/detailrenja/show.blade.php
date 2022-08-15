@@ -14,16 +14,16 @@
                         Output
                     </th>
                     <th class="text-center" colspan="2">
-                        2019
+                        {{ $calcyears[0]->thang }}
                     </th>
                     <th class="text-center" colspan="2">
-                        2020
+                        {{ $calcyears[1]->thang }}
                     </th>
                     <th class="text-center" colspan="2">
-                        2021
+                        {{ $calcyears[2]->thang }}
                     </th>
                     <th class="text-center" colspan="2">
-                        2022
+                        {{ $calcyears[3]->thang }}
                     </th>
                     
                     

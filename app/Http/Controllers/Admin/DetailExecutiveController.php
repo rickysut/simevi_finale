@@ -26,10 +26,10 @@ class DetailExecutiveController extends Controller
         } 
 
         $calcyears = DataRenja::distinct()->orderBy('thang', 'ASC')->offset(0)->limit(5)->get(['thang']);
-        $sumyears = DataRenja::select(DB::raw('SUM(jumlah) as totaljum'))->groupBy('thang')->offset(0)->limit(5)->orderBy('thang','ASC')->get();
+        // $sumyears = DataRenja::select(DB::raw('SUM(jumlah) as totaljum'))->groupBy('thang')->offset(0)->limit(5)->orderBy('thang','ASC')->get();
         $provinsi = Provinsi::distinct()->get(['kd_dt1', 'nm_prop']); 
 
-        
+        // Log::info($calcyears);
         
             
             if ($dtProp == ''){
@@ -43,28 +43,28 @@ class DetailExecutiveController extends Controller
             (
             select  prop.kd_kemenkeu, IF(prop.nm_prop = "", "-", prop.nm_prop )  as nama_kab,  sum(dr.jumlah) as tot1, NULL as tot2, NULL as tot3, NULL as tot4
             from data_renjas dr
-            INNER JOIN provinsis prop ON prop.kd_dt1 = dr.kdlokasi  and dr.kdkabkota="00" and dr.thang = 2019 '. $qryProp .'
+            INNER JOIN provinsis prop ON prop.kd_dt1 = dr.kdlokasi  and dr.kdkabkota="00" and dr.thang = '. $calcyears[0]->thang. $qryProp .'
             GROUP BY prop.nm_prop
             
             UNION ALL
 						
             select  prop.kd_kemenkeu, IF(prop.nm_prop = "", "-", prop.nm_prop ) as nama_kab,  NULL as tot1, sum(dr.jumlah) as tot2,  NULL as tot3, NULL as tot4
             from data_renjas dr
-            INNER JOIN provinsis prop ON prop.kd_dt1 = dr.kdlokasi  and dr.kdkabkota="00" and dr.thang = 2020 '. $qryProp .'
+            INNER JOIN provinsis prop ON prop.kd_dt1 = dr.kdlokasi  and dr.kdkabkota="00" and dr.thang = '. $calcyears[1]->thang. $qryProp .'
             GROUP BY prop.nm_prop
             
             UNION ALL
 						
             select  prop.kd_kemenkeu, IF(prop.nm_prop = "", "-", prop.nm_prop ) as nama_kab,  NULL as tot1,   NULL as tot2, sum(dr.jumlah) as tot3, NULL as tot4
             from data_renjas dr
-            INNER JOIN provinsis prop ON prop.kd_dt1 = dr.kdlokasi  and dr.kdkabkota="00" and dr.thang = 2021 '. $qryProp .'
+            INNER JOIN provinsis prop ON prop.kd_dt1 = dr.kdlokasi  and dr.kdkabkota="00" and dr.thang = '. $calcyears[2]->thang. $qryProp .'
             GROUP BY prop.nm_prop
             
             UNION ALL
 						
             select  prop.kd_kemenkeu, IF(prop.nm_prop = "", "-", prop.nm_prop ) as nama_kab,  NULL as tot1,   NULL as tot2,  NULL as tot3, sum(dr.jumlah) as tot4
             from data_renjas dr
-            INNER JOIN provinsis prop ON prop.kd_dt1 = dr.kdlokasi  and dr.kdkabkota="00" and dr.thang = 2022 '. $qryProp .'
+            INNER JOIN provinsis prop ON prop.kd_dt1 = dr.kdlokasi  and dr.kdkabkota="00" and dr.thang = '. $calcyears[3]->thang. $qryProp .'
             GROUP BY prop.nm_prop
             
             UNION ALL
@@ -72,14 +72,14 @@ class DetailExecutiveController extends Controller
 						
             select  kab.kd_kemenkeu, IF(kab.nama_kab = "", "-", kab.nama_kab)  as nama_kab, sum(dr.jumlah) as tot1, NULL as tot2, NULL as tot3, NULL as tot4
             from data_renjas dr
-            INNER JOIN kabupatens kab ON kab.kd_dt2 = dr.kdkabkota and kab.kd_dt1 = dr.kdlokasi and dr.thang = 2019 '. $qryByProp .'
+            INNER JOIN kabupatens kab ON kab.kd_dt2 = dr.kdkabkota and kab.kd_dt1 = dr.kdlokasi and dr.thang = '. $calcyears[0]->thang. $qryByProp .'
             GROUP BY kab.nama_kab
             
             UNION ALL
             
             select  kab.kd_kemenkeu, IF(kab.nama_kab = "", "-", kab.nama_kab) as nama_kab, null as tot1, sum(dr.jumlah) as tot2, NULL as tot3, NULL as tot4
             from data_renjas dr
-            INNER JOIN kabupatens kab ON kab.kd_dt2 = dr.kdkabkota and kab.kd_dt1 = dr.kdlokasi and dr.thang = 2020 '. $qryByProp .'
+            INNER JOIN kabupatens kab ON kab.kd_dt2 = dr.kdkabkota and kab.kd_dt1 = dr.kdlokasi and dr.thang = '. $calcyears[1]->thang. $qryByProp .'
             GROUP BY kab.nama_kab
 						
             
@@ -87,14 +87,14 @@ class DetailExecutiveController extends Controller
             
             select kab.kd_kemenkeu, IF(kab.nama_kab = "", "-", kab.nama_kab) as nama_kab, null as tot1, null as tot2, sum(dr.jumlah) as tot3, NULL as tot4
             from data_renjas dr
-            INNER JOIN kabupatens kab ON kab.kd_dt2 = dr.kdkabkota and kab.kd_dt1 = dr.kdlokasi and dr.thang = 2021 '. $qryByProp .'
+            INNER JOIN kabupatens kab ON kab.kd_dt2 = dr.kdkabkota and kab.kd_dt1 = dr.kdlokasi and dr.thang = '. $calcyears[2]->thang. $qryByProp .'
             GROUP BY kab.nama_kab
             
             UNION ALL
             
             select  kab.kd_kemenkeu, IF(kab.nama_kab = "", "-", kab.nama_kab) as nama_kab, null as tot1, null as tot2, null as tot3, sum(dr.jumlah) as tot4
             from data_renjas dr
-            INNER JOIN kabupatens kab ON kab.kd_dt2 = dr.kdkabkota and kab.kd_dt1 = dr.kdlokasi and dr.thang = 2022 '. $qryByProp .'
+            INNER JOIN kabupatens kab ON kab.kd_dt2 = dr.kdkabkota and kab.kd_dt1 = dr.kdlokasi and dr.thang = '. $calcyears[3]->thang. $qryByProp .'
             GROUP BY kab.nama_kab
             order BY  nama_kab
             ) as tabdata 
@@ -152,7 +152,8 @@ class DetailExecutiveController extends Controller
     {
         abort_if(Gate::denies('detail_renja_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         //dd($request->route('idk'));
-
+        $calcyears = DataRenja::distinct()->orderBy('thang', 'ASC')->offset(0)->limit(5)->get(['thang']);
+        
         $idk = ($request->route('idk')??'');
         $nmkab = ($request->route('nmkab')??'');
         if ($idk == ''){
@@ -167,7 +168,7 @@ class DetailExecutiveController extends Controller
             select ro.nmoutput,  dr.volkeg as vol1, ro.sat as sat1,  sum(dr.jumlah) as jumlah1, null as vol2 , null as sat2, null as jumlah2, null as vol3 , null as sat3, null as jumlah3, null as vol4 , null as sat4, null as jumlah4
             from rincian_outputs ro
             INNER JOIN data_renjas dr on dr.thang = ro.thang and dr.kdgiat = ro.kdgiat and dr.kdoutput = ro.kdoutput 
-            and dr.kdlokasi = "'.$dt1.'" and dr.kdkabkota = "'.$dt2.'"  and dr.thang = "2019"
+            and dr.kdlokasi = "'.$dt1.'" and dr.kdkabkota = "'.$dt2.'"  and dr.thang = "'. $calcyears[0]->thang.'"
             GROUP BY ro.kdgiat, ro.kdoutput
             
             UNION ALL
@@ -175,7 +176,7 @@ class DetailExecutiveController extends Controller
             select ro.nmoutput,  null as vol1 , null as sat1, null as jumlah1, dr.volkeg as vol2, ro.sat as sat2,  sum(dr.jumlah) as jumlah2, null as vol3 , null as sat3, null as jumlah3, null as vol4 , null as sat4, null as jumlah4
             from rincian_outputs ro
             INNER JOIN data_renjas dr on dr.thang = ro.thang and dr.kdgiat = ro.kdgiat and dr.kdoutput = ro.kdoutput 
-            and dr.kdlokasi = "'.$dt1.'"  and dr.kdkabkota = "'.$dt2.'"  and dr.thang = "2020"
+            and dr.kdlokasi = "'.$dt1.'"  and dr.kdkabkota = "'.$dt2.'"  and dr.thang = "'. $calcyears[1]->thang.'"
             GROUP BY ro.kdgiat, ro.kdoutput
             
             UNION ALL
@@ -183,7 +184,7 @@ class DetailExecutiveController extends Controller
             select ro.nmoutput,   null as vol1 , null as sat1, null as jumlah1, null as vol2 , null as sat2, null as jumlah2, dr.volkeg as vol3, ro.sat as sat3, sum(dr.jumlah) as jumlah3, null as vol4 , null as sat4, null as jumlah4
             from rincian_outputs ro
             INNER JOIN data_renjas dr on dr.thang = ro.thang and dr.kdgiat = ro.kdgiat and dr.kdoutput = ro.kdoutput 
-            and dr.kdlokasi = "'.$dt1.'"  and dr.kdkabkota = "'.$dt2.'"  and dr.thang = "2021"
+            and dr.kdlokasi = "'.$dt1.'"  and dr.kdkabkota = "'.$dt2.'"  and dr.thang = "'. $calcyears[2]->thang.'"
             GROUP BY ro.kdgiat, ro.kdoutput
             
             UNION ALL
@@ -191,7 +192,7 @@ class DetailExecutiveController extends Controller
             select ro.nmoutput,  null as vol1 , null as sat1,  null as jumlah1, null as vol2 , null as sat2,  null as jumlah2 , null as vol3 , null as sat3,  null as jumlah3, dr.volkeg as vol4, ro.sat as sat4,  sum(dr.jumlah) as jumlah4
             from rincian_outputs ro
             INNER JOIN data_renjas dr on dr.thang = ro.thang and dr.kdgiat = ro.kdgiat and dr.kdoutput = ro.kdoutput 
-            and dr.kdlokasi = "'.$dt1.'"  and dr.kdkabkota = "'.$dt2.'"  and dr.thang = "2022"
+            and dr.kdlokasi = "'.$dt1.'"  and dr.kdkabkota = "'.$dt2.'"  and dr.thang = "'. $calcyears[3]->thang.'"
             GROUP BY ro.kdgiat, ro.kdoutput
             ) as tabdata 
             GROUP BY tabdata.nmoutput ORDER BY tabdata.nmoutput';
@@ -247,7 +248,7 @@ class DetailExecutiveController extends Controller
             $table->rawColumns([]);
             $stable = $table->make(true);
         $breadcrumb = 'Alokasi Rincian Output Ditjen Hortikultura Untuk : '. $nmkab ;
-        return view('admin.detailrenja.show', compact('breadcrumb', 'stable'));
+        return view('admin.detailrenja.show', compact('breadcrumb', 'stable','calcyears'));
 
         
     }

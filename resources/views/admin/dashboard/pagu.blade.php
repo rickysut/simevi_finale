@@ -613,22 +613,42 @@
 @parent
 <!-- C3 omspan model 2 -->
 <script>
+
+
+
 $(document).ready(function()
 {
+
+
 var barTW = c3.generate(
 {
 	bindto: "#tw1234",
 	data:
-	{
+	{	
 		columns: [
 			['TW1',
 			@foreach ($twData as $k) 
                 {{ $k->tw1 }},    
             @endforeach
+			],
+			['TW2',
+			@foreach ($twData as $k) 
+                {{ $k->tw2 }},    
+            @endforeach
+			],
+			['TW3',
+			@foreach ($twData as $k) 
+                {{ $k->tw3 }},    
+            @endforeach
+			],
+			['TW4',
+			@foreach ($twData as $k) 
+                {{ $k->tw4 }},    
+            @endforeach
 			]
 		],
 		
-	type: 'bar'
+		type: 'bar'
 	},
 	legend: {
 	  show: true
@@ -663,48 +683,12 @@ var barTW = c3.generate(
 	}
 });
 
-setTimeout(function()
-{
-	barTW.load(
-	{
-		columns: [
-			['TW2',
-			@foreach ($twData as $k) 
-                {{ $k->tw2 }},    
-            @endforeach
-			]
-		]
-	});
-}, 1000);
 
-setTimeout(function()
-{
-	barTW.load(
-	{
-		columns: [
-			['TW3',
-			@foreach ($twData as $k) 
-                {{ $k->tw3 }},    
-            @endforeach
-			]
-		]
-	});
-}, 2000);
+$('a[data-toggle=tab]').on('shown.bs.tab', function() {
+	barTW.flush();
+});
 
-setTimeout(function()
-{
-	barTW.load(
-	{
-		columns: [
-			['TW4',
-			@foreach ($twData as $k) 
-                {{ $k->tw4 }},    
-            @endforeach
-			
-			]
-		]
-	});
-}, 3000)
+
 });
 </script>
 
