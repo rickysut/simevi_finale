@@ -9,7 +9,7 @@
 					{{ trans('simevi.home_subtitle') }}
 				</small>
 			</h2>
-			<div class="d-sm-flex flex-column align-items-center justify-content-center d-md-block">
+			{{-- <div class="d-sm-flex flex-column align-items-center justify-content-center d-md-block">
 				<div class="px-0 py-1 mt-5 text-white fs-nano opacity-50">
 					Application
 				</div>
@@ -27,7 +27,7 @@
 						<img height="32" src="{{ asset('img/favicon.png') }}"  />
 					</a>
 				</div>
-			</div>
+			</div> --}}
 		</div>
 		<div class="col-sm-12 col-md-6 col-lg-5 col-xl-4 ml-auto">
 			<h1 class="text-white fw-300 mb-3 d-sm-block d-md-none">

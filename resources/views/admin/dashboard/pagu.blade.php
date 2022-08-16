@@ -197,11 +197,12 @@
 								</div>
 								<div class="ml-auto d-inline-flex align-items-center">
 									<div class="d-inline-flex flex-column small ml-2">
-										<span class="fs-md d-inline-block badge badge-info text-right p-1 width-20" data-toggle="tooltip" title data-original-title="Realisasi">
-											Rp {{ $prData[0]->KP_REAL }}
-										</span>
+										
 										<span class="fs-sm d-inline-block badge bg-success-50 color-fusion-900 text-right p-1 width-50 mt-1" data-toggle="tooltip" title data-original-title="Pagu">
 											Rp {{ $prData[0]->KP_PAGU }}
+										</span>
+										<span class="fs-md d-inline-block badge badge-info text-right p-1 width-20" data-toggle="tooltip" title data-original-title="Realisasi">
+											Rp {{ $prData[0]->KP_REAL }}
 										</span>
 									</div>
 								</div>
@@ -218,11 +219,12 @@
 								</div>
 								<div class="ml-auto d-inline-flex align-items-center">
 									<div class="d-inline-flex flex-column small ml-2">
-										<span class="fs-md d-inline-block badge badge-danger text-right p-1 width-20" data-toggle="tooltip" title data-original-title="Realisasi">
-											Rp {{ $prData[0]->DK_REAL }}
-										</span>
+										
 										<span class="fs-sm d-inline-block badge bg-success-50 color-fusion-900 text-right p-1 width-50 mt-1" data-toggle="tooltip" title data-original-title="Pagu">
 											Rp {{ $prData[0]->DK_PAGU }}
+										</span>
+										<span class="fs-md d-inline-block badge badge-danger text-right p-1 width-20" data-toggle="tooltip" title data-original-title="Realisasi">
+											Rp {{ $prData[0]->DK_REAL }}
 										</span>
 									</div>
 								</div>
@@ -239,11 +241,12 @@
 								</div>
 								<div class="ml-auto d-inline-flex align-items-center">
 									<div class="d-inline-flex flex-column small ml-2">
-										<span class="fs-md d-inline-block badge badge-warning text-right p-1 width-20" data-toggle="tooltip" title data-original-title="Realisasi">
-											Rp {{ $prData[0]->TP_REAL }}
-										</span>
+										
 										<span class="fs-sm d-inline-block badge bg-success-50 color-fusion-900 text-right p-1 width-50 mt-1" data-toggle="tooltip" title data-original-title="Pagu">
 											Rp {{ $prData[0]->TP_PAGU }}
+										</span>
+										<span class="fs-md d-inline-block badge badge-warning text-right p-1 width-20" data-toggle="tooltip" title data-original-title="Realisasi">
+											Rp {{ $prData[0]->TP_REAL }}
 										</span>
 									</div>
 								</div>
@@ -289,14 +292,16 @@
 								<div class="row mb-5">
 									<div class="align-items-center">
 										<div class="d-inline-flex flex-column ml-2">
-											<span class="fs-md d-inline-block p-1 width-20" >Realisasi</span>
 											<span class="fs-md d-inline-block p-1 width-50 mt-1" >Pagu</span>
+											<span class="fs-md d-inline-block p-1 width-20" >Realisasi</span>
+											
 										</div>
 									</div>
 									<div class="ml-auto d-inline-flex align-items-center">
 										<div class="d-inline-flex flex-column ml-2 mr-2">
-											<span class="fs-md d-inline-block badge badge-primary text-white text-right p-1 width-20">Rp {{ $data->totrealisasi }}</span>
 											<span class="fs-md d-inline-block badge bg-fusion-50 text-white text-right p-1 width-20 mt-1">Rp {{ $data->totpagu }}</span>
+											<span class="fs-md d-inline-block badge badge-primary text-white text-right p-1 width-20">Rp {{ $data->totrealisasi }}</span>
+											
 										</div>
 									</div>
 								</div>
@@ -411,7 +416,7 @@
 		<div class="row d-flex align-items-center ">
 			<!--
 				The Change: this 1st rank will be shown on first row only on mobile			-->
-			<div class="col-lg-4 hidden-sm-up">
+			{{-- <div class="col-lg-4 hidden-sm-up">
 				<div class="panel" id="panel-7">
 					<div class="card-header text-center text-align-items-center bg-primary-500 bg-info-gradient">
 						<!--
@@ -529,11 +534,11 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-12 mt-5">
+			</div> --}}
+			{{-- <div class="col-12 mt-5">
 				<h2 class="fw-500 mb-0"> Top 10 </h2>
 				<hr class="mb-2">
-			</div>
+			</div> --}}
 			
 			<div class="col-lg-12">
 				<div class="table table-responsive">
@@ -566,7 +571,7 @@
 					</table>
 				</div>
 			</div>
-			<div class="col-12 mt-5">
+			{{-- <div class="col-12 mt-5">
 				<h2 class="fw-500 mb-0 text-muted"> Bottom 10 </h2>
 				<hr class="mb-2">
 			</div>
@@ -600,7 +605,7 @@
 						</tbody>
 					</table>
 				</div>
-			</div>
+			</div> --}}
 		</div>
 	</div>
 </div>

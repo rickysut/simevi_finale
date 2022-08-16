@@ -409,7 +409,7 @@ class HomeController extends Controller
                         ) as detdata2
                         ON detdata1.kodesatker = detdata2.kode2 
         ) as satkerdata
-        ORDER BY satkerdata.persen desc LIMIT 10 ';
+        ORDER BY satkerdata.persen desc';
         $topData =  DB::select(DB::raw($topst)); 
 
         $lowst = 'select satkerdata.kodesatker, satkerdata.namasatker, satkerdata.pagu, satkerdata.realisasi, format(satkerdata.persen,2) as persen
