@@ -15,6 +15,7 @@ return [
     'banpem_desc'           => 'Data Realisasi Bantuan Pemerintah yang telah disalurkan melalui unit-unit kerja.',
     'underconstruction'     => '(dalam pengembangan)',
     'simpelduti_desc'       => 'Sistem Pelaporan Perlindungan Hortikultura',
+    'proseed_desc'          => 'Kinerja Produksi dan Stok Benih Hortikultura',
     'uc_desc'               => 'Maaf! Halaman sedang dalam pengembangan. Silahkan kunjungi lagi nanti.',
     'visitbut'              => 'Kunjungi',
     'visitbut2'             => 'Kunjungi Nanti',
