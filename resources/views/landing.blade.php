@@ -64,7 +64,7 @@
 		<div class="carousel-item">
 			<div class="row justify-content-center">
 				<div class="card border m-2 shadow" style="max-width: 28rem;">
-					<img src="{{ asset('img/cover-11-lg.png') }}" class="card-img-top" alt="...">
+					<img src="{{ asset('img/cover-12-lg.png') }}" class="card-img-top" alt="...">
 					<div class="card-body">
 						<h5 class="card-title fw-300">{{ trans('simevi.underconstruction') }}</h5>
 						<p class="card-text"><i>{{ trans('simevi.uc_desc') }}</i></p>
@@ -72,7 +72,7 @@
 					</div>
 				</div>
 				<div class="card border m-2 shadow" style="max-width: 28rem;">
-					<img src="{{ asset('img/cover-11-lg.png') }}" class="card-img-top" alt="...">
+					<img src="{{ asset('img/cover-13-lg.png') }}" class="card-img-top" alt="...">
 					<div class="card-body">
 						<h5 class="card-title fw-300">{{ trans('simevi.underconstruction') }}</h5>
 						<p class="card-text"><i>{{ trans('simevi.uc_desc') }}</i></p>
@@ -155,7 +155,7 @@
 		</div>
 		<div class="carousel-item">
 			<div class="card border m-2 shadow" style="max-width: 18rem;">
-				<img src="{{ asset('img/cover-11-lg.png') }}" class="card-img-top" alt="...">
+				<img src="{{ asset('img/cover-12-lg.png') }}" class="card-img-top" alt="...">
 				<div class="card-body">
 					<h5 class="card-title fw-300">{{ trans('simevi.underconstruction') }}</h5>
 					<p class="card-text"><i>{{ trans('simevi.uc_desc') }}</i></p>
@@ -165,7 +165,7 @@
 		</div>
 		<div class="carousel-item">
 			<div class="card border m-2 shadow" style="max-width: 18rem;">
-				<img src="{{ asset('img/cover-11-lg.png') }}" class="card-img-top" alt="...">
+				<img src="{{ asset('img/cover-13-lg.png') }}" class="card-img-top" alt="...">
 				<div class="card-body">
 					<h5 class="card-title fw-300">{{ trans('simevi.underconstruction') }}</h5>
 					<p class="card-text"><i>{{ trans('simevi.uc_desc') }}</i></p>
