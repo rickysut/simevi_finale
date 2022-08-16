@@ -64,18 +64,18 @@
 		<div class="carousel-item">
 			<div class="row justify-content-center">
 				<div class="card border m-2 shadow" style="max-width: 28rem;">
-					<img src="{{ asset('img/cover-11-lg.png') }}" class="card-img-top" alt="...">
+					<img src="{{ asset('img/cover-12-lg.png') }}" class="card-img-top" alt="...">
 					<div class="card-body">
-						<h5 class="card-title fw-300">{{ trans('simevi.underconstruction') }}</h5>
-						<p class="card-text"><i>{{ trans('simevi.uc_desc') }}</i></p>
+						<h5 class="card-title fw-300">Simpel Duti App Report</h5>
+						<p class="card-text"><i>{{ trans('simevi.simpelduti_desc') }}</i></p>
 						<a href="#" class="btn btn-sm btn-default disabled">{{ trans('simevi.visitbut2') }}</a>
 					</div>
 				</div>
 				<div class="card border m-2 shadow" style="max-width: 28rem;">
-					<img src="{{ asset('img/cover-11-lg.png') }}" class="card-img-top" alt="...">
+					<img src="{{ asset('img/cover-13-lg.png') }}" class="card-img-top" alt="...">
 					<div class="card-body">
-						<h5 class="card-title fw-300">{{ trans('simevi.underconstruction') }}</h5>
-						<p class="card-text"><i>{{ trans('simevi.uc_desc') }}</i></p>
+						<h5 class="card-title fw-300">Proseed App Report</h5>
+						<p class="card-text"><i>{{ trans('simevi.prossed_desc') }}</i></p>
 						<a href="#" class="btn btn-sm btn-default disabled">{{ trans('simevi.visitbut2') }}</a>
 					</div>
 				</div>
