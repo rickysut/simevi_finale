@@ -136,14 +136,7 @@
 							</a>
 						</li>
 						@endcan
-						<li class="c-sidebar-nav-link {{ request()->is("admin/new-banpems") || request()->is("admin/new-banpems/*") ? "active" : "" }}">
-							<a href="{{ route("admin.backdate-banpems.index") }}" data-filter-tags="data banpem 2022+">
-								<span class="nav-link-text " data-i18n="nav.sub_application_sub2_menu2">
-									Data Banpem 2022+
-								</span>
-								
-							</a>
-						</li>
+						
 						
 					</ul>
 					@endcan

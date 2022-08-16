@@ -40,16 +40,18 @@
 						</div>
 						<div class="col-md-6 col-lg-5">
 						{{-- renjaData --}}
-						@foreach ($renjaData as $data )
-							@if ($color = sprintf("#%06x",rand(0,16777215)))
+						
+						@foreach ($renjaData as $key => $data )
+							
+							{{-- @if ($color = sprintf("#%06x",rand(0,16777215))) --}}
 								<div class="d-flex mt-2 mb-1 fs-xs">
-									{{ $data->namakegiatan }}
-									<span class="d-inline-block ml-auto">{{ $data->totgiat }}</span>
+									<span id="nm{{ $key+1 }}">{{ $data->namakegiatan }}</span>
+									<span id="tot{{ $key+1 }}" class="d-inline-block ml-auto">{{ $data->totgiat }}</span>
 								</div>
 								<div class="progress progress-xs mb-3">
-									<div class="progress-bar"  role="progressbar" style="background-color: {{ $color }}; width: {{ $data->persen }}%;" aria-valuenow="{{ $data->persen }}" aria-valuemin="0" aria-valuemax="100"></div>
+									<div class="progress-bar"  id="pb{{$key+1}}" role="progressbar" style="background-color: #0000; width: {{ $data->persen }}%;" aria-valuenow="{{ $data->persen }}" aria-valuemin="0" aria-valuemax="100"></div>
 								</div>
-							@endif		
+							{{-- @endif		 --}}
 						@endforeach
 						
 							
@@ -727,7 +729,7 @@
 		radius: [30, '65%']
 	},
 	series: [
-		@foreach ($pbData as $d )
+		@foreach ($pbData as $key => $d )
 		{
 		type: 'bar',
 		data: [{{ $d->nilai }}],
@@ -876,6 +878,19 @@
 
 <!-- donut C3 Renja -->
 <script>
+	var mycolor = [];
+	var mykegiatan = [];
+	@foreach ($renjaData as $key => $data )
+		@if ($color = sprintf("#%06x",rand(0,16777215)))
+			mycolor.push('{{ $color }}');
+			mykegiatan.push(["{{ $data->namakegiatan }}", {{ str_replace('.','',$data->totgiat) }}]);
+			$('#nm{{$key+1}}').html("{{ $data->namakegiatan }}");
+			$('#tot{{$key+1}}').html("{{ $data->totgiat }}");
+			$('#pb{{$key+1}}').css("background-color", "{{ $color }}'"); 
+		@endif
+	@endforeach
+	
+	// alert(mykegiatan);
 	var chart = c3.generate({
 		bindto: '#donutchart',
 		data: {
@@ -896,23 +911,26 @@
 		show: false
 		},
 		color: {
-			pattern: [
-				@foreach ($renjaData as $data )
-				@if ($color = sprintf("#%06x",rand(0,16777215)))
-				'{{ $color }}',
-				@endif
-				@endforeach
-			]
+			pattern : mycolor
+			// pattern: [
+			// 	@ foreach ($renjaData as $data )
+			// 	@ if ($color = sprintf("#%06x",rand(0,16777215)))
+			// 	' { { $color }}',
+			// 	@ endif
+			// 	@ endforeach
+			// ]
 		}
 	});
 
 	setTimeout(function () {
 		chart.load({
-			columns: [
-				@foreach ($renjaData as $data )
-				["{{ $data->namakegiatan }}", {{ str_replace('.','',$data->totgiat) }}],
-				@endforeach
-			]
+			columns: 
+				mykegiatan
+				// @ foreach ($renjaData as $data )
+				// ["{ { $data->namakegiatan }}", { { str_replace('.','',$data->totgiat) }}],
+				// @ endforeach
+				
+			
 		});
 	}, 1500);
 

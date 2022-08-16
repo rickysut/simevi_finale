@@ -447,8 +447,8 @@ return [
         'can_create'     => '0',
     ],
     'dataBanpem' => [
-        'title'          => 'Data Banpem 2019-2021',
-        'title_singular' => 'Data Banpem 2019-2021',
+        'title'          => 'Data Banpem',
+        'title_singular' => 'Data Banpem',
         'is_parent'      => '0',
         'is_hidden'      => '0',
         'can_view'       => '1',
@@ -598,8 +598,8 @@ return [
         'can_create'     => '0',
     ],
     'backdateBanpem' => [
-        'title'          => 'Banpem 2019-2021',
-        'title_singular' => 'Banpem 2019-2021',
+        'title'          => 'Banpem',
+        'title_singular' => 'Banpem',
         'is_parent'      => '0',
         'is_hidden'      => '0',
         'can_view'       => '1',
