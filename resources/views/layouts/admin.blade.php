@@ -53,7 +53,7 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
 		<link href="{{ asset('css/ajax/all.css') }}" rel="stylesheet" />
 		<link href="{{ asset('css/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet" />
 		<link href="{{ asset('css/datatables/buttons.dataTables.min.css') }}" rel="stylesheet" />
-		<link href="{{ asset('css/datatables/select.dataTables.min.css') }}" rel="stylesheet" /-->
+		<link href="{{ asset('css/datatables/select.dataTables.min.css') }}" rel="stylesheet" />
 		
 		
 		<meta name="csrf-token" content="{{ csrf_token() }}">
