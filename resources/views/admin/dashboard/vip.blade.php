@@ -21,7 +21,7 @@
 		<div id="panel-1" class="panel show" >
 			<div class="panel-hdr">
 				<h2>
-					Rencana Kerja | <span class="fw-300"><i>Renja</i></span>
+					Alokasi | <span class="fw-300"><i>Anggaran</i></span>
 				</h2>
 				<div class="panel-toolbar">
 					<a data-toggle="tooltip" title data-original-title="Detail" class="hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.detailrenja') }}">
@@ -905,7 +905,7 @@
 			onmouseout: function (d, i) { console.log("onmouseout", d, i); }
 		},
 		donut: {
-			title: "Rencana Alokasi"
+			title: "Alokasi Anggaran"
 		},
 		legend: {
 		show: false

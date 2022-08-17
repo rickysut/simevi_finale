@@ -2,7 +2,7 @@
 
 return [
     'welcome'               => 'Selamat Datang SiMEvI',
-    'home_subtitle'         => 'System Monitoring dan Evaluasi Hortikultura',
+    'home_subtitle'         => 'Sistem Monitoring dan Evaluasi Hortikultura',
     'login_title'           => 'Masuk untuk memulai sessi Anda',
     'help_username'         => 'Username Anda',
     'help_password'         => 'Password Anda',

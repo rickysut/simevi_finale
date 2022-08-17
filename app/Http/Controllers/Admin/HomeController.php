@@ -174,11 +174,11 @@ class HomeController extends Controller
         format(GROUP_CONCAT(dbdata.pagus),0, "id_ID") pagus , format(GROUP_CONCAT(dbdata.reals),0, "id_ID") reals, 
         Format(COALESCE(GROUP_CONCAT(dbdata.reals),0)/COALESCE(GROUP_CONCAT(dbdata.pagus),0) * 100, 2) as persen,
         format(GROUP_CONCAT(dbdata.KP_PAGU),0, "id_ID") KP_PAGU , format(GROUP_CONCAT(dbdata.KP_REAL),0, "id_ID") KP_REAL, 
-        Format(COALESCE(GROUP_CONCAT(dbdata.KP_REAL),0)/COALESCE(GROUP_CONCAT(dbdata.pagus),0) * 100, 0) as persenkp,
+        Format(COALESCE(GROUP_CONCAT(dbdata.KP_REAL),0)/COALESCE(GROUP_CONCAT(dbdata.KP_PAGU),0) * 100, 0) as persenkp,
         format(GROUP_CONCAT(dbdata.DK_PAGU),0, "id_ID") DK_PAGU , format(GROUP_CONCAT(dbdata.DK_REAL),0, "id_ID") DK_REAL, 
-        Format(COALESCE(GROUP_CONCAT(dbdata.DK_REAL),0)/COALESCE(GROUP_CONCAT(dbdata.pagus),0) * 100, 0) as persendk,
+        Format(COALESCE(GROUP_CONCAT(dbdata.DK_REAL),0)/COALESCE(GROUP_CONCAT(dbdata.DK_PAGU),0) * 100, 0) as persendk,
         format(GROUP_CONCAT(dbdata.TP_PAGU),0, "id_ID") TP_PAGU , format(GROUP_CONCAT(dbdata.TP_REAL),0, "id_ID") TP_REAL ,
-        Format(COALESCE(GROUP_CONCAT(dbdata.TP_REAL),0)/COALESCE(GROUP_CONCAT(dbdata.pagus),0) * 100, 0) as persentp
+        Format(COALESCE(GROUP_CONCAT(dbdata.TP_REAL),0)/COALESCE(GROUP_CONCAT(dbdata.TP_PAGU),0) * 100, 0) as persentp
         
         FROM
         (

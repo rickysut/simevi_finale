@@ -18,7 +18,7 @@ return [
     'filterDate'                     => 'Filter menggunakan tanggal',
     'forgot_password'                => 'Lupa kata sandi?',
     'home'                           => 'Beranda',
-    'list'                           => 'Daftar',
+    'list'                           => '',
     'login'                          => 'Masuk',
     'login_email'                    => 'Email',
     'login_username'                 => 'Username',
