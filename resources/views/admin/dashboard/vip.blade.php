@@ -30,7 +30,7 @@
 				</div>
 			</div>
 			<div class="panel-container show">
-				<div class="panel-content" style="height: 28em">
+				<div class="panel-content" style="height: 38em">
 					<div class="row">
 						<div class="col-lg-6 col-md-6 col-sm-12 align-items-center">
 							<div class="c-chart-wrapper">
@@ -48,9 +48,10 @@
 									<span id="nm{{ $key+1 }}">{{ $data->namakegiatan }}</span>
 									<span id="tot{{ $key+1 }}" class="d-inline-block ml-auto">{{ $data->totgiat }}</span>
 								</div>
-								<div class="progress progress-xs mb-3">
+								<hr>
+								{{-- <div class="progress progress-xs mb-3">
 									<div class="progress-bar"  id="pb{{$key+1}}" role="progressbar" style="background-color: #0000; width: {{ $data->persen }}%;" aria-valuenow="{{ $data->persen }}" aria-valuemin="0" aria-valuemax="100"></div>
-								</div>
+								</div> --}}
 							{{-- @endif		 --}}
 						@endforeach
 						
@@ -90,7 +91,7 @@
 				</div>
 			</div>
 			<div class="panel-container show">
-				<div class="panel-content" style="height: 28em">
+				<div class="panel-content" style="height: 38em">
 					<div id="carouselPagu" class="carousel slide carousel-multi-item v-2" data-interval="false">
 						<div class="carousel-inner v-2" role="listbox">
 								<!-- small screen -->
@@ -214,7 +215,6 @@
 					Realisasi <span class="fw-300"><i>Belanja 526</i></span>
 				</h2>
 				<div class="panel-toolbar">
-					<!--<a data-toggle="modal" title="lihat data tabular" class="btn btn-panel btn-primary btn-icon hover-effect-dot waves-effect waves-themed rounded-circle" type="button" data-target=".tablebanpem"></a>-->
 					<a data-toggle="tooltip" title data-original-title="Detail" class="hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.detailbanpem') }}">
 						<i class="ni ni-action-redo"></i>
 					</a>
@@ -558,33 +558,7 @@
 	<!-- end widget wajib tanam-->
 	
 	
-	<!-- Modal Right -->
-	<div class="modal fade tablebanpem" tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-right modal-transparent" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title h4 text-white">Panel Data</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true"><i class="fal fa-times"></i></span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<div class="card mb-g">
-						<div class="card-body p-3">
-							<h5 class="text-primary">
-								<strong>Tabel Realisasi Belanja 526</strong>
-								<small class="mt-0 mb-3 text-muted">
-									Data matrix realisasi belanja Akun 526xxx dalam kurun waktu 4 (empat) tahun
-								</small>
-							</h5>
-							
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Modal Right Small -->
+	
 	
 </div>
 
@@ -656,47 +630,7 @@
 </script>
 <!-- end matrix banpem kewenangan -->
 
-<!-- matrix banpem -->
-<script type="text/javascript">
-	var dom = document.getElementById('matrix-banpem');
-	var myChart = echarts.init(dom,  {
-	renderer: 'canvas',
-	useDirtyRect: false
-	});
-	var app = {};
-	var option;
 
-	option = {
-	title: {
-		text: 'Realisasi Belanja 526'
-	},
-	legend: {
-		bottom: 'center',
-		top:'bottom'
-	},
-	tooltip: {},
-	dataset: {
-		source: [
-		['product', 'Pagu', 'Realisasi'],
-		@ foreach ($pbData as $d )
-		[{ { $d->tahun }}, { { $d->pagu }}, { { $d->realisasi }}],
-		@ endforeach
-		]
-	},
-	xAxis: { type: 'category' },
-	yAxis: {},
-	// Declare several bar series, each will be mapped
-	// to a column of dataset.source by default.
-	series: [{ type: 'bar' }, { type: 'bar' }]
-	};
-
-	if (option && typeof option === 'object') {
-	myChart.setOption(option);
-	}
-
-	window.addEventListener('resize', myChart.resize);
-</script>
-<!-- end matrix banpem -->
 <!-- tanget banpem -->
 <script>
 	var dom = document.getElementById('tangentBanpem');
@@ -884,9 +818,9 @@
 		@if ($color = sprintf("#%06x",rand(0,16777215)))
 			mycolor.push('{{ $color }}');
 			mykegiatan.push(["{{ $data->namakegiatan }}", {{ str_replace('.','',$data->totgiat) }}]);
-			$('#nm{{$key+1}}').html("{{ $data->namakegiatan }}");
-			$('#tot{{$key+1}}').html("{{ $data->totgiat }}");
-			$('#pb{{$key+1}}').css("background-color", "{{ $color }}'"); 
+			// $('#nm{{$key+1}}').html("{{ $data->namakegiatan }}");
+			// $('#tot{{$key+1}}').html("{{ $data->totgiat }}");
+			// $('#pb{{$key+1}}').css("background-color", "{{ $color }}'"); 
 		@endif
 	@endforeach
 	
@@ -946,17 +880,5 @@
 
 </script>
 
-
-<script>
-	$(document).ready(function()
-	{
-		$('#tableBanpem').dataTable(
-		{
-			dom: '',
-			responsive: true
-		});
-	});
-	
-</script>
 
 @endsection
