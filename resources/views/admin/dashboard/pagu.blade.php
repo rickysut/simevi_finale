@@ -155,8 +155,8 @@
 									<div class="">
 										TOTAL PAGU
 										<h2 class="display-5 d-block l-h-n m-0 fw-500 mb-3">
-											{{ $prData[0]->pagus }}
-											<small class="d-inline m-0 l-h-n">rupiah</small>
+											Rp {{ $prData[0]->pagus }}
+											{{-- <small class="d-inline m-0 l-h-n">rupiah</small> --}}
 										</h2>
 										<div class="progress progress-xs mb-2">
 											<div class="progress-bar bg-primary-600" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
@@ -170,8 +170,8 @@
 									<div class="">
 										TOTAL REALISASI
 										<h2 class="display-5 d-block l-h-n m-0 fw-500 mb-3">
-											{{ $prData[0]->reals }}
-											<small class="d-inline m-0 l-h-n">rupiah</small>
+											Rp {{ $prData[0]->reals }}
+											{{-- <small class="d-inline m-0 l-h-n">rupiah</small> --}}
 										</h2>
 										<div class="progress progress-xs mb-2">
 											<div class="progress-bar bg-info-600" role="progressbar" style="width: 97.6%;" aria-valuenow="97.6" aria-valuemin="0" aria-valuemax="100"></div>
@@ -192,7 +192,7 @@
 						<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
 							<div class="text-left ml-2">Kantor Pusat</div>
 							<div id="kppiechart" class="px-3 py-2 d-flex align-items-center">
-								<div  class="js-easy-pie-chart color-primary-600 position-relative d-flex align-items-center justify-content-center" data-percent="{{ $prData[0]->persenkp }}" data-piesize="50" data-linewidth="5" data-trackcolor="#ccbfdf" data-scalelength="0">
+								<div  class="js-easy-pie-chart color-primary-600 position-relative d-flex align-items-center justify-content-center" data-percent="{{ $prData[0]->persenkp }}" data-piesize="80" data-linewidth="10" data-trackcolor="#ccbfdf" data-scalelength="0">
 									<div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark kppie">{{ $prData[0]->persenkp }}%</div>
 								</div>
 								<div class="ml-auto d-inline-flex align-items-center">
@@ -211,7 +211,7 @@
 						<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
 							<div class="text-left ml-2">Dekonsentrasi</div>
 							<div id="dkpiechart" class="px-3 py-2 d-flex align-items-center">
-								<div class="js-easy-pie-chart color-success-600 position-relative d-flex align-items-center justify-content-center" data-percent="{{ $prData[0]->persendk }}" data-piesize="50" data-linewidth="5" data-trackcolor="#7aece0" data-scalelength="0">
+								<div class="js-easy-pie-chart color-success-600 position-relative d-flex align-items-center justify-content-center" data-percent="{{ $prData[0]->persendk }}" data-piesize="80" data-linewidth="10" data-trackcolor="#7aece0" data-scalelength="0">
 									<div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark dkpie">{{ $prData[0]->persendk }}%</div>
 									{{-- <div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-xl">
 										<span class="js-percent d-block text-dark">100</span>
@@ -233,7 +233,7 @@
 						<div class="col-sm-12 col-md-4 col-lg-4 col-xl-4">
 							<div class="text-left ml-2">Tugas Pembantuan</div>
 							<div id="tppiechart" class="px-3 py-2 d-flex align-items-center">
-								<div  class="js-easy-pie-chart color-warning-600 position-relative d-flex align-items-center justify-content-center" data-percent="{{ $prData[0]->persentp }}" data-piesize="50" data-linewidth="5" data-trackcolor="#ffebc1" data-scalelength="0">
+								<div  class="js-easy-pie-chart color-warning-600 position-relative d-flex align-items-center justify-content-center" data-percent="{{ $prData[0]->persentp }}" data-piesize="80" data-linewidth="10" data-trackcolor="#ffebc1" data-scalelength="0">
 									<div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark tppie">{{ $prData[0]->persentp }}%</div>
 									{{-- <div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-xl">
 										<span class="js-percent d-block text-dark">100</span>
@@ -541,20 +541,24 @@
 			</div> --}}
 			
 			<div class="col-lg-12">
-				<div class="table table-responsive">
-					<table class="table">
-						<thead class="bg-primary-500 bg-success-gradient text-white">
+				<div class="table dataTables_wrapper dt-bootstrap4">
+					<table class="table table-bordered table-striped table-hover datatable datatable-satkerRank w-100">
+						<thead  class="bg-primary-50">
 							<tr>
+								<th style="vertical-align : middle; display:none;"></th>
 								<th>Kode Satker</th>
 								<th>Nama Satker</th>
 								<th>Pagu</th>
 								<th>Realisasi</th>
 								<th>%</th>
+								<th style="vertical-align : middle; display:none;"></th>
+								
 							</tr>
 						</thead>
 						<tbody>
 							@foreach ($topData as $data )
 								<tr data-toggle="tooltip" title data-original-title="{{ $data->namasatker }}">
+									<td style="vertical-align : middle; display:none;"></td>
 									<td>{{ $data->kodesatker }}</td>
 									<td>
 										<div class="d-flex align-items-baseline">
@@ -565,6 +569,7 @@
 									<td>{{ $data->pagu }}</td>
 									<td>{{ $data->realisasi }}</td>
 									<td>{{ $data->persen }}%</td>
+									<td style="vertical-align : middle; display:none;"></td>
 								</tr>									
 							@endforeach
 						</tbody>
@@ -694,7 +699,24 @@ $('a[data-toggle=tab]').on('shown.bs.tab', function() {
 });
 
 
-});
-</script>
 
+
+	let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
+
+    $.extend(true, $.fn.dataTable.defaults, {
+    	orderCellsTop: true,
+    	order: [[ 5, 'desc' ]],
+    	pageLength: 10
+		
+    
+  	});
+  	let table = $('.datatable-satkerRank:not(.ajaxTable)').DataTable({buttons: [dtButtons]});
+	$('a[data-toggle="tab"]').on('shown.bs.tab click', function(e){
+		$($.fn.dataTable.tables(true)).DataTable()
+			.columns.adjust();
+	});
+  
+})
+
+</script>
 @endsection

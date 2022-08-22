@@ -818,9 +818,9 @@
 		@if ($color = sprintf("#%06x",rand(0,16777215)))
 			mycolor.push('{{ $color }}');
 			mykegiatan.push(["{{ $data->namakegiatan }}", {{ str_replace('.','',$data->totgiat) }}]);
-			// $('#nm{{$key+1}}').html("{{ $data->namakegiatan }}");
-			// $('#tot{{$key+1}}').html("{{ $data->totgiat }}");
-			// $('#pb{{$key+1}}').css("background-color", "{{ $color }}'"); 
+			// $('#nm{ {$key+1}}').html("{ { $data->namakegiatan }}");
+			// $('#tot{ $key+1}}').html("{ { $data->totgiat }}");
+			// $('#pb{ {$key+1}}').css("background-color", "{ { $color }}'"); 
 		@endif
 	@endforeach
 	
