@@ -20,14 +20,14 @@
 			</div>
 		</div>
 		<div class="info-card">
-			<!--img src="{{ asset('img/favicon.png') }}" class="profile-image rounded-circle" alt="{{ Auth::user()->name }}">
+			<!--img src="{ { asset('img/favicon.png') }}" class="profile-image rounded-circle" alt="{ { Auth::user()->name }}">
 			<div class="info-card-text">	
 				<a href="#" class="d-flex align-items-center text-white">
 					<span class="text-truncate text-truncate-sm d-inline-block">
-						{{ Auth::user()->username }}
+						{ { Auth::user()->username }}
 					</span>
 				</a>
-				<span class="d-inline-block text-truncate text-truncate-sm">{{ Auth::user()->name }}</span>
+				<span class="d-inline-block text-truncate text-truncate-sm">{ { Auth::user()->name }}</span>
 			</div-->
 			<img src="{{ asset('img/cover-8-lg.png') }}" class="cover" alt="cover" style="max-width: 100%;" >
 			<a href="#" onclick="return false;" class="pull-trigger-btn" data-action="toggle" data-class="list-filter-active" data-target=".page-sidebar" data-focus="nav_filter_input" >
@@ -314,8 +314,8 @@
 					<span class="nav-link-text" data-i18n="nav.documentation_sub1">Build Control</span>
 				</a>
 			</li>
-			<li class="c-sidebar-nav-item">
-				<a href="/#" title="General Documentation" data-filter-tags="general documentation" class="waves-effect waves-themed">
+			<li class="c-sidebar-nav-item {{ request()->is("/documentation*") ? "active" : "" }}">
+				<a href="{{ route('admin.documentation') }}" title="General Documentation" data-filter-tags="general documentation" class="waves-effect waves-themed">
 					<i class="fal fa-code"></i>
 					<span class="nav-link-text" data-i18n="nav.documentation_sub2">General Docs</span>
 				</a>

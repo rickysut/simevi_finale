@@ -61,7 +61,7 @@
 					@endforeach
 				</div>
 				<h3 class="display-4 d-block l-h-n m-0 fw-500">
-					Rp {{ number_format(($nominalyear) / 1000000000, 2, ',', '.')}} M
+					Rp {{ number_format(($nominalyear) / 1000000, 2, ',', '.')}} Jt
 					<small class="m-0 l-h-n">{{ trans('cruds.detailbanpem.fields.totalamount') }}</small>
 				</h3>
 			</div>
@@ -72,10 +72,10 @@
 		<div class="p-3 bg-warning-400 rounded overflow-hidden position-relative text-white mb-g">
 			<div class="">
 				<h3 class="display-4 d-block l-h-n m-0 fw-500">
-					@if ($nominalbrg > 1000000000)
-						Rp {{ number_format(($nominalbrg) / 1000000000, 2, ',', '.')}} M
-					@elseif ($nominalbrg < 1000000000)
-						Rp {{ number_format(($nominalbrg) / 1000000, 2, ',', '.')}} Jt	
+					@if ($nominalbrg > 1000000)
+						Rp {{ number_format(($nominalbrg) / 1000000, 2, ',', '.')}} Jt
+					@elseif ($nominalbrg < 1000000)
+						Rp {{ number_format(($nominalbrg) / 1000, 2, ',', '.')}} Jt	
 					@else
 						Rp 0
 					@endif
@@ -90,10 +90,10 @@
 		<div class="p-3 bg-success-200 rounded overflow-hidden position-relative text-white mb-g">
 			<div class="">
 				<h3 class="display-4 d-block l-h-n m-0 fw-500">
-					@if ($nominaluang > 1000000000)
-						Rp {{ number_format(($nominaluang) / 1000000000, 2, ',', '.')}} M
-					@elseif ($nominaluang < 1000000000)
-						Rp {{ number_format(($nominaluang) / 1000000, 2, ',', '.')}} Jt	
+					@if ($nominaluang > 1000000)
+						Rp {{ number_format(($nominaluang) / 1000000, 2, ',', '.')}} Jt
+					@elseif ($nominaluang < 1000000)
+						Rp {{ number_format(($nominaluang) / 1000, 2, ',', '.')}} Jt	
 					@else
 						Rp 0
 					@endif

@@ -4,6 +4,9 @@
 Route::view('/', 'welcome');
 // Route::redirect('/', '/login');
 
+
+
+
 Route::get('/home', function () {
     if (session('status')) {
         return redirect()->route('admin.home')->with('status', session('status'));
@@ -153,6 +156,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('data-renjas/process-csv-import', 'DataRenjaController@processCsvImport')->name('data-renjas.processCsvImport');
     Route::resource('data-renjas', 'DataRenjaController');
 
+    //Documentation
+    Route::get('documentation', 'HowtoController@index')->name('documentation');
+    Route::view('docmodul1', 'howto.modul_1')->name('howto.modul1');
+    Route::view('docmodul2', 'howto.modul_2')->name('howto.modul2');
 
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
     Route::get('messenger', 'MessengerController@index')->name('messenger.index');
@@ -165,6 +172,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('messenger/{topic}/reply', 'MessengerController@replyToTopic')->name('messenger.reply');
     Route::get('messenger/{topic}/reply', 'MessengerController@showReply')->name('messenger.showReply');
 });
+
+
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
     // Change password
     if (file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php'))) {

@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>SiMEvI</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -45,18 +45,18 @@
                     <div class="card card-primary">
                         <div class="card-body">
                             <div>
-                                <div class="btn-group w-100 mb-2">
-                                    <a class="btn btn-info active" href="javascript:void(0)" data-filter="all"> All items </a>
-                                    <a class="btn btn-info" href="javascript:void(0)" data-filter="1">  Ditjen</a>
-                                    <a class="btn btn-info" href="javascript:void(0)" data-filter="10"> Sekdit </a>
-                                    <a class="btn btn-info" href="javascript:void(0)" data-filter="20"> Ditbenih </a>
-                                    <a class="btn btn-info" href="javascript:void(0)" data-filter="30"> Ditbuflo </a>
-                                    <a class="btn btn-info" href="javascript:void(0)" data-filter="40"> DitSTO </a>
-                                    <a class="btn btn-info" href="javascript:void(0)" data-filter="50"> Ditlin </a>
-                                    <a class="btn btn-info" href="javascript:void(0)" data-filter="60"> DitPPHH </a>
-                                    <a class="btn btn-info" href="javascript:void(0)" data-filter="100"> Kementan </a>
-                                    <a class="btn btn-info" href="javascript:void(0)" data-filter="200"> BPS RI </a>
-                                    <a class="btn btn-info" href="javascript:void(0)" data-filter="300"> Kementerian/ Lembaga </a>
+                                <div class="text-center mb-4">
+                                    <a class="btn btn-sm  btn-info active" href="javascript:void(0)" data-filter="all"> All items </a>
+                                    <a class="btn btn-sm  btn-info" href="javascript:void(0)" data-filter="1">  Ditjen</a>
+                                    <a class="btn btn-sm  btn-info" href="javascript:void(0)" data-filter="10"> Sekdit </a>
+                                    <a class="btn btn-sm  btn-info" href="javascript:void(0)" data-filter="20"> Ditbenih </a>
+                                    <a class="btn btn-sm  btn-info" href="javascript:void(0)" data-filter="30"> Ditbuflo </a>
+                                    <a class="btn btn-sm  btn-info" href="javascript:void(0)" data-filter="40"> DitSTO </a>
+                                    <a class="btn btn-sm  btn-info" href="javascript:void(0)" data-filter="50"> Ditlin </a>
+                                    <a class="btn btn-sm  btn-info" href="javascript:void(0)" data-filter="60"> DitPPHH </a>
+                                    <a class="btn btn-sm  btn-info" href="javascript:void(0)" data-filter="100"> Kementan </a>
+                                    <a class="btn btn-sm  btn-info" href="javascript:void(0)" data-filter="200"> BPS RI </a>
+                                    <a class="btn btn-sm  btn-info" href="javascript:void(0)" data-filter="300"> Kementerian/ Lembaga </a>
                               </div>
                                 <div class="mb-2">
                                     <a class="btn btn-secondary" href="javascript:void(0)" data-shuffle=""> Shuffle items </a>
@@ -287,7 +287,7 @@
                                                   </a>
                                                 </div>
 
-                                                <div class="filtr-item col-md-2 " data-category="300" data-sort="tanahair" style="opacity: 1; transform: scale(1) translate3d(0px, 1036px, 0px); backface-visibility: hidden; perspective: 1000px; transform-style: preserve-3d; position: absolute; width: 217.5px; transition: all 0.5s ease-out 0ms, width 1ms ease 0s;">
+                                                <div class="filtr-item col-md-2 " data-category="10" data-sort="bantuan" style="opacity: 1; transform: scale(1) translate3d(0px, 1036px, 0px); backface-visibility: hidden; perspective: 1000px; transform-style: preserve-3d; position: absolute; width: 217.5px; transition: all 0.5s ease-out 0ms, width 1ms ease 0s;">
                                                     <a href="{{ route('login') }}" title="SiBanpem">
                                                         <img src="{{ asset('images/web_simevi.png')}}" class="img-fluid mb-2" alt="image" style="height:120px;">
                                                         <h5>SiBanpem / SiMEvI</h5>
