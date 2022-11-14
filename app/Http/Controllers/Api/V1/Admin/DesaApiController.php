@@ -41,7 +41,7 @@ class DesaApiController extends Controller
     {
         abort_if(Gate::denies('desa_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new DesaResource(Desa::select(['id,kd_kec_id,kd_desa,nm_desa,kd_bast,lat,lng,kd_kemenkeu'])->get());
+        return new DesaResource(Desa::select(['id','kd_kec_id','kd_desa','nm_desa','kd_bast','lat','lng','kd_kemenkeu'])->get());
     }
 
     /**

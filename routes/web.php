@@ -1,8 +1,8 @@
 <?php
 
 
-Route::view('/', 'welcome');
-// Route::redirect('/', '/login');
+//Route::view('/', 'welcome');
+Route::redirect('/', '/login');
 
 
 

@@ -61,7 +61,7 @@
     $(function () {
   let dtButtons = $.extend(true, [], $.fn.dataTable.defaults.buttons)
 @can('permission_delete')
-  let deleteButtonTrans = '{{ trans('global.datatables.delete') }}';
+  let deleteButtonTrans = "{{ trans('global.datatables.delete') }}";
   let deleteButton = {
     text: deleteButtonTrans,
     url: "{{ route('admin.permissions.massDestroy') }}",
