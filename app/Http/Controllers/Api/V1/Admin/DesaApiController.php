@@ -127,6 +127,23 @@ class DesaApiController extends Controller
         return new DesaResource($desa->load([]));
     }
 
+    public function showWithKec($kec_id)
+    {
+        //abort_if(Gate::denies('desa_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return new DesaResource(Desa::select([
+            'id',
+            'kd_kec_id',
+            'kd_desa',
+            'nm_desa',
+            'kd_bast',
+            'lat',
+            'lng',
+            'kd_kemenkeu'])->where('kd_kec_id', $kec_id)->get());
+    
+    }
+    
+
     /**
      * @OA\Put(
      *      path="/desas/{id}",

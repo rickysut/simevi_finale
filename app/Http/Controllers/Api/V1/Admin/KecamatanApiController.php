@@ -132,6 +132,17 @@ class KecamatanApiController extends Controller
         return new KecamatanResource($kecamatan->load([]));
     }
 
+    public function showWithKab($kab_id)
+    {
+        return new KecamatanResource(Kecamatan::select(['id',
+        'kd_kab_id',
+        'kd_kec',
+        'nm_kec',
+        'kd_bast',
+        'lat',
+        'lng'])->where('kd_kab_id', $kab_id)->get());
+    }
+
     /**
      * @OA\Put(
      *      path="/kecamatans/{id}",

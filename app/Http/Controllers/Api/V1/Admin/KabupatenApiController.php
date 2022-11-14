@@ -132,10 +132,26 @@ class KabupatenApiController extends Controller
     public function show(Kabupaten $kabupaten)
     {
         abort_if(Gate::denies('kabupaten_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        
+
         return new KabupatenResource($kabupaten->load([]));
     }
 
+    public function showWithProp($prop_id )
+    {
+        // abort_if(Gate::denies('kabupaten_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return new KabupatenResource(Kabupaten::select(['id',
+        'kd_prop_id',
+        'kd_kab',
+        'kd_dt1',
+        'kd_dt2',
+        'nama_kab',
+        'lat',
+        'lng',
+        'kd_bast',
+        'kd_kemenkeu'])->where('kd_prop_id', $prop_id)->get());
+
+    }
     /**
      * @OA\Put(
      *      path="/kabupatens/{id}",
