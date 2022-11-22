@@ -17,6 +17,7 @@ class CreateBackdateBanpemsTable extends Migration
             $table->string('nm_gapoktan')->nullable();
             $table->string('nm_barang')->nullable();
             $table->decimal('total', 15, 2)->nullable();
+            $table->string('satuan')->nullable();
             $table->float('nominal', 15, 2)->nullable();
             $table->string('kd_giat')->nullable();
             $table->string('kd_akun')->nullable();
