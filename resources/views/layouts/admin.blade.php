@@ -65,6 +65,12 @@ License: You must have a valid license purchased only from wrapbootstrap.com (li
 		saat tampil di android webview
 	-->
 	<body class="mod-bg-1 mod-nav-link footer-function-fixed">
+		<style>
+			.dataTables_wrapper .dataTables_filter label {
+					display: -webkit-inline-box !important;
+			}
+
+		</style>
 		<script src="{{ asset('js/smartadmin/pagesetting.js') }}"></script>
 		<!-- begin page wrapper -->
 		<div class="page-wrapper">

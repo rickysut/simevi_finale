@@ -456,7 +456,7 @@ class DetailExecutiveController extends Controller
             $qryByProp = ' where provinsi = "' . $nmprop . '"';
         }  
 
-            $str = 'select year as id, kab_kota, nm_gapoktan, nm_barang, format(total,0) total, format(nominal,0) nominal, kwn, kd_giat, kd_akun
+            $str = 'select year as id, kab_kota, nm_gapoktan, nm_barang, format(total,0) total, satuan, format(nominal,0) nominal, kwn, kd_giat, kd_akun
             from backdate_banpems
             '.$qryByProp. $qryByYear;
             

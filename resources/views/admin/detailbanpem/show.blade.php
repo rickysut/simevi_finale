@@ -22,6 +22,9 @@
                     <th class="text-right" >
                         Volume
                     </th>
+                    <th class="text-center" >
+                        Satuan
+                    </th>
                     <th class="text-right">
                         Nilai
                     </th>
@@ -50,7 +53,8 @@
                        
                     </td>
                     <td>
-                       
+                    </td>
+                    <td>   
                     </td>
                     <td>
                         <input class="search" type="text"  style="width: 90px;" >
@@ -85,6 +89,9 @@
                                 {{ $data->total }}
                             </td>
                             <td class="text-right">
+                                {{ $data->satuan }}
+                            </td>
+                            <td class="text-right">
                                 {{ $data->nominal }}
                             </td>
                             <td class="text-center">
@@ -104,7 +111,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th colspan="4" class="text-right">Total:</th>
+                        <th colspan="5" class="text-right">Total:</th>
                         <th class="text-right">0</th>
                         <th colspan="3"></th>
                         
@@ -152,26 +159,26 @@
 	
         // Total over this page
         pageTotal1 = api
-        .column( 5, { page: 'current'} )
+        .column( 6, { page: 'current'} )
         .data()
         .reduce( function (a, b) {
             return intVal(a) + intVal(b);
         }, 0 );
 	
         // Update footer
-        $( api.column( 4 ).footer() ).html(
+        $( api.column( 5 ).footer() ).html(
             numberWithCommas(pageTotal1)
         )
 
         // Total over all pages
         total = api
-            .column( 5 )
+            .column( 6 )
             .data()
             .reduce( function (a, b) {
                 return intVal(a) + intVal(b);
             }, 0 );
 
-        $( api.column( 5 ).footer() ).html(
+        $( api.column( 6 ).footer() ).html(
             'from Grand Total: ' +
              numberWithCommas(total)
         )
