@@ -15,7 +15,7 @@
 						{{ trans('global.app_csvImport') }}
 					</button>
 					@include('csvImport.modal', ['model' => 'BackdateBanpem', 'route' => 'admin.backdate-banpems.parseCsvImport'])
-					
+
 				</div>
 				@endcan
 			</div>
@@ -101,8 +101,8 @@
 								</thead>
 								<tfoot>
 									<tr>
-										<th colspan="8" class="text-right">
-											Total: 
+										<th colspan="9" class="text-right">
+											Total:
 										</th>
 										<th class="text-right">
 										</th>
@@ -189,33 +189,33 @@
     orderCellsTop: true,
     order: [[ 1, 'desc' ]],
 	responsive: false,
-	
+
     pageLength: 25,
-    
+
     footerCallback : function ( row, data, start, end, display ) {
         var api = this.api(), data;
- 
+
         // Remove the formatting to get integer data for summation
         var intVal = function ( i ) {
             return typeof i === 'string' ? i.replace(/[\.,]/g, '')*1 : typeof i === 'number' ? i : 0;
         };
-	
+
         // Total over this page
         pageTotal1 = api
-        .column( 8, { page: 'current'} )
+        .column( 9, { page: 'current'} )
         .data()
         .reduce( function (a, b) {
             return intVal(a) + intVal(b);
         }, 0 );
-	
+
         // Update footer
-        $( api.column( 8 ).footer() ).html(
+        $( api.column( 9 ).footer() ).html(
             numberWithCommas(pageTotal1)
         )
 
         // Total over all pages
         total = api
-            .column( 8 )
+            .column( 9 )
             .data()
             .reduce( function (a, b) {
                 return intVal(a) + intVal(b);

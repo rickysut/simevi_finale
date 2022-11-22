@@ -172,7 +172,7 @@
 
         // Total over all pages
         total = api
-            .column( 6 )
+            .column( 6 , {search: 'applied'})
             .data()
             .reduce( function (a, b) {
                 return intVal(a) + intVal(b);
