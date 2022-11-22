@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 @section('content')
+<link rel="stylesheet" media="screen, print" href="{{ asset('css/smartadmin/miscellaneous/jqvmap/jqvmap.bundle.css') }}">
+
 @include('partials.subheader')
 <style>
 .display-5 {
@@ -507,7 +509,7 @@ $(document).ready(function()
 			+ '" which has the code: '
 			+ code.toLowerCase();
  
-		//console.log(message);
+			console.log(message);
 		
 			$.ajax({
 			url: "/admin/banpemgetdataprov/{{ $dtYear1 }}/{{ $dtYear2 }}/"+region,

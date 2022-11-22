@@ -45,11 +45,14 @@
 										<th>
 											{{ trans('cruds.backdateBanpem.fields.nm_gapoktan') }}
 										</th>
-										<th>
+										<th style="width: 3%">
 											{{ trans('cruds.backdateBanpem.fields.nm_barang') }}
 										</th>
 										<th>
 											{{ trans('cruds.backdateBanpem.fields.total') }}
+										</th>
+										<th >
+											{{ trans('cruds.backdateBanpem.fields.satuan') }}
 										</th>
 										<th>
 											{{ trans('cruds.backdateBanpem.fields.nominal') }}
@@ -68,31 +71,31 @@
 										</th>
 									</tr>
 									<tr>
-										<td>
-										</td>
-										<td style="width:3%">
+										<td ></td>
+										<td >
 											<input class="search" type="text" style="width:100%">
 										</td>
-										<td style="width:3%">
+										<td >
 											<input class="search" type="text" style="width:100%">
 										</td>
-										<td style="width:3%">
+										<td >
 											<input class="search" type="text" style="width:100%">
 										</td>
-										<td style="width:3%">
+										<td >
 											<input class="search" type="text" style="width:100%">
 										</td>
-										<td style="width:3%">
+										<td >
 											<input class="search" type="text" style="width:100%">
 										</td>
-										<td style="width:3%">
+										<td >
 											<input class="search" type="text" style="width:100%">
 										</td>
 										<td> </td>
 										<td> </td>
-										<td style="width:3%"><input class="search" type="text" style="width:100%"></td>
-										<td style="width:3%"><input class="search" type="text" style="width:100%"></td>
-										<td style="width:200"><input class="search" type="text" style="width:100%"></td>
+										<td> </td>
+										<td ><input class="search" type="text" style="width:100%"></td>
+										<td ><input class="search" type="text" style="width:100%"></td>
+										<td ><input class="search" type="text" style="width:100%"></td>
 										<td> </td>
 									</tr>
 								</thead>
@@ -176,6 +179,7 @@
 		{ data: 'nm_gapoktan', name: 'nm_gapoktan' },
 		{ data: 'nm_barang', name: 'nm_barang' },
 		{ data: 'total', name: 'total', class: 'text-right' },
+		{ data: 'satuan', name: 'satuan' , class: 'text-center' },
 		{ data: 'nominal', name: 'nominal', class: 'text-right' },
 		{ data: 'kwn', name: 'kwn' },
 		{ data: 'kd_giat', name: 'kd_giat' },

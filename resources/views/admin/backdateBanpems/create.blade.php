@@ -80,6 +80,16 @@
                 <span class="help-block">{{ trans('cruds.backdateBanpem.fields.total_helper') }}</span>
             </div>
             <div class="form-group">
+                <label for="satuan">{{ trans('cruds.backdateBanpem.fields.satuan') }}</label>
+                <input class="form-control {{ $errors->has('satuan') ? 'is-invalid' : '' }}" type="text" name="satuan" id="satuan" value="{{ old('satuan', '') }}" >
+                @if($errors->has('satuan'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('satuan') }}
+                    </div>
+                @endif
+                <span class="help-block">{{ trans('cruds.backdateBanpem.fields.satuan_helper') }}</span>
+            </div>
+            <div class="form-group">
                 <label for="nominal">{{ trans('cruds.backdateBanpem.fields.nominal') }}</label>
                 <input class="form-control {{ $errors->has('nominal') ? 'is-invalid' : '' }}" type="number" name="nominal" id="nominal" value="{{ old('nominal', '') }}" step="0.01">
                 @if($errors->has('nominal'))

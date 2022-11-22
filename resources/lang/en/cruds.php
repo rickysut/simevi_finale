@@ -630,6 +630,8 @@ return [
             'nm_barang_helper'     => ' ',
             'total'                => 'Total',
             'total_helper'         => ' ',
+            'satuan'               => 'Satuan',
+            'satuan_helper'        => ' ',
             'nominal'              => 'Nominal',
             'nominal_helper'       => ' ',
             'kd_giat'              => 'Kode Kegiatan',

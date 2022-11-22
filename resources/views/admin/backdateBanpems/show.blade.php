@@ -79,6 +79,14 @@
                                     </tr>
                                     <tr>
                                         <th>
+                                            {{ trans('cruds.backdateBanpem.fields.satuan') }}
+                                        </th>
+                                        <td>
+                                            {{ $backdateBanpem->satuan }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
                                             {{ trans('cruds.backdateBanpem.fields.nominal') }}
                                         </th>
                                         <td>

@@ -32,6 +32,7 @@ class BackdateBanpem extends Model
         'nm_gapoktan',
         'nm_barang',
         'total',
+        'satuan',
         'nominal',
         'kd_giat',
         'kd_akun',

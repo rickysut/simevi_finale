@@ -65,6 +65,9 @@ class BackdateBanpemController extends Controller
             $table->editColumn('total', function ($row) {
                 return $row->total ? number_format($row->total,0,',','.') : '0';
             });
+            $table->editColumn('satuan', function ($row) {
+                return $row->satuan ? $row->satuan : '';
+            });
             $table->editColumn('nominal', function ($row) {
                 return $row->nominal ? number_format($row->nominal,0,',','.') : '0';
             });
