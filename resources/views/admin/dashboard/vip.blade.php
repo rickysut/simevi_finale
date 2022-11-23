@@ -290,7 +290,7 @@
 
 	
 	<!-- widget gerdal opt-->
-	<div class="col-12">
+	<div class="col-12" hidden>
 		<div id="panel-5" class="panel">
 			<div class="panel-hdr">
 				<h2>
@@ -378,7 +378,7 @@
 	<!-- end widget gerdal opt-->
 	
 	<!-- widget srikandi/kampunghorti-->
-	<div class="col-12">
+	<div class="col-12" hidden>
 		<div id="panel-6" class="panel">
 			<div class="panel-hdr">
 				<h2>
@@ -455,7 +455,7 @@
 	<!-- end widget srikandi/kampunghorti-->
 	
 	<!-- widget wajib tanam-->
-	<div class="col-lg-12 col-md-12">
+	<div class="col-lg-12 col-md-12" hidden>
 		<div id="panel-7" class="panel">
 			<div class="panel-hdr">
 				<h2>
