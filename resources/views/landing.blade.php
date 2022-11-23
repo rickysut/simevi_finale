@@ -63,7 +63,7 @@
 		</div>
 		<div class="carousel-item">
 			<div class="row justify-content-center">
-				<div class="card border m-2 shadow" style="max-width: 28rem;">
+				<div class="card border m-2 shadow" style="max-width: 28rem;" hidden>
 					<img src="{{ asset('img/cover-12-lg.png') }}" class="card-img-top" alt="...">
 					<div class="card-body">
 						<h5 class="card-title fw-300">{{ trans('simevi.underconstruction') }}</h5>
@@ -71,7 +71,7 @@
 						<a href="#" class="btn btn-sm btn-default disabled">{{ trans('simevi.visitbut2') }}</a>
 					</div>
 				</div>
-				<div class="card border m-2 shadow" style="max-width: 28rem;">
+				<div class="card border m-2 shadow" style="max-width: 28rem;" hidden>
 					<img src="{{ asset('img/cover-13-lg.png') }}" class="card-img-top" alt="...">
 					<div class="card-body">
 						<h5 class="card-title fw-300">{{ trans('simevi.underconstruction') }}</h5>
@@ -153,7 +153,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="carousel-item">
+		<div class="carousel-item" hidden>
 			<div class="card border m-2 shadow" style="max-width: 18rem;">
 				<img src="{{ asset('img/cover-12-lg.png') }}" class="card-img-top" alt="...">
 				<div class="card-body">
@@ -163,7 +163,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="carousel-item">
+		<div class="carousel-item" hidden>
 			<div class="card border m-2 shadow" style="max-width: 18rem;">
 				<img src="{{ asset('img/cover-13-lg.png') }}" class="card-img-top" alt="...">
 				<div class="card-body">
