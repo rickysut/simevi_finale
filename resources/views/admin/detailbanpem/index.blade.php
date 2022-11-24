@@ -143,7 +143,7 @@
 								</div>
 							</div>
 							<div class="mt-2">
-								<h1 class="fw-700 small">Berdasarkan Kewenangan</h1>
+								<h1 class="fw-700 small" hidden>Berdasarkan Kewenangan</h1>
 								<table class="table-striped table-lg w-100">
 									<tbody>
 										<tr>
