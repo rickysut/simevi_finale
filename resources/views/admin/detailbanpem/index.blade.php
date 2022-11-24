@@ -143,7 +143,7 @@
 								</div>
 							</div>
 							<div class="mt-2">
-								<h1 class="fw-700 small">Berdasarkan Kewenangan</h1>
+								<h1 class="fw-700 small" hidden>Berdasarkan Kewenangan</h1>
 								<table class="table-striped table-lg w-100">
 									<tbody>
 										<tr>
@@ -181,10 +181,10 @@
 								</div>
 								<div class="ml-auto d-inline-flex align-items-center">
 									<div class="d-inline-flex flex-column ml-2">
-										<span class="d-inline-block badge badge-primary opacity-70 text-center p-1 width-6" data-toggle="tooltip" title data-original-title="Bantuan Barang: 75%" data-placement="left">
+										<span class="d-inline-block badge badge-primary opacity-70 text-center p-1 width-6" data-toggle="tooltip" title data-original-title="Bantuan Barang" data-placement="left">
 											<i class="fas fa-dolly kpbrg"></i>
 										</span>
-										<span class="d-inline-block badge bg-primary-300 opacity-70 text-center p-1 width-6 mt-1" data-toggle="tooltip" title data-original-title="Bantuan Uang: 25%" data-placement="left">
+										<span class="d-inline-block badge bg-primary-300 opacity-70 text-center p-1 width-6 mt-1" data-toggle="tooltip" title data-original-title="Bantuan Uang" data-placement="left">
 											<i class="fas fa-coins kpuang"></i>
 										</span>
 									</div>
@@ -206,10 +206,10 @@
 								</div>
 								<div class="ml-auto d-inline-flex align-items-center">
 									<div class="d-inline-flex flex-column ml-2">
-										<span class="d-inline-block badge badge-success opacity-70 text-center p-1 width-6" data-toggle="tooltip" title data-original-title="Bantuan Barang: 75%" data-placement="left">
+										<span class="d-inline-block badge badge-success opacity-70 text-center p-1 width-6" data-toggle="tooltip" title data-original-title="Bantuan Barang" data-placement="left">
 											<i class="fas fa-dolly dkbrg"></i>
 										</span>
-										<span class="d-inline-block badge bg-success-300 opacity-70 text-center p-1 width-6 mt-1" data-toggle="tooltip" title data-original-title="Bantuan Uang: 25%" data-placement="left">
+										<span class="d-inline-block badge bg-success-300 opacity-70 text-center p-1 width-6 mt-1" data-toggle="tooltip" title data-original-title="Bantuan Uang" data-placement="left">
 											<i class="fas fa-coins dkuang"></i>
 										</span>
 									</div>
@@ -231,10 +231,10 @@
 								</div>
 								<div class="ml-auto d-inline-flex align-items-center">
 									<div class="d-inline-flex flex-column ml-2">
-										<span class="d-inline-block badge badge-warning opacity-70 text-center p-1 width-6" data-toggle="tooltip" title data-original-title="Bantuan Barang: 75%" data-placement="left">
+										<span class="d-inline-block badge badge-warning opacity-70 text-center p-1 width-6" data-toggle="tooltip" title data-original-title="Bantuan Barang" data-placement="left">
 											<i class="fas fa-dolly tpbrg"></i>
 										</span>
-										<span class="d-inline-block badge bg-warning-300 opacity-70 text-center p-1 width-6 mt-1" data-toggle="tooltip" title data-original-title="Bantuan Uang: 25%" data-placement="left">
+										<span class="d-inline-block badge bg-warning-300 opacity-70 text-center p-1 width-6 mt-1" data-toggle="tooltip" title data-original-title="Bantuan Uang" data-placement="left">
 											<i class="fas fa-coins tpuang"></i>
 										</span>
 									</div>
@@ -256,10 +256,10 @@
 								</div>
 								<div class="ml-auto d-inline-flex align-items-center">
 									<div class="d-inline-flex flex-column ml-2">
-										<span class="d-inline-block badge badge-danger opacity-70 text-center p-1 width-6" data-toggle="tooltip" title data-original-title="Bantuan Barang: 75%" data-placement="left">
+										<span class="d-inline-block badge badge-danger opacity-70 text-center p-1 width-6" data-toggle="tooltip" title data-original-title="Bantuan Barang" data-placement="left">
 											<i class="fas fa-dolly tpkbrg"></i>
 										</span>
-										<span class="d-inline-block badge bg-danger-300 opacity-70 text-center p-1 width-6 mt-1" data-toggle="tooltip" title data-original-title="Bantuan Uang: 25%" data-placement="left">
+										<span class="d-inline-block badge bg-danger-300 opacity-70 text-center p-1 width-6 mt-1" data-toggle="tooltip" title data-original-title="Bantuan Uang" data-placement="left">
 											<i class="fas fa-coins tpkuang"></i>
 										</span>
 									</div>

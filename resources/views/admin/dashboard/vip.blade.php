@@ -169,47 +169,9 @@
 	</div>
 	<!-- end widget new kinerja anggaran/omspan -->
 	
-	<!-- widget banpem per kewenangan-->
-	<div class="col-lg-6 col-md-12">
-		<div id="panel-3" class="panel show" >
-			<div class="panel-hdr">
-				<h2 class="d-none d-sm-block">
-					Kinerja Bantuan <span class="fw-300"><i>per Kewenangan</i></span>
-				</h2>
-				<h2 class="d-block d-md-none">
-					Kinerja <span class="fw-300"><i>Kewenangan</i></span>
-				</h2>
-				<div class="panel-toolbar">
-					<a data-toggle="tooltip" title data-original-title="Detail" class="hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.detailbanpem') }}">
-						<i class="ni ni-action-redo"></i>
-					</a>
-				</div>
-			</div>
-			<div class="panel-container show">
-				<div class="panel-content" style="height: 35em">
-					<div class="c-chart-wrapper">
-						<div class="echarts" id="banpemkwn"></div>
-					</div>
-				</div>
-				<div class="card-footer">
-					<div class="text-medium-emphasis small d-flex justify-content-between">
-						<div class="d-none d-md-block" >
-							<span class="text-secondary">Data: </span>
-							<span class="text-muted text-truncate text-truncate-sm js-get-date"></span>
-						</div>
-						<div class="text-muted">
-							<a href="http://bastbanpem.pertanian.go.id/">Sumber: BASTBANPEM</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end widget banpem per kewenangan-->
-	
 	<!-- widget realisasi 526-->
-	<div class="col-lg-6 col-md-12">
-		<div id="panel-4" class="panel" >
+	<div class="col-sm-12">
+		<div id="panel-3" class="panel" >
 			<div class="panel-hdr">
 				<h2>
 					Realisasi <span class="fw-300"><i>Belanja 526</i></span>
@@ -221,17 +183,25 @@
 				</div>
 			</div>
 			<div class="panel-container show">
-				<div class="panel-content" style="height: 35em">
-					<div id="multi-item-card" class="carousel slide carousel-multi-item" data-ride="carousel">
-						<div class="carousel-inner" role="listbox">
-							<div class="carousel-item active">
-								<div class="c-chart-wrapper">
-									<div class="echarts" id="tangentBanpem"></div>
-								</div>
+				<div class="panel-content">
+					<div class="row mb-3">
+						<div class="col-lg-4 col-md-6 border-right">
+							<div class="c-chart-wrapper">
+								<div class="echarts" id="banpemkwn"></div>
 							</div>
-							<div class="carousel-item">
+						</div>
+						<div class="col-lg-4 col-md-6 border-right">
+							<div class="c-chart-wrapper">
+								<div class="echarts" id="tangentBanpem"></div>
+							</div>
+						</div>
+						<div class="col-lg-4 col-md-6">
+							<div>
+								<h3 class="fw-900">Nilai Realisasi Bantuan</h3>
+							</div>
 							<div class="table-responsive">
-								<table id="tableBanpem" class="table table-bordered table-hover table-striped w-100">
+								<table id="tableBanpem" class="table table-bordered table-hover table-striped w-100 caption-top">
+									<caption></caption>
 									<thead class="bg-primary-600">
 										<tr>
 											<th hidden></th>
@@ -256,18 +226,11 @@
 											<td>{{ $d->tahun }}</td>  
 											<td>{{ $d->pagu }}</td>  
 											<td>{{ $d->realisasi }}</td>  
-											<td>{{ $d->nilai }}</td>  
+											<td>{{ $d->nilai }}%</td>  
 										</tr>
 										@endforeach
 									</tbody>
 								</table>
-							</div>
-							</div>
-						</div>
-						<div class="row justify-content-center mt-2">
-							<div class="controls-top">
-								<a class="btn-floating btn-sm btn-primary waves-effect waves-theme" href="#multi-item-card" data-slide="prev"><i class="fa fa-chevron-left"></i></a>
-								<a class="btn-floating btn-sm btn-primary waves-effect waves-theme" href="#multi-item-card" data-slide="next"><i class="fa fa-chevron-right"></i></a>
 							</div>
 						</div>
 					</div>
@@ -275,11 +238,13 @@
 				<div class="card-footer">
 					<div class="text-medium-emphasis small d-flex justify-content-between">
 						<div class="d-none d-md-block" >
-							<span class="text-secondary">Data: </span>
-							<span class="text-muted text-truncate text-truncate-sm js-get-date"></span>
+							<span class="help-block text-info">
+								*Ringkasan Data sejak 3 (tiga) tahun sebelum s.d Tahun berjalan. Data dikelompokkan berdasarkan Tahun Anggaran.
+							</span>
 						</div>
-						<div class="text-muted">
-							<a href="http://bastbanpem.pertanian.go.id/">Sumber: BASTBANPEM</a>
+						<div class="text-muted text-right">
+							<span>Sumber Data Pagu:<a href="https://spanint.kemenkeu.go.id/">OM-SPAN</a></span><br>
+							<span>Sumber Data Realisasi:<a href="http://bastbanpem.pertanian.go.id/">BASTBANPEM</a></span>
 						</div>
 					</div>
 				</div>
@@ -287,10 +252,9 @@
 		</div>
 	</div>
 	<!-- end widget realisasi 526-->
-
 	
 	<!-- widget gerdal opt-->
-	<div class="col-12">
+	<div class="col-12" hidden>
 		<div id="panel-5" class="panel">
 			<div class="panel-hdr">
 				<h2>
@@ -378,7 +342,7 @@
 	<!-- end widget gerdal opt-->
 	
 	<!-- widget srikandi/kampunghorti-->
-	<div class="col-12">
+	<div class="col-12" hidden>
 		<div id="panel-6" class="panel">
 			<div class="panel-hdr">
 				<h2>
@@ -455,7 +419,7 @@
 	<!-- end widget srikandi/kampunghorti-->
 	
 	<!-- widget wajib tanam-->
-	<div class="col-lg-12 col-md-12">
+	<div class="col-lg-12 col-md-12" hidden>
 		<div id="panel-7" class="panel">
 			<div class="panel-hdr">
 				<h2>
@@ -580,6 +544,10 @@
 	var option;
 
 	option = {
+		title: {
+		text: 'Realisasi per Kewenangan',
+		subtext: '(dalam milyar rupiah)'
+	},
 	legend: {
 		bottom: 'center',
 		top:'bottom'
@@ -643,9 +611,10 @@
 	var option;
 
 	option = {
-	//   title: {
-	//    subtext: '(dalam %)'
-	//  },
+	title: {
+		text: 'Persentase per Tahun',
+		subtext: '(dalam %)'
+	},
 	angleAxis: {
 		max: 100,
 		startAngle: 90,
@@ -681,7 +650,7 @@
 		show: true,
 		bottom: 'center',
 		top: 'bottom',
-		data: ['2019', '2020', '2021', '2022']
+		data: ['2019', '2020', '2021', '2022']//this "YEAR" should be dynamic
 	}
 	};
 
