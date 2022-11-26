@@ -85,7 +85,7 @@
 					Alokasi & Kinerja <span class="fw-300"><i>Anggaran</i></span>
 				</h2>
 				<div class="panel-toolbar">
-					<a href="" data-toggle="tooltip" title data-original-title="Lihat rincian alokasi" class="btn btn-xs btn-primary hover-effect-dot waves-effect waves-themed mr-1" type="button">Alokasi</a>
+					{{-- <a href="" data-toggle="tooltip" title data-original-title="Lihat rincian alokasi" class="btn btn-xs btn-primary hover-effect-dot waves-effect waves-themed mr-1" type="button">Alokasi</a> --}}
 					<a href="{{ route('admin.pagu') }}" data-toggle="tooltip" title data-original-title="Lihat rincian kinerja" class="btn btn-xs btn-primary hover-effect-dot waves-effect waves-themed" type="button">Kinerja</a>
 					{{-- <a data-toggle="tooltip" title data-original-title="Detail" class="hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.pagu') }}">
 						<i class="ni ni-action-redo"></i>
@@ -99,7 +99,9 @@
 							<div class="row d-flex">
 								@for ($i=count($prData)-1;$i>=0;$i--)
 								<div class="col-md-3 col-lg-3 col-xl-4">
-									<div class="bg-primary-400 rounded overflow-hidden position-relative text-white mb-g">
+									{{-- @if ($color = sprintf("#%06x",rand(0,16777215))) --}}
+
+									<div class="bg-primary-600 rounded overflow-hidden position-relative text-white mb-g" " >
 										<div class="align-items-center justify-content-between">
 											<div class="col-2">
 												<span class="color-white fs-xl fw-400">{{ $prData[$i]->tahun }}</span>
@@ -107,7 +109,7 @@
 											<div class="col-12">
 												<div class="col-12">
 													<div class="d-flex justify-content-end fw-700 display-4">
-														{{ number_format(($prData[$i]->realisasi/$prData[$i]->pagu)*100,00,",",".") }}%
+														{{ number_format(($prData[$i]->realisasi/$prData[$i]->pagu)*100,2,",",".") }}%
 													</div>
 												</div>
 												<div class="col-12">
@@ -132,6 +134,7 @@
 										</div>
 										<i class="fas fa-chart-bar position-absolute pos-right pos-bottom opacity-10 mb-n1 mr-n1" style="font-size:6rem"></i>
 									</div>
+									{{-- @endif --}}
 								</div>
 								@endfor
 					
@@ -150,7 +153,7 @@
 					<div class="text-medium-emphasis small d-flex justify-content-between">
 						<div class="d-none d-md-block" >
 							<span class="text-secondary">Data: </span>
-							<span class="text-muted text-truncate text-truncate-sm js-get-date"></span>
+							<span class="text-muted text-truncate text-truncate-sm"> {{ date("d/m/Y H:i:s", strtotime($prData[0]->createat) ) }}</span>
 						</div>
 						<div class="text-muted">
 							<a href="https://spanint.kemenkeu.go.id/">Sumber: OM-SPAN</a>

@@ -59,13 +59,13 @@ class HomeController extends Controller
         //end chart renja
 
         //chart (kinerja anggaran)
-        $str = 'SELECT tabdata.tahun, GROUP_CONCAT(tabdata.totalpagu) as pagu, GROUP_CONCAT(tabdata.totalrealisasi) as realisasi FROM
+        $str = 'SELECT tabdata.tahun, GROUP_CONCAT(tabdata.totalpagu) as pagu, GROUP_CONCAT(tabdata.totalrealisasi) as realisasi, tabdata.createat FROM
                 (
-                select p.tahun, sum(p.amount) as totalpagu, null as totalrealisasi
+                select p.tahun, sum(p.amount) as totalpagu, null as totalrealisasi, max(p.created_at) as createat
                 FROM data_pagus p 
                 GROUP BY p.tahun
                 union all
-                select r.tahun, null as totalpagu, sum(r.amount) as totalrealisasi
+                select r.tahun, null as totalpagu, sum(r.amount) as totalrealisasi, max(r.created_at) as createat
                 from data_realisasis r
                 GROUP BY r.tahun
                 ) as tabdata 

@@ -168,7 +168,7 @@
 						<div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
 							<div class="text-left ml-2">Kantor Pusat</div>
 							<div id="kppiechart" class="px-3 py-2 d-flex align-items-center">
-								<div  class="js-easy-pie-chart color-primary-600 position-relative d-flex align-items-center justify-content-center" data-percent="45" data-piesize="50" data-linewidth="5" data-trackcolor="#ccbfdf" data-scalelength="0">
+								<div  class="js-easy-pie-chart color-primary-600 position-relative d-flex align-items-center justify-content-center" data-percent="45" data-piesize="70" data-linewidth="5" data-trackcolor="#ccbfdf" data-scalelength="0">
 									<div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark kppie">0</div>
 									{{-- <div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-xl">
 										<span class="js-percent d-block text-dark kppie">45%</span>
@@ -193,7 +193,7 @@
 						<div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
 							<div class="text-left ml-2">Dekonsentrasi</div>
 							<div id="dkpiechart" class="px-3 py-2 d-flex align-items-center">
-								<div class="js-easy-pie-chart color-success-600 position-relative d-flex align-items-center justify-content-center" data-percent="25" data-piesize="50" data-linewidth="5" data-trackcolor="#7aece0" data-scalelength="0">
+								<div class="js-easy-pie-chart color-success-600 position-relative d-flex align-items-center justify-content-center" data-percent="25" data-piesize="70" data-linewidth="5" data-trackcolor="#7aece0" data-scalelength="0">
 									<div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark dkpie">0</div>
 									{{-- <div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-xl">
 										<span class="js-percent d-block text-dark"></span>
@@ -218,7 +218,7 @@
 						<div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
 							<div class="text-left ml-2">TP Provinsi</div>
 							<div id="tppiechart" class="px-3 py-2 d-flex align-items-center">
-								<div  class="js-easy-pie-chart color-warning-600 position-relative d-flex align-items-center justify-content-center" data-percent="15" data-piesize="50" data-linewidth="5" data-trackcolor="#ffebc1" data-scalelength="0">
+								<div  class="js-easy-pie-chart color-warning-600 position-relative d-flex align-items-center justify-content-center" data-percent="15" data-piesize="70" data-linewidth="5" data-trackcolor="#ffebc1" data-scalelength="0">
 									<div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark tppie">0</div>
 									{{-- <div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-xl">
 										<span class="js-percent d-block text-dark"></span>
@@ -243,7 +243,7 @@
 						<div class="col-sm-12 col-md-3 col-lg-3 col-xl-3">
 							<div class="text-left ml-2">TP Kabupaten</div>
 							<div id="tpkpiechart" class="px-3 py-2 d-flex align-items-center">
-								<div  class="js-easy-pie-chart color-danger-600 position-relative d-flex align-items-center justify-content-center" data-percent="10" data-piesize="50" data-linewidth="5" data-trackcolor="#feb7d9" data-scalelength="0">
+								<div  class="js-easy-pie-chart color-danger-600 position-relative d-flex align-items-center justify-content-center" data-percent="10" data-piesize="70" data-linewidth="5" data-trackcolor="#feb7d9" data-scalelength="0">
 									<div class="position-absolute pos-top pos-left pos-right pos-bottom d-flex align-items-center justify-content-center fw-500 fs-xl text-dark tpkpie">0</div>
 									{{-- <div class="d-flex flex-column align-items-center justify-content-center position-absolute pos-left pos-right pos-top pos-bottom fw-300 fs-xl">
 										<span class="js-percent d-block text-dark"></span>
