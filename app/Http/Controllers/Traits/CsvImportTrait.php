@@ -6,6 +6,8 @@ use \SpreadsheetReader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
+use App\Models\AuditLog;
+use Carbon\Carbon;
 
 trait CsvImportTrait
 {
@@ -66,8 +68,14 @@ trait CsvImportTrait
             $for_insert = array_chunk($insert, 100);
             //$index = 0;
             foreach ($for_insert as $insert_item ) {
+                
                 $primarykey = $model::getPrimary();
                 if ($delfirst) {
+                    for ($idx=0;$idx<=count($insert_item)-1;$idx++) {
+                        $insert_item[$idx] += array('created_at' => Carbon::now());
+                    }
+                        
+                    //dd($insert_item);
                     $model::insert($insert_item);
                 } else {
                     //dd($insert_item);
@@ -98,8 +106,18 @@ trait CsvImportTrait
             File::delete($path);
 
             session()->flash('message', trans('global.app_imported_rows_to_table', ['rows' => $rows, 'table' => $table]));
+            
+            AuditLog::create([
+                'description'  => 'audit:imported',
+                'subject_id'   => 0,
+                'subject_type' => sprintf('%s#%s', $model, 0) ?? null,
+                'user_id'      => auth()->id() ?? null,
+                'properties'   => $model ?? null,
+                'host'         => request()->ip() ?? null,
+            ]);
 
             return redirect($request->input('redirect'));
+
         } catch (\Exception $ex) {
             throw $ex;
         }
