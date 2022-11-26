@@ -4,7 +4,18 @@
 		<small>
 		</small>
 	</h1>
-	@for ($i=3;$i<count($prData);$i++)
+	<div class="subheader-block d-lg-flex align-items-center">
+		<div class="d-inline-flex flex-column justify-content-center mr-3 text-right" >
+			<span class="fw-300 fs-xs d-block opacity-50">
+				<small>{{ trans('simevi.today') }}</small>
+			</span>
+			<span class="fw-500 fs-xl d-block color-danger-500" data-toggle="tooltip" title data-original-title="hari ini">
+				<span class="text-muted text-truncate text-truncate-sm js-get-date"></span>
+			</span>
+		</div>
+		{{-- <span class="sparklines hidden-lg-down" sparkType="bar" sparkBarColor="#886ab5" sparkHeight="32px" sparkBarWidth="5px" values="3,4,3,6,7,3,3,6,2,6,4"></span> --}}
+	</div>
+	{{-- @for ($i=3;$i<count($prData);$i++)
 	<div class="subheader-block d-lg-flex align-items-center">
 		<div class="d-inline-flex flex-column justify-content-center mr-3" data-toggle="tooltip" title data-original-title="Alokasi Pagu tahun {{ $prData[$i]->tahun }}">
 			<span class="fw-300 fs-xs d-block opacity-50">
@@ -26,5 +37,5 @@
 		</div>
 		<span class="sparklines hidden-xl-down" sparkType="bar" sparkBarColor="#fe6bb0" sparkHeight="32px" sparkBarWidth="5px" values="1,4,3,6,5,3,9,6,5,9,7"></span>
 	</div>
-	@endfor
+	@endfor --}}
 </div>
