@@ -2,6 +2,9 @@
 
 
 //Route::view('/', 'welcome');
+/*
+client request change route from welcom to login. no more welcome page.
+*/
 Route::redirect('/', '/login');
 
 
