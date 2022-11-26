@@ -17,7 +17,7 @@
 @include('partials.subheaderadmin')
 <div class="row d-flex">
 	<!-- widget rencana kerja -->
-	<div class="col-lg-8">
+	<div class="col-lg-8" hidden>
 		<div id="panel-1" class="panel show" >
 			<div class="panel-hdr">
 				<h2>
@@ -78,78 +78,71 @@
 	<!-- end widget rencana kerja -->
 	
 	<!-- widget new kinerja anggaran/omspan -->
-	<div class="col-lg-4 col-md-12">
+	<div class="col-md-12">
 		<div id="panel-2" class="panel show" >
 			<div class="panel-hdr">
 				<h2>
-					Kinerja <span class="fw-300"><i>Anggaran</i></span>
+					Alokasi & Kinerja <span class="fw-300"><i>Anggaran</i></span>
 				</h2>
 				<div class="panel-toolbar">
-					<a data-toggle="tooltip" title data-original-title="Detail" class="hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.pagu') }}">
+					<a href="" data-toggle="tooltip" title data-original-title="Lihat rincian alokasi" class="btn btn-xs btn-primary hover-effect-dot waves-effect waves-themed mr-1" type="button">Alokasi</a>
+					<a href="{{ route('admin.pagu') }}" data-toggle="tooltip" title data-original-title="Lihat rincian kinerja" class="btn btn-xs btn-primary hover-effect-dot waves-effect waves-themed" type="button">Kinerja</a>
+					{{-- <a data-toggle="tooltip" title data-original-title="Detail" class="hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.pagu') }}">
 						<i class="ni ni-action-redo"></i>
-					</a>
+					</a> --}}
 				</div>
 			</div>
 			<div class="panel-container show">
-				<div class="panel-content" style="height: 38em">
+				<div class="panel-content">
 					<div id="carouselPagu" class="carousel slide carousel-multi-item v-2" data-interval="false">
 						<div class="carousel-inner v-2" role="listbox">
-								<!-- small screen -->
-								@for ($i=0;$i<count($prData);$i++)
-								<div class="hidden-sm-up carousel-item @if ($i==0)  active @endif">
-									<div class="col-12 d-flex align-items-center justify-content-between text-right">
-										<span class="icon-stack fa-4x">
-											<i class="base-18 icon-stack-3x color-secondary-700"></i>
-											<span class="position-absolute pos-top pos-left pos-right color-white fs-md mt-2 fw-400">{{ $prData[$i]->tahun }}</span>
-										</span>
-										<h6 class="font-weight-bold mb-0 text-success">{{ number_format(($prData[$i]->realisasi/$prData[$i]->pagu)*100,0,",",".") }}%</h6>
-										<div class="">
-											<label class="fs-sm mb-0"></label>
-											<h6 class="font-weight-bold mb-0 text-info">{{ number_format($prData[$i]->realisasi,0,",",".") }}</h6>
-											<h6 class="font-weight-bold mb-0 text-warning">{{ number_format($prData[$i]->pagu,0,",",".") }}</h6>
-											<div class="progress progress-xs mt-2">
-												<div class="progress-bar bg-danger" role="progressbar" style="width: {{ number_format(($prData[$i]->realisasi/$prData[$i]->pagu)*100,0,",",".") }}%" aria-valuenow="{{ number_format(($prData[$i]->realisasi/$prData[$i]->pagu)*100,0,",",".") }}" aria-valuemin="0" aria-valuemax="100"></div>
-											</div>
-										</div>
-									</div>
-								</div>
-								@endfor
-								<!-- end small screen -->
-								<!-- on medium up screen -->
+							<div class="row d-flex">
 								@for ($i=count($prData)-1;$i>=0;$i--)
-								<div class="d-flex align-items-center justify-content-between hidden-md-down border border-faded mb-3">
-									<div class="col-2 float-left">
-										<span class="icon-stack fa-3x">
-											<i class="base-18 icon-stack-3x color-danger-900"></i>
-											<span class="position-absolute pos-top pos-left pos-right color-white fs-md mt-2 fw-400">{{ $prData[$i]->tahun }}</span>
-										</span>
-									</div>
-									<div class="col-10">
-										<div class="col-12">
-											<div class="d-flex justify-content-between mt-2 mb-1 fw-500 fs-xs text-warning">
-												{{ number_format(($prData[$i]->realisasi/$prData[$i]->pagu)*100,0,",",".") }}%
-												<span class="d-inline-block ml-auto">{{ number_format($prData[$i]->realisasi,0,",",".") }}</span>
+								<div class="col-md-3 col-lg-3 col-xl-4">
+									<div class="bg-primary-400 rounded overflow-hidden position-relative text-white mb-g">
+										<div class="align-items-center justify-content-between">
+											<div class="col-2">
+												<span class="color-white fs-xl fw-400">{{ $prData[$i]->tahun }}</span>
+											</div>
+											<div class="col-12">
+												<div class="col-12">
+													<div class="d-flex justify-content-end fw-700 display-4">
+														{{ number_format(($prData[$i]->realisasi/$prData[$i]->pagu)*100,00,",",".") }}%
+													</div>
+												</div>
+												<div class="col-12">
+													<div class="d-flex justify-content-between mt-2 mb-1 fw-500 fs-xs text-white fs-md fw-500">
+														<span class="d-inline-block ml-auto">
+															{{ number_format($prData[$i]->realisasi,0,",",".") }} (R)
+														</span>
+													</div>
+												</div>
+												<div class="col-12">
+													<div class="progress progress-xs">
+														<div class="progress-bar bg-warning" role="progressbar" style="width: {{ number_format(($prData[$i]->realisasi/$prData[$i]->pagu)*100,0,",",".") }}%;" aria-valuenow="{{ number_format(($prData[$i]->realisasi/$prData[$i]->pagu)*100,0,",",".") }}" aria-valuemin="0" aria-valuemax="100"></div>
+													</div>
+												</div>
+												<div class="col-12">
+													<div class="d-flex justify-content-between mt-2 mb-1 fs-xs fw-500 text-white fs-md fw-500">
+														<span></span>
+														<span class="d-inline-block ml-auto">{{ number_format($prData[$i]->pagu,0,",",".") }} (P)</span>
+													</div>
+												</div>
 											</div>
 										</div>
-										<div class="col-12">
-											<div class="progress progress-xs">
-												<div class="progress-bar bg-primary" role="progressbar" style="width: {{ number_format(($prData[$i]->realisasi/$prData[$i]->pagu)*100,0,",",".") }}%;" aria-valuenow="{{ number_format(($prData[$i]->realisasi/$prData[$i]->pagu)*100,0,",",".") }}" aria-valuemin="0" aria-valuemax="100"></div>
-											</div>
-										</div>
-										<div class="col-12">
-											<div class="d-flex justify-content-between mt-2 mb-1 fs-xs fw-500 text-success">
-												<span></span>
-												<span class="d-inline-block ml-auto">{{ number_format($prData[$i]->pagu,0,",",".") }}</span>
-											</div>
-										</div>
+										<i class="fas fa-chart-bar position-absolute pos-right pos-bottom opacity-10 mb-n1 mr-n1" style="font-size:6rem"></i>
 									</div>
 								</div>
 								@endfor
-								<!-- end edium up screen -->
-						</div>
-						<div class="col-12 text-center controls-top align-items-center hidden-sm-up mt-2">
-							<a class="btn btn-icon btn-sm btn-light btn-floating mr-2" href="#carouselPagu" data-slide="prev"><i class="fal fa-arrow-left"></i></a>
-							<a class="btn btn-icon btn-sm btn-light btn-floating ml-2" href="#carouselPagu" data-slide="next"><i class="fal fa-arrow-right"></i></a>
+					
+							</div>
+							<div class="help-block fw-700">
+								Keterangan
+								<ul>
+									<li>R: Realisasi</li>
+									<li>P: Pagu</li>
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -177,9 +170,10 @@
 					Realisasi <span class="fw-300"><i>Belanja 526</i></span>
 				</h2>
 				<div class="panel-toolbar">
-					<a data-toggle="tooltip" title data-original-title="Detail" class="hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.detailbanpem') }}">
+					{{-- <a data-toggle="tooltip" title data-original-title="Detail" class="hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="">
 						<i class="ni ni-action-redo"></i>
-					</a>
+					</a> --}}
+					<a href="{{ route('admin.detailbanpem') }}" data-toggle="tooltip" title data-original-title="Lihat rincian data bantuan" class="btn btn-xs btn-primary hover-effect-dot waves-effect waves-themed" type="button">Rincian</a>
 				</div>
 			</div>
 			<div class="panel-container show">
