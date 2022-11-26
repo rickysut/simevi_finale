@@ -13,7 +13,6 @@
 }
 </style>
 <div class="row d-flex">
-	
 	<div class="col-sm-12 col-xl-12 mb-2">
 		<form id="fp" action="{{ route('admin.detailbanpem') }}" method="post">
 			{{ csrf_field() }}
@@ -62,10 +61,10 @@
 						{{ $nominaluang += $data->totuang  }}	
 					@endforeach
 				</div>
-				<h3 class="display-4 d-block l-h-n m-0 fw-500">
-					Rp {{ number_format(($nominalyear) / 1000000, 2, ',', '.')}} Jt
+				<h2 class="fs-xxl d-block l-h-n m-0 fw-500">
+					Rp {{ number_format(($nominalyear) / 1, 0, ',', '.')}}
 					<small class="m-0 l-h-n">{{ trans('cruds.detailbanpem.fields.totalamount') }}</small>
-				</h3>
+				</h2>
 			</div>
 			<i class="fal fa-globe-asia position-absolute pos-right pos-bottom opacity-15 mb-n1 mr-n1" style="font-size:6rem"></i>
 		</div>
@@ -73,17 +72,17 @@
 	<div class="col-sm-4 col-xl-4">
 		<div class="p-3 bg-warning-400 rounded overflow-hidden position-relative text-white mb-g">
 			<div class="">
-				<h3 class="display-4 d-block l-h-n m-0 fw-500">
+				<h2 class="fs-xxl d-block l-h-n m-0 fw-500">
 					@if ($nominalbrg > 1000000)
-						Rp {{ number_format(($nominalbrg) / 1000000, 2, ',', '.')}} Jt
+						Rp {{ number_format(($nominalbrg) / 1, 0, ',', '.')}}
 					@elseif ($nominalbrg < 1000000)
-						Rp {{ number_format(($nominalbrg) / 1000, 2, ',', '.')}} Jt	
+						Rp {{ number_format(($nominalbrg) / 1, 0, ',', '.')}}
 					@else
 						Rp 0
 					@endif
 					
 					<small class="m-0 l-h-n">{{ trans('cruds.detailbanpem.fields.totalfacilities') }}</small>
-				</h3>
+				</h2>
 			</div>
 			<i class="fal fa-dolly position-absolute pos-right pos-bottom opacity-15  mb-n1 mr-n4" style="font-size: 6rem;"></i>
 		</div>
@@ -91,17 +90,17 @@
 	<div class="col-sm-4 col-xl-4">
 		<div class="p-3 bg-success-200 rounded overflow-hidden position-relative text-white mb-g">
 			<div class="">
-				<h3 class="display-4 d-block l-h-n m-0 fw-500">
+				<h2 class="fs-xxl d-block l-h-n m-0 fw-500">
 					@if ($nominaluang > 1000000)
-						Rp {{ number_format(($nominaluang) / 1000000, 2, ',', '.')}} Jt
+						Rp {{ number_format(($nominaluang) / 1, 0, ',', '.')}}
 					@elseif ($nominaluang < 1000000)
-						Rp {{ number_format(($nominaluang) / 1000, 2, ',', '.')}} Jt	
+						Rp {{ number_format(($nominaluang) / 1, 0, ',', '.')}}
 					@else
 						Rp 0
 					@endif
 					
 					<small class="m-0 l-h-n">{{ trans('cruds.detailbanpem.fields.totalcash') }}</small>
-				</h3>
+				</h2>
 			</div>
 			<i class="fal fa-coins position-absolute pos-right pos-bottom opacity-15 mb-n5 mr-n6" style="font-size: 8rem;"></i>
 		</div>
@@ -110,10 +109,10 @@
 
 <div class="row d-flex">
 	<div class="col-lg-12">
-		<div id="panel-1" class="panel show" data-panel-sortable data-panel-close data-panel-color data-panel-locked data-panel-reset>
+		<div id="panel-1" class="panel show" >
 			<div class="panel-hdr">
 				<h2>
-					<i class="fal fa-map mr-1"> </i> Peta Bantuan
+					<i class="fal fa-map mr-1"> </i> Peta Bantuan Tahun:<span class="ml-1" id="mytitle"></span>
 				</h2>
 				<div class="panel-toolbar">
 					<a hidden data-toggle="tooltip" title data-original-title="Detail" class="btn btn-panel btn-info hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.detailrenja') }}">
@@ -273,7 +272,7 @@
 		<div id="panel-3" class="panel show" data-panel-sortable data-panel-close data-panel-color data-panel-locked data-panel-reset>
 			<div class="panel-hdr">
 				<h2>
-					<span class="mr-1 text-muted">Rincian Data: </span><span class="js-jqvmap-prov"></span>
+					<span class="mr-1 text-muted">Rincian Data: </span><span class="js-jqvmap-prov mr-1">Provinsi</span> - <span id="myyear">Tahun</span>
 				</h2>
 				<div class="panel-toolbar">
 					<a hidden data-toggle="tooltip" title data-original-title="Detail" class="btn btn-panel btn-info hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.detailrenja') }}">
@@ -562,6 +561,29 @@ $(document).ready(function()
 		}
 	});
 });
+</script>
+
+
+<script>
+	let e = document.getElementById('dtYear1');
+	let x = document.getElementById('mytitle');
+	document.addEventListener('DOMContentLoaded',function(){
+		x.innerHTML = e.value;
+		e.addEventListener('change', function(){
+			x.innerHTML=this.value;
+		});
+	});
+</script>
+
+<script>
+	let a = document.getElementById('dtYear1');
+	let b = document.getElementById('myyear');
+	document.addEventListener('DOMContentLoaded',function(){
+		b.innerHTML = e.value;
+		a.addEventListener('change', function(){
+			b.innerHTML=this.value;
+		});
+	});
 </script>
 
 @endsection
