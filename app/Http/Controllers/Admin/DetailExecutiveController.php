@@ -521,7 +521,7 @@ class DetailExecutiveController extends Controller
         $breadcrumb = 'Rincian Alokasi Bantuan Untuk : '. $nmprop;
         if (($year1 != '')&&($year1 != '0')){
             $breadcrumb = $breadcrumb . ' tahun ' . $year1;  
-            if (($year2 != '')&&($year2 != '0')){
+            if ((($year2 != '')&&($year2 != '0')) && ($year2 != $year1)){
                 $breadcrumb = $breadcrumb . ' s/d ' . $year2;    
             }  
         }
