@@ -112,7 +112,7 @@
 		<div id="panel-1" class="panel show" >
 			<div class="panel-hdr">
 				<h2>
-					<i class="fal fa-map mr-1"> </i> Peta Bantuan Tahun:<span class="ml-1" id="mytitle"></span>
+					<i class="fal fa-map mr-1"> </i> Peta Bantuan Tahun: <span class="ml-1" id="mytitle">{{ $dtYear1 }} s/d {{ $dtYear2 }}</span>
 				</h2>
 				<div class="panel-toolbar">
 					<a hidden data-toggle="tooltip" title data-original-title="Detail" class="btn btn-panel btn-info hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.detailrenja') }}">
@@ -272,7 +272,7 @@
 		<div id="panel-3" class="panel show" data-panel-sortable data-panel-close data-panel-color data-panel-locked data-panel-reset>
 			<div class="panel-hdr">
 				<h2>
-					<span class="mr-1 text-muted">Rincian Data: </span><span class="js-jqvmap-prov mr-1">Provinsi</span> - <span id="myyear">Tahun</span>
+					<span class="mr-1 text-muted">Rincian Data: </span><span class="js-jqvmap-prov mr-1"></span><span id="myyear">Tahun: {{ $dtYear1 }} s/d {{ $dtYear2 }}</span>
 				</h2>
 				<div class="panel-toolbar">
 					<a hidden data-toggle="tooltip" title data-original-title="Detail" class="btn btn-panel btn-info hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.detailrenja') }}">
@@ -283,7 +283,7 @@
 				<div class="panel-content">
 					<div class="row">
 						<div class="col-lg-12">
-							<!--form id="fp" action="{{ route('admin.detailbanpem') }}" method="post">
+							<!--form id="fp" action="{ { route('admin.detailbanpem') } }" method="post">
 								{ { csrf_field() }}
 								<div class="card-body d-flex justify-content-between font-weight-bolder align-items-center">
 									<div>
@@ -337,7 +337,7 @@
 									@foreach($stable->getData()->data as $data) 
 									<tr>
 										<td style="display:none;">
-											{{ $data->year }}
+											{{ $data->year1 }}
 										</td>
 										<td>
 											{{ $data->provinsi }}
@@ -566,22 +566,30 @@ $(document).ready(function()
 
 <script>
 	let e = document.getElementById('dtYear1');
+	let y = document.getElementById('dtYear2');
 	let x = document.getElementById('mytitle');
 	document.addEventListener('DOMContentLoaded',function(){
-		x.innerHTML = e.value;
+		x.innerHTML = e.value + ' s/d ' + y.value;
 		e.addEventListener('change', function(){
-			x.innerHTML=this.value;
+			x.innerHTML = this.value + ' s/d ' + y.value;
+		});
+		y.addEventListener('change', function(){
+			x.innerHTML  = e.value + ' s/d ' + this.value;
 		});
 	});
 </script>
 
 <script>
 	let a = document.getElementById('dtYear1');
+	let c = document.getElementById('dtYear2');
 	let b = document.getElementById('myyear');
 	document.addEventListener('DOMContentLoaded',function(){
-		b.innerHTML = e.value;
+		b.innerHTML = 'Tahun: ' + a.value + ' s/d ' + c.value;
 		a.addEventListener('change', function(){
-			b.innerHTML=this.value;
+			b.innerHTML = 'Tahun: ' + this.value + ' s/d ' + c.value;
+		});
+		c.addEventListener('change', function(){
+			b.innerHTML = 'Tahun: ' + a.value + ' s/d ' + this.value;
 		});
 	});
 </script>

@@ -3,12 +3,28 @@
 @include('partials.subheader')
 <div class="card">
     <div class="card-body">
+        <div class=" d-flex justify-content-end font-weight-bolder align-items-center">
+            <div>
+                <label>Kabupaten : </label>
+                <select class="custom-select" id="dtKabupaten" name="dtKabupaten" style="width: 300px;">
+                    <option value="">- Pilih Kabupaten -</option>
+                    @foreach($kabdata as $data) 
+                        <option value="{{ $data->kab_kota }}">
+                            {{ $data->kab_kota }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
         <div class="table-responsive">
             <table class="table table-bordered table-striped table-hover datatable datatable-Output">
                 <thead>
                 <tr>
                     <th style="vertical-align : middle; display:none;">
                         ID
+                    </th>
+                    <th>
+                        Tahun
                     </th>
                     <th>
                         Kabupaten
@@ -41,13 +57,16 @@
                 <tr>
                     <td style="vertical-align : middle; display:none;"></td>
                     <td >
-                        <input class="search" type="text" style="width:110px;">
+                        <input class="search" type="text" >
                     </td>
                     <td >
-                        <input class="search" type="text" style="width: 110px;">
+                        
+                    </td>
+                    <td >
+                        <input class="search" type="text" >
                     </td>
                     <td>
-                        <input class="search" type="text"  style="width: 100px;">
+                        <input class="search" type="text" >
                     </td>
                     <td>
                        
@@ -57,14 +76,14 @@
                     <td>   
                     </td>
                     <td>
-                        <input class="search" type="text"  style="width: 90px;" >
+                        <input class="search" type="text"  >
                     </td>
                     
                     <td>
-                        <input class="search" type="text" style="width: 90px;">
+                        <input class="search" type="text" >
                     </td>
                     
-                    <td><input class="search" type="text" style="width: 90px;"></td>
+                    <td><input class="search" type="text" ></td>
                 </tr>
                 </thead>
                 
@@ -76,13 +95,16 @@
                             <td class="text-wrap" width="0px" style="display:none;">
                                 {{ $data->id }}
                             </td>
-                            <td class="text-wrap" width="200px">
+                            <td class="text-wrap">
+                                {{ $data->year }}
+                            </td>
+                            <td class="text-wrap">
                                 {{ $data->kab_kota }}
                             </td>
-                            <td class="text-wrap" width="200px">
+                            <td class="text-wrap" >
                                 {{ $data->nm_gapoktan }} 
                             </td>
-                            <td class="text-wrap" width="200px">
+                            <td class="text-wrap" >
                                 {{ $data->nm_barang }}
                             </td>
                             <td class="text-right">
@@ -111,7 +133,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th colspan="5" class="text-right">Total:</th>
+                        <th colspan="6" class="text-right">Total:</th>
                         <th class="text-right">0</th>
                         <th colspan="3"></th>
                         
@@ -137,6 +159,8 @@
 <script>
     $(function () {
 
+
+    
     function numberWithCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
@@ -145,9 +169,9 @@
 
     $.extend(true, $.fn.dataTable.defaults, {
     
-    dom: 'lBf<t>ip',
+    dom: 'B<t>lp',
     orderCellsTop: true,
-    order: [[0, 'asc' ]],
+    order: [[1, 'asc' ]],
     pageLength: 25,
     footerCallback : function ( row, data, start, end, display ) {
         var api = this.api(), data;
@@ -159,26 +183,26 @@
 	
         // Total over this page
         pageTotal1 = api
-        .column( 6, { page: 'current'} )
+        .column( 7, { page: 'current'} )
         .data()
         .reduce( function (a, b) {
             return intVal(a) + intVal(b);
         }, 0 );
 	
         // Update footer
-        $( api.column( 5 ).footer() ).html(
+        $( api.column( 6 ).footer() ).html(
             numberWithCommas(pageTotal1)
         )
 
         // Total over all pages
         total = api
-            .column( 6 , {search: 'applied'})
+            .column( 7 , {search: 'applied'})
             .data()
             .reduce( function (a, b) {
                 return intVal(a) + intVal(b);
             }, 0 );
 
-        $( api.column( 6 ).footer() ).html(
+        $( api.column( 7 ).footer() ).html(
             'from Grand Total: ' +
              numberWithCommas(total)
         )
@@ -211,6 +235,16 @@
             visibleColumnsIndexes.push(colIdx);
         });
     })
+
+    $('#dtKabupaten').on('change', function() {
+        let kab = this.value;
+        console.log(kab);
+        table
+            .columns(2)
+            .search(kab)
+            .draw();
+    });
+    
   
 })
 

@@ -324,9 +324,9 @@ class DetailExecutiveController extends Controller
         
 
             $str = '
-            SELECT tabdata.year, tabdata.provinsi, format(sum(tabdata.tot1),0) as tot1, GROUP_CONCAT(tabdata.kwn1) as kwn1, format(sum(tabdata.tot2),0) as tot2, GROUP_CONCAT(tabdata.kwn2) as kwn2, format(sum(tabdata.tot3),0) as tot3, GROUP_CONCAT(tabdata.kwn3) as kwn3, format(sum(tabdata.tot4),0) as tot4, GROUP_CONCAT(tabdata.kwn4) as kwn4
+            SELECT tabdata.year1, tabdata.year2, tabdata.provinsi, format(sum(tabdata.tot1),0) as tot1, GROUP_CONCAT(tabdata.kwn1) as kwn1, format(sum(tabdata.tot2),0) as tot2, GROUP_CONCAT(tabdata.kwn2) as kwn2, format(sum(tabdata.tot3),0) as tot3, GROUP_CONCAT(tabdata.kwn3) as kwn3, format(sum(tabdata.tot4),0) as tot4, GROUP_CONCAT(tabdata.kwn4) as kwn4
             from
-            (SELECT backdate_banpems.`year` as year,
+            (SELECT '. $dtYear1 .' as year1, '. $dtYear2 .' as year2,
                 IF(backdate_banpems.provinsi = "", "-", backdate_banpems.provinsi ) provinsi, sum(backdate_banpems.nominal) as tot1, backdate_banpems.kwn as kwn1,
                 null as tot2,null as kwn2,null as tot3,null as kwn3,null as tot4,null as kwn4
             FROM
@@ -336,7 +336,7 @@ class DetailExecutiveController extends Controller
                 
             UNION ALL
 
-            SELECT backdate_banpems.`year` as year,
+            SELECT '. $dtYear1 .' as year1, '. $dtYear2 .' as year2,
                 IF(backdate_banpems.provinsi = "", "-", backdate_banpems.provinsi ) provinsi,sum(backdate_banpems.nominal) as tot1, backdate_banpems.kwn as kwn1,
                 null as tot2,null as kwn2,null as tot3,null as kwn3,null as tot4,null as kwn4
             FROM
@@ -346,7 +346,7 @@ class DetailExecutiveController extends Controller
 
             UNION ALL
 
-            SELECT backdate_banpems.`year` as year,
+            SELECT '. $dtYear1 .' as year1, '. $dtYear2 .' as year2,
                 IF(backdate_banpems.provinsi = "", "-", backdate_banpems.provinsi ) provinsi, 
                 null as tot1,null as kwn1,
                 sum(backdate_banpems.nominal) as tot2, backdate_banpems.kwn as kwn2,null as tot3,null as kwn3,null as tot4,null as kwn4
@@ -357,7 +357,7 @@ class DetailExecutiveController extends Controller
                 
             UNION ALL
 
-            SELECT backdate_banpems.`year` as year,
+            SELECT '. $dtYear1 .' as year1, '. $dtYear2 .' as year2,
                 IF(backdate_banpems.provinsi = "", "-", backdate_banpems.provinsi ) provinsi, 
                 null as tot1,null as kwn1,null as tot2,null as kwn2,
                 sum(backdate_banpems.nominal) as tot3, backdate_banpems.kwn as kwn3,null as tot4,null as kwn4
@@ -368,7 +368,7 @@ class DetailExecutiveController extends Controller
                 
             UNION ALL
 
-            SELECT backdate_banpems.`year` as year,
+            SELECT '. $dtYear1 .' as year1, '. $dtYear2 .' as year2,
                 IF(backdate_banpems.provinsi = "", "-", backdate_banpems.provinsi ) provinsi, 
                 null as tot1,null as kwn1,null as tot2,null as kwn2,
                 null as tot3,null as kwn3,
@@ -397,8 +397,11 @@ class DetailExecutiveController extends Controller
                 return view('partials.detailBanpemAction', compact('viewGate','crudRoutePart','row'));
             });
             
-            $dettable->editColumn('year', function ($row) {
-                return $row->year ? $row->year : '';
+            $dettable->editColumn('year1', function ($row) {
+                return $row->year1 ? $row->year1 : '';
+            });
+            $dettable->editColumn('year2', function ($row) {
+                return $row->year2 ? $row->year2 : '';
             });
             $dettable->editColumn('provinsi', function ($row) {
                 return $row->provinsi ? $row->provinsi : '';
@@ -443,12 +446,19 @@ class DetailExecutiveController extends Controller
     {
         abort_if(Gate::denies('detail_banpem_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $year = ($request->route('year') ?? '');
+        $year1 = ($request->route('year1') ?? '');
+        $year2 = ($request->route('year2') ?? '');
         $nmprop = ($request->route('provinsi') ?? '');
-        if (($year == '')||($year == '0')){
+        if (($year1 == '')||($year1 == '0')){
             $qryByYear = '';    
         } else {
-            $qryByYear = ' and `year` = '. $year;
+            if (($year2 == '')||($year2 == '0')){
+                $qryByYear = ' and `year` = '. $year1;
+            } 
+            else 
+            {
+                $qryByYear = ' and `year` between '. $year1 . ' and ' . $year2;
+            }
         } 
         if (($nmprop == '')||($nmprop == '-')){
             $qryByProp = ' where provinsi = " "';    
@@ -456,15 +466,28 @@ class DetailExecutiveController extends Controller
             $qryByProp = ' where provinsi = "' . $nmprop . '"';
         }  
 
-            $str = 'select year as id, kab_kota, nm_gapoktan, nm_barang, format(total,0) total, satuan, format(nominal,0) nominal, kwn, kd_giat, kd_akun
+            $str = 'select id, year , kab_kota, nm_gapoktan, nm_barang, format(total,0) total, satuan, format(nominal,0) nominal, kwn, kd_giat, kd_akun
             from backdate_banpems
             '.$qryByProp. $qryByYear;
             
+
+            $str2 = 'select distinct( kab_kota )
+            from backdate_banpems
+            '.$qryByProp. $qryByYear;
+
             $query = DB::select(DB::raw($str));
+            $kabdata = DB::select(DB::raw($str2));
+
             $table = Datatables::of($query);
             
             $table->editColumn('id', function ($row) {
                 return $row->id ? $row->id : '';
+            });
+            $table->editColumn('year', function ($row) {
+                return $row->year ? $row->year : '';
+            });
+            $table->editColumn('year', function ($row) {
+                return $row->year ? $row->year : '';
             });
             $table->editColumn('kab_kota', function ($row) {
                 return $row->kab_kota ? $row->kab_kota : '';
@@ -496,10 +519,14 @@ class DetailExecutiveController extends Controller
             $stable = $table->make(true);
             
         $breadcrumb = 'Rincian Alokasi Bantuan Untuk : '. $nmprop;
-        if (($year != '')&&($year != '0')){
-            $breadcrumb = $breadcrumb . ' tahun ' . $year;    
+        if (($year1 != '')&&($year1 != '0')){
+            $breadcrumb = $breadcrumb . ' tahun ' . $year1;  
+            if (($year2 != '')&&($year2 != '0')){
+                $breadcrumb = $breadcrumb . ' s/d ' . $year2;    
+            }  
         }
-        return view('admin.detailbanpem.show', compact('breadcrumb', 'stable'));
+        
+        return view('admin.detailbanpem.show', compact('breadcrumb', 'stable', 'kabdata'));
 
     }
 
