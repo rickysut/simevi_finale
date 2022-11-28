@@ -203,7 +203,7 @@
             }, 0 );
 
         $( api.column( 7 ).footer() ).html(
-            'from Grand Total: ' +
+            'Grand Total: ' +
              numberWithCommas(total)
         )
     }
