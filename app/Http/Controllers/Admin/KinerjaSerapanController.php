@@ -206,9 +206,9 @@ class KinerjaSerapanController extends Controller
         $breadcrumb = 'Nilai Kinerja Percepatan (NKP) Satker';
         
 
-        if (($dtYear != '')&&($dtYear != '0')){
-            $breadcrumb = $breadcrumb . ' TA ' . $dtYear;    
-        }
+        // if (($dtYear != '')&&($dtYear != '0')){
+            $breadcrumb = $breadcrumb . ' TA ' . $yh;    
+        // }
         $qry = 'select distinct(YEAR(STR_TO_DATE(tanggal,"%d/%m/%Y"))) as year from data_realisasis';
         $years = DB::select(DB::raw($qry));
         if ($dtYear == ''){

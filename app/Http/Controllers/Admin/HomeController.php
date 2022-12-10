@@ -60,22 +60,22 @@ class HomeController extends Controller
 
         //chart (kinerja anggaran)
         $str = 'SELECT tabdata.tahun, GROUP_CONCAT(tabdata.totalpagu) as pagu, GROUP_CONCAT(tabdata.totalrealisasi) as realisasi, tabdata.createat FROM
-                (
-                select p.tahun, sum(p.amount) as totalpagu, null as totalrealisasi, max(p.created_at) as createat
-                FROM data_pagus p 
-                GROUP BY p.tahun
-                union all
-                select r.tahun, null as totalpagu, sum(r.amount) as totalrealisasi, max(r.created_at) as createat
-                from data_realisasis r
-                GROUP BY r.tahun
-                ) as tabdata 
-                GROUP BY tabdata.tahun';
+        (
+        select p.tahun, sum(p.amount) as totalpagu, null as totalrealisasi, max(p.created_at) as createat
+        FROM data_pagus p 
+        GROUP BY p.tahun
+        union all
+        select r.tahun, null as totalpagu, sum(r.amount) as totalrealisasi, max(r.created_at) as createat
+        from data_realisasis r
+        GROUP BY r.tahun
+        ) as tabdata 
+        GROUP BY tabdata.tahun ORDER BY tabdata.tahun desc limit 4';
         $prData = DB::select(DB::raw($str));
         //end chart (kinerja anggaran)
         
         //chart belanja 526
         $banpemyear = BackdateBanpem::select(DB::raw('year, SUM(nominal) as total'))->groupBy('year')->offset(0)->limit(4)->orderBy('year', 'DESC')->get();
-        $databanpem = BackdateBanpem::select(DB::raw('year, kwn, format(SUM(nominal)/1000000000,2) as total'))->groupBy(['year', 'kwn'])->orderBy('kwn', 'asc')->get();
+        $databanpem = BackdateBanpem::select(DB::raw('year, kwn, format(SUM(nominal)/1000000000,2) as total'))->groupBy(['year', 'kwn'])->offset(0)->limit(4)->orderBy('kwn', 'asc')->get();
         
         $str = 'SELECT tabdata.tahun, FORMAT(GROUP_CONCAT(tabdata.totalpagu),0) as pagu, FORMAT(GROUP_CONCAT(tabdata.totalrealisasi),0) as realisasi ,
         FORMAT((GROUP_CONCAT(tabdata.totalrealisasi)/GROUP_CONCAT(tabdata.totalpagu))*100,2) as nilai
@@ -94,38 +94,38 @@ class HomeController extends Controller
         
         ) as tabdata 
         
-        GROUP BY tabdata.tahun';
+        GROUP BY tabdata.tahun ORDER BY tabdata.tahun desc limit 4';
         $pbData = DB::select(DB::raw($str));
 
-        $dtYear = date("Y");
-        $renjast = '		
-        SELECT
-        detdata2.kode2, 
-        format(COALESCE(detdata2.totgiat,0),0,"id_ID") as totgiat,
-        format(COALESCE((detdata2.totgiat/detdata1.totalnya)*100,0),2) as persen,
-        detdata2.namakegiatan
-        FROM
-        (
-        SELECT  data_renjas.kdgiat kode2, sum( data_renjas.jumlah) totgiat, master_kegiatans.nomenklatur_giat as namakegiatan
-        FROM
-         data_renjas 
-        INNER JOIN master_kegiatans ON  data_renjas.kdgiat = master_kegiatans.kd_kegiatan and  data_renjas.thang ='.$dtYear.'
-        GROUP BY 
-        master_kegiatans.kd_kegiatan
-        ) as detdata2
-        INNER JOIN
-        (
-        SELECT data_renjas.kdgiat kode1, sum(data_renjas.jumlah) totalnya
-        FROM
-         data_renjas 
-        where data_renjas.thang ='.$dtYear.'
-        ) as detdata1
-        ORDER BY detdata2.kode2
-        ';
-        $renjaData = DB::select(DB::raw($renjast));
+        // $dtYear = date("Y");
+        // $renjast = '		
+        // SELECT
+        // detdata2.kode2, 
+        // format(COALESCE(detdata2.totgiat,0),0,"id_ID") as totgiat,
+        // format(COALESCE((detdata2.totgiat/detdata1.totalnya)*100,0),2) as persen,
+        // detdata2.namakegiatan
+        // FROM
+        // (
+        // SELECT  data_renjas.kdgiat kode2, sum( data_renjas.jumlah) totgiat, master_kegiatans.nomenklatur_giat as namakegiatan
+        // FROM
+        //  data_renjas 
+        // INNER JOIN master_kegiatans ON  data_renjas.kdgiat = master_kegiatans.kd_kegiatan and  data_renjas.thang ='.$dtYear.'
+        // GROUP BY 
+        // master_kegiatans.kd_kegiatan
+        // ) as detdata2
+        // INNER JOIN
+        // (
+        // SELECT data_renjas.kdgiat kode1, sum(data_renjas.jumlah) totalnya
+        // FROM
+        //  data_renjas 
+        // where data_renjas.thang ='.$dtYear.'
+        // ) as detdata1
+        // ORDER BY detdata2.kode2
+        // ';
+        // $renjaData = DB::select(DB::raw($renjast));
         
         $breadcrumb = trans('cruds.dashboardvip.title_singular');
-        return view('admin.dashboard.vip', compact('banpemyear', 'databanpem', 'pbData', 'prData',  'agent', 'breadcrumb', 'renjaData'));
+        return view('admin.dashboard.vip', compact('banpemyear', 'databanpem', 'pbData', 'prData',  'agent', 'breadcrumb'));
     }
 
     /**
@@ -150,9 +150,16 @@ class HomeController extends Controller
         $dtYear2 = ($request->dtYear2 ?? '');
 
         if ($dtYear1 == ''){
-            $qryYear1 = '';
+            $qry = 'select max(tahun) as year from data_pagus';
+            $Year = DB::select(DB::raw($qry));
+            $dtYear1 = $Year[0]->year;
+            if ($dtYear2 == ''){
+                $qryYear1 = ' = "' . $dtYear1 . '"';
+            } else {
+                $qryYear1 = ' between "' . $dtYear1 . '"';
+            }
         } else {
-            if ($dtYear1 == ''){
+            if ($dtYear2 == ''){
                 $qryYear1 = ' = "' . $dtYear1 . '"';
             } else {
                 $qryYear1 = ' between "' . $dtYear1 . '"';
@@ -160,7 +167,9 @@ class HomeController extends Controller
         }
 
         if ($dtYear2 == ''){
-            $qryYear2 = '';
+            $dtYear2 = $dtYear1;
+            $qryYear1 = ' between "' . $dtYear1 . '"';
+            $qryYear2 = ' and "' . $dtYear2 . '"'; 
         } else {
             $qryYear2 = ' and "' . $dtYear2 . '"';   
         }
@@ -237,7 +246,7 @@ class HomeController extends Controller
             ORDER BY detdata1.kode1';
         $programData = DB::select(DB::raw($st2));
         
-        if ($dtYear1 == '') { $dtYear1 = date("Y");}
+        // if ($dtYear1 == '') { $dtYear1 = date("Y");}
 
         $st3 = 'select tw1.kode1, COALESCE(tw1.persen,0) as tw1, COALESCE(tw2.persen,0)	as tw2, COALESCE(tw3.persen,0) as tw3, COALESCE(tw4.persen,0) as tw4			
         FROM(				

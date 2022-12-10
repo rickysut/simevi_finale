@@ -16,67 +16,6 @@
 
 @include('partials.subheaderadmin')
 <div class="row d-flex">
-	<!-- widget rencana kerja -->
-	<div class="col-lg-8" hidden>
-		<div id="panel-1" class="panel show" >
-			<div class="panel-hdr">
-				<h2>
-					Alokasi | <span class="fw-300"><i>Anggaran</i></span>
-				</h2>
-				<div class="panel-toolbar">
-					<a data-toggle="tooltip" title data-original-title="Detail" class="hover-effect-dot waves-effect waves-themed rounded-circle" type="button" href="{{ route('admin.detailrenja') }}">
-						<i class="ni ni-action-redo"></i>
-					</a>
-				</div>
-			</div>
-			<div class="panel-container show">
-				<div class="panel-content" style="height: 38em">
-					<div class="row">
-						<div class="col-lg-6 col-md-6 col-sm-12 align-items-center">
-							<div class="c-chart-wrapper">
-								<div id="donutchart" style="width:100%; height:300px;">
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6 col-lg-5">
-						{{-- renjaData --}}
-						
-						@foreach ($renjaData as $key => $data )
-							
-							{{-- @if ($color = sprintf("#%06x",rand(0,16777215))) --}}
-								<div class="d-flex mt-2 mb-1 fs-xs">
-									<span id="nm{{ $key+1 }}">{{ $data->namakegiatan }}</span>
-									<span id="tot{{ $key+1 }}" class="d-inline-block ml-auto">{{ $data->totgiat }}</span>
-								</div>
-								<hr>
-								{{-- <div class="progress progress-xs mb-3">
-									<div class="progress-bar"  id="pb{{$key+1}}" role="progressbar" style="background-color: #0000; width: {{ $data->persen }}%;" aria-valuenow="{{ $data->persen }}" aria-valuemin="0" aria-valuemax="100"></div>
-								</div> --}}
-							{{-- @endif		 --}}
-						@endforeach
-						
-							
-							
-						</div>
-						<hr>
-					</div>
-				</div>
-				<div class="card-footer">
-					<div class="text-medium-emphasis small d-flex justify-content-between">
-						<div class="d-none d-md-block" >
-							<span class="text-secondary">Data: </span>
-							<span class="text-muted text-truncate text-truncate-sm js-get-date"></span>
-						</div>
-						<div class="text-muted">
-							<a href="https://app2.pertanian.go.id/renjahorti/">Sumber: App Renja Horti</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- end widget rencana kerja -->
-	
 	<!-- widget new kinerja anggaran/omspan -->
 	<div class="col-md-12">
 		<div id="panel-2" class="panel show" >
@@ -97,7 +36,7 @@
 					<div id="carouselPagu" class="carousel slide carousel-multi-item v-2" data-interval="false">
 						<div class="carousel-inner v-2" role="listbox">
 							<div class="row d-flex">
-								@for ($i=count($prData)-1;$i>=0;$i--)
+								@for ($i=0; $i<=count($prData)-1;$i++)
 								<div class="col-md-3 col-lg-3 col-xl-4">
 									{{-- @if ($color = sprintf("#%06x",rand(0,16777215))) --}}
 
@@ -223,7 +162,7 @@
 											<td>{{ $d->tahun }}</td>  
 											<td>{{ $d->pagu }}</td>  
 											<td>{{ $d->realisasi }}</td>  
-											<td>{{ $d->nilai }}%</td>  
+											<td>{{ $d->nilai ? $d->nilai : '0 '}}%</td>  
 										</tr>
 										@endforeach
 									</tbody>
@@ -588,7 +527,7 @@
 	};
 
 	if (option && typeof option === 'object') {
-	myChart.setOption(option);
+		myChart.setOption(option);
 	}
 
 	window.addEventListener('resize', myChart.resize);
@@ -644,10 +583,15 @@
 		@endforeach
 	],
 	legend: {
+		
 		show: true,
 		bottom: 'center',
 		top: 'bottom',
-		data: ['2019', '2020', '2021', '2022']//this "YEAR" should be dynamic
+		data: [
+		@foreach ($pbData as $key => $d )
+		'{{ $d->tahun }}',
+		@endforeach
+		]
 	}
 	};
 
@@ -773,77 +717,6 @@
 		next.children(':first-child').clone().appendTo($(this));
 	}
 });
-</script>
-
-
-<!-- donut C3 Renja -->
-<script>
-	var mycolor = [];
-	var mykegiatan = [];
-	@foreach ($renjaData as $key => $data )
-		@if ($color = sprintf("#%06x",rand(0,16777215)))
-			mycolor.push('{{ $color }}');
-			mykegiatan.push(["{{ $data->namakegiatan }}", {{ str_replace('.','',$data->totgiat) }}]);
-			// $('#nm{ {$key+1}}').html("{ { $data->namakegiatan }}");
-			// $('#tot{ $key+1}}').html("{ { $data->totgiat }}");
-			// $('#pb{ {$key+1}}').css("background-color", "{ { $color }}'"); 
-		@endif
-	@endforeach
-	
-	// alert(mykegiatan);
-	var chart = c3.generate({
-		bindto: '#donutchart',
-		data: {
-			columns: [
-				['rencana', 0],
-				['alokasi', 100],
-			],
-			order: 'null',
-			type : 'donut',
-			// onclick: function (d, i) { console.log("onclick", d, i); },
-			// onmouseover: function (d, i) { console.log("onmouseover", d, i); },
-			// onmouseout: function (d, i) { console.log("onmouseout", d, i); }
-		},
-		donut: {
-			title: "Alokasi Anggaran"
-		},
-		legend: {
-		show: false
-		},
-		color: {
-			pattern : mycolor
-			// pattern: [
-			// 	@ foreach ($renjaData as $data )
-			// 	@ if ($color = sprintf("#%06x",rand(0,16777215)))
-			// 	' { { $color }}',
-			// 	@ endif
-			// 	@ endforeach
-			// ]
-		}
-	});
-
-	setTimeout(function () {
-		chart.load({
-			columns: 
-				mykegiatan
-				// @ foreach ($renjaData as $data )
-				// ["{ { $data->namakegiatan }}", { { str_replace('.','',$data->totgiat) }}],
-				// @ endforeach
-				
-			
-		});
-	}, 1500);
-
-	setTimeout(function () {
-		chart.unload({
-			ids: 'rencana'
-		});
-		chart.unload({
-			ids: 'alokasi'
-		});
-	}, 2500);
-
-
 </script>
 
 

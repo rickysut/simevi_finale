@@ -25,7 +25,7 @@ class DetailExecutiveController extends Controller
             $dtProp = $request->dtProp;
         } 
 
-        $calcyears = DataRenja::distinct()->orderBy('thang', 'ASC')->offset(0)->limit(5)->get(['thang']);
+        $calcyears = DataRenja::distinct()->orderBy('thang', 'DESC')->offset(0)->limit(4)->get(['thang']);
         // $sumyears = DataRenja::select(DB::raw('SUM(jumlah) as totaljum'))->groupBy('thang')->offset(0)->limit(5)->orderBy('thang','ASC')->get();
         $provinsi = Provinsi::distinct()->get(['kd_dt1', 'nm_prop']); 
 
@@ -43,28 +43,28 @@ class DetailExecutiveController extends Controller
             (
             select  prop.kd_kemenkeu, IF(prop.nm_prop = "", "-", prop.nm_prop )  as nama_kab,  sum(dr.jumlah) as tot1, NULL as tot2, NULL as tot3, NULL as tot4
             from data_renjas dr
-            INNER JOIN provinsis prop ON prop.kd_dt1 = dr.kdlokasi  and dr.kdkabkota="00" and dr.thang = '. $calcyears[0]->thang. $qryProp .'
+            INNER JOIN provinsis prop ON prop.kd_dt1 = dr.kdlokasi  and dr.kdkabkota="00" and dr.thang = '. $calcyears[3]->thang. $qryProp .'
             GROUP BY prop.nm_prop
             
             UNION ALL
 						
             select  prop.kd_kemenkeu, IF(prop.nm_prop = "", "-", prop.nm_prop ) as nama_kab,  NULL as tot1, sum(dr.jumlah) as tot2,  NULL as tot3, NULL as tot4
             from data_renjas dr
-            INNER JOIN provinsis prop ON prop.kd_dt1 = dr.kdlokasi  and dr.kdkabkota="00" and dr.thang = '. $calcyears[1]->thang. $qryProp .'
+            INNER JOIN provinsis prop ON prop.kd_dt1 = dr.kdlokasi  and dr.kdkabkota="00" and dr.thang = '. $calcyears[2]->thang. $qryProp .'
             GROUP BY prop.nm_prop
             
             UNION ALL
 						
             select  prop.kd_kemenkeu, IF(prop.nm_prop = "", "-", prop.nm_prop ) as nama_kab,  NULL as tot1,   NULL as tot2, sum(dr.jumlah) as tot3, NULL as tot4
             from data_renjas dr
-            INNER JOIN provinsis prop ON prop.kd_dt1 = dr.kdlokasi  and dr.kdkabkota="00" and dr.thang = '. $calcyears[2]->thang. $qryProp .'
+            INNER JOIN provinsis prop ON prop.kd_dt1 = dr.kdlokasi  and dr.kdkabkota="00" and dr.thang = '. $calcyears[1]->thang. $qryProp .'
             GROUP BY prop.nm_prop
             
             UNION ALL
 						
             select  prop.kd_kemenkeu, IF(prop.nm_prop = "", "-", prop.nm_prop ) as nama_kab,  NULL as tot1,   NULL as tot2,  NULL as tot3, sum(dr.jumlah) as tot4
             from data_renjas dr
-            INNER JOIN provinsis prop ON prop.kd_dt1 = dr.kdlokasi  and dr.kdkabkota="00" and dr.thang = '. $calcyears[3]->thang. $qryProp .'
+            INNER JOIN provinsis prop ON prop.kd_dt1 = dr.kdlokasi  and dr.kdkabkota="00" and dr.thang = '. $calcyears[0]->thang. $qryProp .'
             GROUP BY prop.nm_prop
             
             UNION ALL
@@ -72,14 +72,14 @@ class DetailExecutiveController extends Controller
 						
             select  kab.kd_kemenkeu, IF(kab.nama_kab = "", "-", kab.nama_kab)  as nama_kab, sum(dr.jumlah) as tot1, NULL as tot2, NULL as tot3, NULL as tot4
             from data_renjas dr
-            INNER JOIN kabupatens kab ON kab.kd_dt2 = dr.kdkabkota and kab.kd_dt1 = dr.kdlokasi and dr.thang = '. $calcyears[0]->thang. $qryByProp .'
+            INNER JOIN kabupatens kab ON kab.kd_dt2 = dr.kdkabkota and kab.kd_dt1 = dr.kdlokasi and dr.thang = '. $calcyears[3]->thang. $qryByProp .'
             GROUP BY kab.nama_kab
             
             UNION ALL
             
             select  kab.kd_kemenkeu, IF(kab.nama_kab = "", "-", kab.nama_kab) as nama_kab, null as tot1, sum(dr.jumlah) as tot2, NULL as tot3, NULL as tot4
             from data_renjas dr
-            INNER JOIN kabupatens kab ON kab.kd_dt2 = dr.kdkabkota and kab.kd_dt1 = dr.kdlokasi and dr.thang = '. $calcyears[1]->thang. $qryByProp .'
+            INNER JOIN kabupatens kab ON kab.kd_dt2 = dr.kdkabkota and kab.kd_dt1 = dr.kdlokasi and dr.thang = '. $calcyears[2]->thang. $qryByProp .'
             GROUP BY kab.nama_kab
 						
             
@@ -87,14 +87,14 @@ class DetailExecutiveController extends Controller
             
             select kab.kd_kemenkeu, IF(kab.nama_kab = "", "-", kab.nama_kab) as nama_kab, null as tot1, null as tot2, sum(dr.jumlah) as tot3, NULL as tot4
             from data_renjas dr
-            INNER JOIN kabupatens kab ON kab.kd_dt2 = dr.kdkabkota and kab.kd_dt1 = dr.kdlokasi and dr.thang = '. $calcyears[2]->thang. $qryByProp .'
+            INNER JOIN kabupatens kab ON kab.kd_dt2 = dr.kdkabkota and kab.kd_dt1 = dr.kdlokasi and dr.thang = '. $calcyears[1]->thang. $qryByProp .'
             GROUP BY kab.nama_kab
             
             UNION ALL
             
             select  kab.kd_kemenkeu, IF(kab.nama_kab = "", "-", kab.nama_kab) as nama_kab, null as tot1, null as tot2, null as tot3, sum(dr.jumlah) as tot4
             from data_renjas dr
-            INNER JOIN kabupatens kab ON kab.kd_dt2 = dr.kdkabkota and kab.kd_dt1 = dr.kdlokasi and dr.thang = '. $calcyears[3]->thang. $qryByProp .'
+            INNER JOIN kabupatens kab ON kab.kd_dt2 = dr.kdkabkota and kab.kd_dt1 = dr.kdlokasi and dr.thang = '. $calcyears[0]->thang. $qryByProp .'
             GROUP BY kab.nama_kab
             order BY  nama_kab
             ) as tabdata 
@@ -275,8 +275,14 @@ class DetailExecutiveController extends Controller
         //Log::info([$dtYear1, $dtYear2]);
 
         if ($dtYear1 == ''){
-            $dtYear1 = '0';
-            $qryYear1 = '';
+            $qry = 'select max(year) as year from backdate_banpems';
+            $Year = DB::select(DB::raw($qry));
+            $dtYear1 = $Year[0]->year;
+            if ($dtYear2 != ''){ 
+                $qryYear1 = ' and backdate_banpems.`year` between "' . $dtYear1 .'"';
+            } else {
+                $qryYear1 = ' and backdate_banpems.`year` = "' . $dtYear1 .'"';
+            }
         } else {
             if ($dtYear2 != ''){ 
                 $qryYear1 = ' and backdate_banpems.`year` between "' . $dtYear1 .'"';
@@ -286,8 +292,9 @@ class DetailExecutiveController extends Controller
         }  
 
         if ($dtYear2 == ''){
-            $dtYear2 = '0';
-            $qryYear2 = '';
+            $dtYear2 = $dtYear1;
+            $qryYear1 = ' and backdate_banpems.`year` between "' . $dtYear1 .'"';
+            $qryYear2 = ' and "' . $dtYear2 .'"';
         } else {
             $qryYear2 = ' and "' . $dtYear2 .'"';
         }
