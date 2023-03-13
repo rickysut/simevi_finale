@@ -13,7 +13,7 @@
 	<!-- Remove Tap Highlight on Windows Phone IE -->
 	<meta name="msapplication-tap-highlight" content="no">
 	<!-- base css -->
-	
+
 	<link href="{{ asset('css/smartadmin/vendors.bundle.css') }}" rel="stylesheet" />
 	<link href="{{ asset('css/smartadmin/app.bundle.css') }}" rel="stylesheet" />
     <link href="{{ asset('css/smartadmin/skin-master.css') }}" rel="stylesheet" />
@@ -41,12 +41,13 @@
 						<!--a href="page_register.html" class="btn-link text-white ml-auto" hidden>
 							Create Account
 						</a-->
-						
+
 						<a class="dropdown c-header-nav ml-auto">
 							@if(count(config('panel.available_languages', [])) > 1)
 							<a class="c-header-nav-item dropdown d-md-down-none">
-					
+
 							  <a class="text-white c-header-nav-link dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" href="#"  aria-haspopup="true" aria-expanded="true">
+
 								{{ strtoupper(app()->getLocale()) }}
 							  </a>
 							  <div class="dropdown-menu dropdown-menu-right">
@@ -56,8 +57,8 @@
 							  </div>
 							</a>
 							@endif
-					
-					
+
+
 						</a>
 					</div>
 				</div>

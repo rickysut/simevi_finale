@@ -120,11 +120,11 @@ class DesaApiController extends Controller
      *      )
      * )
      */
-    public function show(Desa $desa)
+    public function show( $desa)
     {
         abort_if(Gate::denies('desa_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new DesaResource($desa->load([]));
+        return new DesaResource(Desa::where('kd_desa', $desa)->get());
     }
 
     public function showWithKec($kec_id)

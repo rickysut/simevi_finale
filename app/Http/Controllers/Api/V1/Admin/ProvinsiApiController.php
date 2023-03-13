@@ -124,11 +124,11 @@ class ProvinsiApiController extends Controller
      *      )
      * )
      */
-    public function show(Provinsi $provinsi)
+    public function show($provinsi)
     {
         abort_if(Gate::denies('provinsi_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new ProvinsiResource($provinsi->load([]));
+        return new ProvinsiResource(Provinsi::where('kd_prop', $provinsi)->get());
     }
 
     /**

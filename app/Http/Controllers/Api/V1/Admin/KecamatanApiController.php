@@ -125,11 +125,11 @@ class KecamatanApiController extends Controller
      *      )
      * )
      */
-    public function show(Kecamatan $kecamatan)
+    public function show($kecamatan)
     {
         abort_if(Gate::denies('kecamatan_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new KecamatanResource($kecamatan->load([]));
+        return new KecamatanResource(Kecamatan::where('kd_kec', $kecamatan)->get());
     }
 
     public function showWithKab($kab_id)
