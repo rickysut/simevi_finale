@@ -6,7 +6,7 @@ on:
 
 jobs:
   build-master:
-    runs-on: simevihost
+    runs-on: self-host
     if: github.ref == 'refs/heads/master'
     steps:
     - uses: actions/checkout@v3
