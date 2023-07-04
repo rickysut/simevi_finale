@@ -6,7 +6,7 @@ on:
 
 jobs:
   build-master:
-    runs-on: self-host
+    runs-on: self-hosted
     if: github.ref == 'refs/heads/main'
     steps:
     - uses: actions/checkout@v3
