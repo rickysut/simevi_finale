@@ -17,7 +17,7 @@
 				<h5 class="card-title fw-700">{{ trans('cruds.dashboardvip.title') }}</h5>
 				<p class="card-text">{{ trans('simevi.dashboardvip_desc') }}</p>
 				@can('executive_access')
-				<a href="{{ route("admin.dashboardvip") }}" class="btn btn-sm btn-primary">{{ trans('simevi.visitbut') }}</a>
+				<a href="{{ route("admin.dashboardvip1") }}" class="btn btn-sm btn-primary">{{ trans('simevi.visitbut') }}</a>
 				@endcan
 			</div>
 		</div>

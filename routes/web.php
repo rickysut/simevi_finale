@@ -24,7 +24,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('/', 'HomeController@index')->name('home');
     Route::post('/vip', 'HomeController@vip')->name('dashboardvip');
     Route::post('/adminSetLocale', 'HomeController@adminSetLocale')->name('setlocale');
-    Route::get('/vip', 'HomeController@vip')->name('dashboardvip');
+    Route::get('/vip', 'HomeController@vip')->name('dashboardvip1');
     //Route::get('/summary', 'HomeController@executive')->name('executive');
     Route::get('/pagu', 'HomeController@pagu')->name('pagu');
     Route::post('/pagu', 'HomeController@pagu')->name('pagu');
