@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'welcome'               => 'Selamat Datang SiMEvI',
+    'welcome'               => 'Selamat Datang SiMEvI - 2023',
     'home_subtitle'         => 'Sistem Monitoring dan Evaluasi Hortikultura',
     'login_title'           => 'Masuk untuk memulai sessi Anda',
     'help_username'         => 'Username Anda',
