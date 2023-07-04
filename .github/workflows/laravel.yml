@@ -14,9 +14,6 @@ jobs:
       run: |
         cd ${{vars.GIT_WORKDIR_MASTER}}
         git pull
-        composer install
-        npm install
-        npm run prod
         chmod +x artisan
         ./artisan up
         ./artisan optimize:clear
