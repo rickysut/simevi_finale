@@ -27,16 +27,16 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::get('/vip', 'HomeController@vip')->name('dashboardvip1');
     //Route::get('/summary', 'HomeController@executive')->name('executive');
     Route::get('/pagu', 'HomeController@pagu')->name('pagu');
-    Route::post('/pagu', 'HomeController@pagu')->name('pagu');
+    Route::post('/pagu', 'HomeController@pagu')->name('pagu1');
     Route::get('/banpem', 'HomeController@banpem')->name('banpem');
 
     // DetailExecutive
     Route::get('/detailrenja', 'DetailExecutiveController@index')->name('detailrenja');
-    Route::post('/detailrenja', 'DetailExecutiveController@index')->name('detailrenja');
+    Route::post('/detailrenja', 'DetailExecutiveController@index')->name('detailrenja1');
     Route::get('/detrenjaview/{idk}/{nmkab}', 'DetailExecutiveController@show')->name('detailrenja.show');
     
     Route::get('/detailbanpem', 'DetailExecutiveController@banpem')->name('detailbanpem');
-    Route::post('/detailbanpem', 'DetailExecutiveController@banpem')->name('detailbanpem');
+    Route::post('/detailbanpem', 'DetailExecutiveController@banpem')->name('detailbanpem1');
     Route::get('/detbanpemview/{year1}/{year2}/{provinsi}', 'DetailExecutiveController@banpemshow')->name('detailbanpem.show');
     Route::get('/banpemgetdataprov/{year1}/{year2}/{provinsi}','DetailExecutiveController@getdataProv');
 
@@ -130,13 +130,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     // Kinerja Serapan
    
     Route::get('/detailserapan', 'KinerjaSerapanController@index')->name('detailserapan');
-    Route::post('/detailserapan', 'KinerjaSerapanController@index')->name('detailserapan');
+    Route::post('/detailserapan', 'KinerjaSerapanController@index')->name('detailserapan1');
     //Route::resource('kinerja-serapans', 'KinerjaSerapanController');
     
     // Realisasi Satker
     
     Route::get('/realisasisatker', 'RealisasiSatkerController@index')->name('realisasisatker');
-    Route::post('/realisasisatker', 'RealisasiSatkerController@index')->name('realisasisatker');
+    Route::post('/realisasisatker', 'RealisasiSatkerController@index')->name('realisasisatker1');
     //Route::resource('realisasi-satker', 'RealisasiSatkerController');
     Route::get('/detsatkerview/{kdsatker}/{tahun}/{tanggal}', 'RealisasiSatkerController@show')->name('realisasisatker.show');
     
