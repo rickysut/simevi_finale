@@ -2,12 +2,12 @@ name: Laravel
 
 on:
   push:
- 
+    branches: [ "main" ]
 
 jobs:
   build-master:
     runs-on: self-host
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/master'
     steps:
     - uses: actions/checkout@v3
     - name: Run Script
