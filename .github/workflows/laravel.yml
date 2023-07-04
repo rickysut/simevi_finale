@@ -6,7 +6,7 @@ on:
 
 jobs:
   build-master:
-    runs-on: laravel
+    runs-on: simevihost
     if: github.ref == 'refs/heads/master'
     steps:
     - uses: actions/checkout@v3
