@@ -13,7 +13,6 @@ jobs:
     - name: Run Script
       run: |
         cd ${{vars.GIT_WORKDIR_MASTER}}
-        git restore .
         git pull
         chmod +x artisan
         ./artisan up
