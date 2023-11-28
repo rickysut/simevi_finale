@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
 
+/*akun controller */
+
 class AkunController extends Controller
 {
     use CsvImportTrait;
